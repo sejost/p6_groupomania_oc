@@ -1,0 +1,40 @@
+/* This file defines all the variables */
+/* Colors Library */
+$clr-primary: #fd2d01;
+$clr-secondary: #ffd7d7;
+$clr-tertiary: #4e5166;
+
+/* Fonts  */
+
+/* & Style */
+// $ffamily-shrikhand:
+
+/* & Size */
+$font-size: (
+	'xlarge': 2.25rem,
+	'large': 2rem,
+	'medlarge': 1.4rem,
+	'medium': 1.25rem,
+	'smedium': 1.125rem,
+	'small': 1rem,
+	'xsmall': 0.9rem,
+);
+
+/* & Weight */
+$font-weight: (
+	'xbold': 900,
+	'bold': 700,
+	'mediumbold': 500,
+	'medium': 400,
+	'light': 300,
+	'xlight': 100,
+);
+
+/* Breakpoints */
+$breakpoints: (
+	'large-phone': 574px,
+	'tablet': 767px,
+	'desktop': 991px,
+	'med-desktop': 1365px,
+	'large-desktop': 1500px,
+);
