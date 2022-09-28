@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation, json } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
-import Register from '../components/Register';
-import logo from '../styles/5-images/icon-left-font.svg';
+import useAuth from '../1-hooks/useAuth';
+import Register from '../3-components/Register';
+import logo from '../6-styles/5-images/icon-left-font.svg';
 /* -- -- -- -- */
 
 /* -- Login Function -- */
@@ -46,16 +46,15 @@ function Login() {
 		};
 		const response = await fetch(`${process.env.REACT_APP_API}auth/login`, settings);
 		const jsonData = await response.json();
-		
 		try {
 			const token = jsonData.token;
-			//const userId = jsonData?.userId;
-			if (!token){
+			const userId = jsonData.userId;
+			const displayName = jsonData.displayName;
+			if (!token || !userId){
 				setErrMsg('Authentification incorrect');
-				console.error(error);
 			}
 			else {
-				setAuth({token});
+				setAuth({token, userId, displayName});
 			}
 			navigate(from, { replace: true });
 			setEmail('');

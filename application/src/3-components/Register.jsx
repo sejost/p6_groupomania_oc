@@ -1,11 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-	faCheck,
-	faTimes,
-	faInfoCircle,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import {
+// 	faCheck,
+// 	faTimes,
+// 	faInfoCircle,
+// } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FaCheckSquare, FaTimes, FaInfo } from 'react-icons/fa';
 
 const EMAIL_REGEX =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -125,12 +126,14 @@ function Register({ setOpenModal }) {
 						</p>
 						<form onSubmit={handleSubmit}>
 							<label htmlFor="emailcontent">
-								<FontAwesomeIcon
-									icon={faCheck}
+								<FaCheckSquare
+									//icon={faCheck}
+									//icon={FaCheckSquare}
 									className={validEmail ? 'valid' : 'hide'}
 								/>
-								<FontAwesomeIcon
-									icon={faTimes}
+								<FaTimes
+									//icon={faTimes}
+									//icon={FaTimes}
 									className={
 										validEmail || !email
 											? 'hide'
@@ -153,12 +156,14 @@ function Register({ setOpenModal }) {
 							</label>
 
 							<label htmlFor="password">
-								<FontAwesomeIcon
-									icon={faCheck}
+								<FaCheckSquare
+									//icon={faCheck}
+									//icon={FaCheckSquare}
 									className={validPwd ? 'valid' : 'hide'}
 								/>
-								<FontAwesomeIcon
-									icon={faTimes}
+								<FaTimes
+									//icon={faTimes}
+									//icon={FaTimes}
 									className={
 										validPwd || !pwd ? 'hide' : 'invalid'
 									}
@@ -186,7 +191,8 @@ function Register({ setOpenModal }) {
 										: 'offscreen'
 								}
 							>
-								<FontAwesomeIcon icon={faInfoCircle} />
+								{/* <FontAwesomeIcon icon={faInfoCircle} /> */}
+								<FaInfo />
                                 Au moins 9 caractères.
 								<br />
                                 Doit inclure au moins : une lettre majuscule,
@@ -195,16 +201,18 @@ function Register({ setOpenModal }) {
 							</p>
 
 							<label htmlFor="confirm_pwd">
-								<FontAwesomeIcon
-									icon={faCheck}
+								<FaCheckSquare
+									//icon={faCheck}
+									//icon={FaCheckSquare}
 									className={
 										validMatch && matchPwd
 											? 'valid'
 											: 'hide'
 									}
 								/>
-								<FontAwesomeIcon
-									icon={faTimes}
+								<FaTimes
+									//icon={faTimes}
+									//icon={FaTimes}
 									className={
 										validMatch || !matchPwd
 											? 'hide'
@@ -236,7 +244,8 @@ function Register({ setOpenModal }) {
 										: 'offscreen'
 								}
 							>
-								<FontAwesomeIcon icon={faInfoCircle} />
+								{/* <FontAwesomeIcon icon={faInfoCircle} /> */}
+								<FaInfo />
                                 Doit correspondre au premier mot de passe
 							</p>
 

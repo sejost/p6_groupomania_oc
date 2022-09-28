@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const createToken = (id) => {
-	return jwt.sign({id}, process.env.RANDOMSTRING, {expiresIn: 300000})
+	return jwt.sign({id}, process.env.RANDOMSTRING, {expiresIn: 1500000})
 }
 
 const createDisplayName = (info)  => {
@@ -48,6 +48,7 @@ exports.signUp = async (req, res, next) => {
 exports.signIn = async (req, res, next) => {
 	try {
 		const user = await userModel.findOne({email: req.body.email});	
+		const displayName = user.displayName;
 		if(!user){
 			const error = new Error(`Utilisateur inconnu`);
 			return res.status(401).json({message: error.message});
@@ -58,8 +59,12 @@ exports.signIn = async (req, res, next) => {
 			return res.status(401).json({message: error.message});
 		}
 		const token = createToken(user._id);
-		res.cookie('token', token, { httpOnly: true, maxAge : 300000});
-		return res.status(200).json({token});
+		res.cookie('token', token, { httpOnly: true, maxAge : 1500000});
+		return res.status(200).json({
+			token, 
+			userId : user._id, 
+			displayName: displayName
+		});
 	}
 	catch(error){
 		console.error(error);
