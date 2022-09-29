@@ -8,6 +8,8 @@ function Home() {
 	const addPost = () => {
 		console.log(auth);
 	};
+
+
 	return (
 		<div className='home'>
 			<section className='home__headpart'>

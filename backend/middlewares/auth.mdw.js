@@ -2,7 +2,7 @@
 
 // Call the Jsonwebtoken module
 const jwt = require('jsonwebtoken');
-const userModel = require('../models/User.model')
+const userModel = require('../models/User.model');
 
 module.exports.checkAuth = (req, res, next) => {
 	const token = req.cookies.token;

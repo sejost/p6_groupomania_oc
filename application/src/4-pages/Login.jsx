@@ -3,6 +3,7 @@ import { useNavigate, useLocation, json } from 'react-router-dom';
 import useAuth from '../1-hooks/useAuth';
 import Register from '../3-components/Register';
 import logo from '../6-styles/5-images/icon-left-font.svg';
+import Cookies from 'js-cookie';
 /* -- -- -- -- */
 
 /* -- Login Function -- */
@@ -39,13 +40,15 @@ function Login() {
 				Accept: 'application/json',
 				'Access-Control-Allow-Headers': true,
 				'Content-Type': 'application/json',
-				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Origin': 'http://localho.st:3000/',
 			},
-			withCredentials: true,
+			//withCredentials: true,
+			credentials: 'include',
 			body: JSON.stringify({ email, password }),
 		};
 		const response = await fetch(`${process.env.REACT_APP_API}auth/login`, settings);
 		const jsonData = await response.json();
+		
 		try {
 			const token = jsonData.token;
 			const userId = jsonData.userId;

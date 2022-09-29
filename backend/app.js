@@ -32,7 +32,7 @@ app.use(cors);
 app.use(cookieParser());
 
 
-app.get('*', checkAuth);
+//app.get('*', checkAuth);
 app.get('/jwtid', requireAuth, (req, res) => {
 	console.log(res.locals)
 	res.status(200).send(res.locals.user._id)
