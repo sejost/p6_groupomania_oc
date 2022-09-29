@@ -13,6 +13,7 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth.routes');
 const postRoutes = require('./routes/post.routes')
 const usersRoutes = require('./routes/user.routes')
+const adminRoutes = require('./routes/admin.routes')
 
 const path = require('path');
 const { checkAuth, requireAuth } = require('./middlewares/auth.mdw');
@@ -32,16 +33,20 @@ app.use(cors);
 app.use(cookieParser());
 
 
-//app.get('*', checkAuth);
+app.get('*', checkAuth);
 app.get('/jwtid', requireAuth, (req, res) => {
 	console.log(res.locals)
 	res.status(200).send(res.locals.user._id)
 });
+
 //Use the routes to stock images
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
 app.use('/auth', authRoutes);
 app.use('/post', postRoutes);
 app.use('/user', usersRoutes);
+
+app.use(`/${process.env.ADMIN}/user`, adminRoutes)
 
 //Add Helmet to use some more protections
 app.use(helmet());

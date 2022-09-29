@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useContext } from 'react';
 import useAuth from '../1-hooks/useAuth';
-import Cookies from 'js-cookie';
 
 const Profil = () => {
 	const { auth, setAuth } = useAuth();
 	const [name, setName] = useState('');
-	const token = Cookies.get('token');
+
+	useContext(() => {
+		
+	}, [name]);
 
 	const changeDisplayName = (e) => {
 		e.preventDefault();
@@ -13,18 +16,22 @@ const Profil = () => {
 		const fetchDisplayName =  async () => {
 			const settings = {
 				method: 'PUT',
-				headers: {ccept: 'application/json',
+				headers: {accept: 'application/json',
 					'Access-Control-Allow-Headers': true,
 					'Content-Type': 'application/json',
 					'Access-Control-Allow-Origin': 'http://localho.st:3000/',
 				},
 				credentials: 'include',
-				body: JSON.stringify({ displayName : name }),
+				body: JSON.stringify({ 
+					displayName : name,
+					token : auth.token,
+				}),
 			};
 
 			const response = await fetch(`${process.env.REACT_APP_API}user/${auth.userId}`, settings);
 			const data = await response.json();
 			console.log(data);
+			console.log;
 		};
 		fetchDisplayName();
 	};
@@ -50,7 +57,6 @@ const Profil = () => {
                         Envoyer
 					</button>
 				</form>
-				{/* <button onClick={changeDisplayName}>Changer votre nom</button> */}
 			</div>
 			<div>
 
