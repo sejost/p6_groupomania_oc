@@ -1,4 +1,3 @@
-const { model } = require('mongoose');
 const userModel = require('../models/User.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -48,7 +47,6 @@ exports.signUp = async (req, res, next) => {
 exports.signIn = async (req, res, next) => {
 	try {
 		const user = await userModel.findOne({email: req.body.email});	
-		const displayName = user.displayName;
 		if(!user){
 			const error = new Error(`Utilisateur inconnu`);
 			return res.status(401).json({message: error.message});
@@ -58,6 +56,7 @@ exports.signIn = async (req, res, next) => {
 			const error = new Error('Mot de passe incorrect');
 			return res.status(401).json({message: error.message});
 		}
+		const displayName = user.displayName;
 		const token = createToken(user._id);
 		res.cookie('token', token, { httpOnly: true, maxAge : 1500000});
 		return res.status(200).json({
