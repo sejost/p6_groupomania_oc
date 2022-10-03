@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from '../6-styles/5-images/globe-logo.jpg';
 import useAuth from '../1-hooks/useAuth';
-import Logout from './Logout';
+import Logout from './a-Logs/Logout';
 
 function Navbar() {
 	const { auth } = useAuth();

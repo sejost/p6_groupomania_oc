@@ -3,8 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './4-pages/Home';
 import Login from './4-pages/Login';
 import Profil from './4-pages/Profil';
-import RequireAuth from './3-components/RequireAuth';
-import Layout from './3-components/Layout';
+import RequireAuth from './3-components/ii-RequireAuth';
+import Layout from './3-components/i-Layout';
 import './main.scss';
 
 function App() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import useAuth from '../1-hooks/useAuth';
+import useAuth from '../../1-hooks/useAuth';
 
 const Logout = () => {
 	const{setAuth} = useAuth();

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { TiThumbsOk } from 'react-icons/ti';
 
 
 
-const Posts = ({title, author, date, postMessage, picture, likesCount}) => {
+const LoadPosts = ({title, author, date, postMessage, picture, likesCount}) => {
 	//const receivedDate = new Date(date);
 	function formatDate(date, format) {
 		const map = {
@@ -12,7 +12,7 @@ const Posts = ({title, author, date, postMessage, picture, likesCount}) => {
 			dd: date.getDate(),
 			yy: date.getFullYear().toString(),
 			hh: date.getHours(),
-			mn: date.getMinutes(),
+			mn: date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes(),
 		};
 		return format.replace(/mm|dd|yy|hh|mn/gi, matched => map[matched]);
 	}
@@ -40,11 +40,7 @@ const Posts = ({title, author, date, postMessage, picture, likesCount}) => {
 	);
 };
 
-export default Posts;
-
-//add Proptypes
-
-Posts.propTypes = {
+LoadPosts.propTypes = {
 	title: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
 	author: PropTypes.string.isRequired,
@@ -53,3 +49,6 @@ Posts.propTypes = {
 	picture: PropTypes.string.isRequired,
 	likesCount: PropTypes.number.isRequired,
 };
+
+export default LoadPosts;
+
