@@ -7,39 +7,34 @@ const fs = require('fs');
 exports.getAllPosts = async (req, res, next) => {
     const posts = await postModel.find();
 	try{
-		console.log(posts);
-		res.send(posts);
+		res.status(200).send(posts);
 	}
 	catch(error){
-		console.log(error);
-		res.send(error);
+		res.status(400).json({message : error});
 	}
 };
 
-//Display all the posts
-// exports.getAllPosts = (req, res, next) => {
-//     Post.find()
-//         .then((posts) => { res.status(200).json(posts) })
-//         .catch((error) => { res.status(400).json({ error: error }) });
-// };
-
-
 //Create a Post
-// exports.createPost = (req, res, next) => {
-//     const postObject = JSON.parse(req.body.post);
-//     //Delete id and userId for security reason
-//     delete postObject._id;
-//     delete postObject._userId;
-//     const post = new Post({
-//         ...postObject,
-//         userId: req.auth.userId,
-//         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-//     });
-//     //Create a new post into the database
-//     post.save()
-//         .then(() => { res.status(201).json({ message: 'Objet enregistré !' }) })
-//         .catch(error => { res.status(400).json({ error }) })
-// };
+exports.createPost = async (req, res, next) => {
+	delete __v;
+	delete _id;
+	const newPost = new postModel({
+		...postModel,
+		authorName : req.body.authorName,
+		authorId : req.body.userId,
+		postTitle : req.body.postTitle,
+		postText : req.body.postText,
+		postImage : req.body.picture
+	})
+	try{
+		const post = await newPost.save();
+		console.log(newPost)
+		res.status(201).json({message : 'Nouveau post transmit !'})
+	}
+	catch(error){
+		res.status(400).json({message : error})
+	}
+};
 
 
 

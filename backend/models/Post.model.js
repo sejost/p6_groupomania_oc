@@ -4,12 +4,12 @@
 const mongoose = require('mongoose');
 
 const postSchema = mongoose.Schema({
-    ownerId: {
+    authorId: {
 		type: String, 
 		required: true 
 	},
 
-	ownerName : {
+	authorName : {
 		type: String, 
 		required: true
 	},
@@ -21,7 +21,7 @@ const postSchema = mongoose.Schema({
 	},
 
 
-	title: {
+	postTitle: {
 		type: String, 
 		required: true,
 		trim: true,
@@ -64,7 +64,6 @@ const postSchema = mongoose.Schema({
 		type : Date, 
 		default: Date.now
 	},
-
 
     postText: { 
 		type: String, 

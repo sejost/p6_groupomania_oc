@@ -9,7 +9,7 @@ const postCtrl = require('../controllers/post.ctrl');
 
 //Routes
 router.get('/', requireAuth, postCtrl.getAllPosts);
-// router.post('/addpost', auth, multer, postCtrl.createPost);
+router.post('/create', requireAuth, multer, postCtrl.createPost);
 // router.put('/', auth, multer, postCtrl.modifyPost);
 // router.delete('/', auth, postCtrl.deletePost);
 // router.post('/', auth, postCtrl.like);
