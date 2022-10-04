@@ -1,4 +1,4 @@
-/* --- Multi Config middleware File --- */
+/* --- Multer Config middleware File --- */
 /* --- File is dedicated to manage files' upload --- */
 
 //Call the multer module

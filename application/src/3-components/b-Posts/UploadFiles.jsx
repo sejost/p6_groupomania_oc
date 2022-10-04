@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
 
 const UploadFiles = () => {
-	const [name, setName] = useState('');
-	const [selectedFile, setSelectedFile] = useState();
+	const [picture, setPicture] = useState(null);
+
+	const handlePicture = (e) => {
+		setPicture(e.target.file);
+	  }; 
 
 	return (
 		<div className="upload__files">
-			<form>
-				<input
-					type="text"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
-				/>
-
-				<input
-					type="file"
-					value={selectedFile}
-					onChange={(e) => setSelectedFile(e.target.files[0])}
-				/>
-			</form>
+			<input
+				type="file"
+				id="file-upload"
+				name="file"
+				accept=".jpg, .jpeg, .png"
+				onChange={(e) => handlePicture(e)}
+			/>
 		</div>
 	);
 };

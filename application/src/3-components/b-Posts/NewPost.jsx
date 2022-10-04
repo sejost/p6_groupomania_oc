@@ -1,41 +1,45 @@
 import React, {useState} from 'react';
 import useAuth from '../../1-hooks/useAuth';
-import UploadFiles from './UploadFiles';
+const axios = require('axios');
+//import UploadFiles from './UploadFiles';
 
 
 
 const NewPost = () => {
 	const { auth } = useAuth();
+	const [upPicture, setUpPicture] = useState(null);
 	const [postContent, setPostContent] = useState({
 		title: '',
 		author: '',
 		message: '',
-		picture: ''
 	});
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const settings = {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Access-Control-Allow-Headers': true,
-				'Content-Type': 'application/json',
-				'Access-Control-Allow-Origin': 'http://localhost:3000/',
-			},
-			body: JSON.stringify({
-				userId : auth.userId,
-				authorName : auth.displayName,
-				postTitle : postContent.title, 
-				postText : postContent.message,
-				picture : postContent.picture
-			}),
-			credentials: 'include',
-		};
+		//setPostContent.picture(upPicture);
+		const formData = new FormData();
+		formData.append('picture', upPicture);
 		try{
-			console.log(settings.body);
-			const response = await fetch(`${process.env.REACT_APP_API}post/create`, settings);
-			console.log(response);
+			console.log('authorName :', auth.displayName);
+			console.log('authorId :', auth.userId);
+			console.log(postContent.title);
+			console.log(postContent.message);
+			console.log(formData);
+
+			await axios({
+				method: 'post',
+				url: `${process.env.REACT_APP_API}post/create`,
+				//formData,
+				data: {
+					authorName : auth.displayName,
+					userId : auth.userId,
+					postTitle : postContent.title,
+					postText : postContent.message,
+					//postImage : ''
+				}, 
+				withCredentials : true,
+				'Content-type' : 'multipart/form-data'
+			});
 		}
 		catch(error){
 			console.log(error);
@@ -63,13 +67,15 @@ const NewPost = () => {
 				//value={postContent({message})}
 				aria-describedby="titre à remplir"
 			/>
-			<UploadFiles />
-			{/* <label>
-							Envoyer un fichier
-				<input type="file"
-				/>
-			</label>
-			<button type='submit'>Envoyer</button> */}
+			<input
+				type="file"
+				id="file-upload"
+				name="file"
+				accept=".jpg, .jpeg, .png"
+				//onChange={(e) => setPostContent({...postContent, picture: e.target.value})}
+				onChange={(e) => setUpPicture(e.target.files[0])}
+			/>
+			<button type='submit'>Envoyer</button> 
 		</form>
 	);
 };
