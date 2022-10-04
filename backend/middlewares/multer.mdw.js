@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, callback) => {
         //Controll if the image name contain a space an replace it by an underscore
-        const name = file.originalname.replace(' ', '_');
+        const name = file.originalname.replace(' ', '_').replace('.', '_');
         const extension = MIME_TYPES[file.mimetype];
         //The name of the image will be stocked with its original name with the javascript date then with the hollowed extension
         callback(null, name + Date.now() + '.' + extension);

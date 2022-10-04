@@ -24,11 +24,12 @@ exports.createPost = async (req, res, next) => {
 		authorId : req.body.userId,
 		postTitle : req.body.postTitle,
 		postText : req.body.postText,
-		postImage : `${req.protocol}://${req.get('host')}/images/${req.file}`
+		postImage : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 	})
+
+	console.log(newPost);
 	try{
 		const post = await newPost.save();
-		console.log(post)
 		res.status(201).json({message : 'Nouveau post transmit !'})
 	}
 	catch(error){

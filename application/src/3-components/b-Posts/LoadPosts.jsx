@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { TiThumbsOk } from 'react-icons/ti';
 
@@ -32,7 +32,7 @@ const LoadPosts = ({title, author, date, postMessage, picture, likesCount}) => {
 				</div>
 			</div>
 			<div className='post__footPart'>
-				<TiThumbsOk size='30'className='post__likeIcon'/><span className='post__likeCounter'>{likesCount}</span>
+				<TiThumbsOk size='30'className='post__likeIcon' onClick={handleLikes}/><span className='post__likeCounter'>{likesCount}</span>
 			</div>
 			<div className='post__commentPart'>
 			</div>

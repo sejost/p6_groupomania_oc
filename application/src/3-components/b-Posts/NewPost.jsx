@@ -7,7 +7,7 @@ const axios = require('axios');
 
 const NewPost = () => {
 	const { auth } = useAuth();
-	const [upPicture, setUpPicture] = useState(null);
+	const [upPicture, setUpPicture] = useState('');
 	const [postContent, setPostContent] = useState({
 		title: '',
 		author: '',
@@ -16,29 +16,18 @@ const NewPost = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		//setPostContent.picture(upPicture);
-		const formData = new FormData();
-		formData.append('picture', upPicture);
+		let data = new FormData();
+		data.append('image', upPicture);
+		data.append('authorName', auth.displayName);
+		data.append('userId', auth.userId);
+		data.append('postTitle', postContent.title);
+		data.append('postText', postContent.message);
 		try{
-			console.log('authorName :', auth.displayName);
-			console.log('authorId :', auth.userId);
-			console.log(postContent.title);
-			console.log(postContent.message);
-			console.log(formData);
-
 			await axios({
 				method: 'post',
 				url: `${process.env.REACT_APP_API}post/create`,
-				//formData,
-				data: {
-					authorName : auth.displayName,
-					userId : auth.userId,
-					postTitle : postContent.title,
-					postText : postContent.message,
-					//postImage : ''
-				}, 
+				data,
 				withCredentials : true,
-				'Content-type' : 'multipart/form-data'
 			});
 		}
 		catch(error){
@@ -72,7 +61,6 @@ const NewPost = () => {
 				id="file-upload"
 				name="file"
 				accept=".jpg, .jpeg, .png"
-				//onChange={(e) => setPostContent({...postContent, picture: e.target.value})}
 				onChange={(e) => setUpPicture(e.target.files[0])}
 			/>
 			<button type='submit'>Envoyer</button> 
