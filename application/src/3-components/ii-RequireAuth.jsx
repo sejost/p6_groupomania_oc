@@ -10,7 +10,6 @@ function RequireAuth() {
 	//const dispatch = useDispatch();
 
 	useEffect(() => {
-		console.log(auth);
 		// const fetchDisplayName = async ()=> {
 		// 	const settings = {
 		// 		method: 'GET',

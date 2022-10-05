@@ -16,8 +16,6 @@ exports.getAllPosts = async (req, res, next) => {
 
 //Create a Post
 exports.createPost = async (req, res, next) => {
-	delete __v;
-	delete _id;
 	const newPost = new postModel({
 		...postModel,
 		authorName : req.body.authorName,
@@ -26,17 +24,84 @@ exports.createPost = async (req, res, next) => {
 		postText : req.body.postText,
 		postImage : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 	})
-
-	console.log(newPost);
 	try{
 		const post = await newPost.save();
-		res.status(201).json({message : 'Nouveau post transmit !'})
+		res.status(201).json({
+			message : 'Nouveau post transmit !', 
+			post : post
+	})
 	}
 	catch(error){
 		res.status(400).json({message : error})
 	}
 };
 
+exports.like = async (req, res, next) => {
+	postModel.findOne({ _id: req.body.postId })
+	const postInfo = {
+		authorName : req.body.authorName,
+		authorId : req.body.userId,
+		usersLiked : [req.body.userLike],
+		likes : req.body.like
+	}
+	try{
+		//res.status(200).json('Success')
+		res.status(200).json(postInfo)
+	}
+	catch{
+		res.status(400).json('Fail')
+	}
+	
+}
+
+exports.old_like = (req, res, next) => {
+    //Display a specific sauce in order to like it or not
+    Sauce.findOne({ _id: req.params.id })
+        .then((sauce) => {
+            const userId = req.body.userId;
+            const usersLikedArr = sauce.usersLiked;
+            const usersDislikedArr = sauce.usersDisliked;
+            //Conditions - If user clicked on like and hasn't already clicked on like or dislike, proceed
+            if (req.body.like == 1 && (!usersLikedArr.includes(userId) || !usersDislikedArr.includes(userId))) {
+                sauce.likes++;
+                usersLikedArr.push(userId);
+                sauce.save()
+                    .then(() => { res.status(201).json({ message: 'Like enregistré !' }) })
+                    .catch(error => { res.status(400).json({ error }) })
+            }
+            //Conditions - If user clicked on dislike and hasn't already clicked on like or dislike, proceed
+            else if (req.body.like == -1 && (!usersLikedArr.includes(userId) || !usersDislikedArr.includes(userId))) {
+                sauce.dislikes++;
+                usersDislikedArr.push(userId);
+                sauce.save()
+                    .then(() => { res.status(201).json({ message: 'Dislike enregistré !' }) })
+                    .catch(error => { res.status(400).json({ error }) })
+            }
+            //Conditions - If user clicked on un-dislike and has already clicked on dislike, proceed
+            else if (req.body.like == 0 && usersDislikedArr.includes(userId)) {
+                sauce.dislikes--;
+                usersDislikedArr.splice(usersDislikedArr.indexOf(userId));
+                sauce.save()
+                    .then(() => { res.status(201).json({ message: 'Dislike retiré !' }) })
+                    .catch(error => { res.status(400).json({ error }) })
+            }
+            //Conditions - If user clicked on un-like and has already clicked on like, proceed
+            else if (req.body.like == 0 && usersLikedArr.includes(userId)) {
+                sauce.likes--;
+                usersLikedArr.splice(usersLikedArr.indexOf(userId));
+                sauce.save()
+                    .then(() => { res.status(201).json({ message: 'Like retiré !' }) })
+                    .catch(error => { res.status(400).json({ error }) })
+            }
+            //Conditions - If anything else, can't go
+            else {
+                error(`Action impossible`)
+            }
+        })
+        .catch((error) => {
+            res.status(400).json({ error })
+        })
+}
 
 
 //Display one post
@@ -95,55 +160,3 @@ exports.createPost = async (req, res, next) => {
 //         })
 //         .catch(error => { res.status(500).json({ error }) });
 // };
-
-
-
-//Manage the likes&dislikes
-// exports.like = (req, res, next) => {
-//     //Display a specific post in order to like it or not
-//     Post.findOne({ _id: req.params.id })
-//         .then((post) => {
-//             const userId = req.body.userId;
-//             const usersLikedArr = post.usersLiked;
-//             const usersDislikedArr = post.usersDisliked;
-//             //Conditions - If user clicked on like and hasn't already clicked on like or dislike, proceed
-//             if (req.body.like == 1 && (!usersLikedArr.includes(userId) || !usersDislikedArr.includes(userId))) {
-//                 post.likes++;
-//                 usersLikedArr.push(userId);
-//                 post.save()
-//                     .then(() => { res.status(201).json({ message: 'Like enregistré !' }) })
-//                     .catch(error => { res.status(400).json({ error }) })
-//             }
-//             //Conditions - If user clicked on dislike and hasn't already clicked on like or dislike, proceed
-//             else if (req.body.like == -1 && (!usersLikedArr.includes(userId) || !usersDislikedArr.includes(userId))) {
-//                 post.dislikes++;
-//                 usersDislikedArr.push(userId);
-//                 post.save()
-//                     .then(() => { res.status(201).json({ message: 'Dislike enregistré !' }) })
-//                     .catch(error => { res.status(400).json({ error }) })
-//             }
-//             //Conditions - If user clicked on un-dislike and has already clicked on dislike, proceed
-//             else if (req.body.like == 0 && usersDislikedArr.includes(userId)) {
-//                 post.dislikes--;
-//                 usersDislikedArr.splice(usersDislikedArr.indexOf(userId));
-//                 post.save()
-//                     .then(() => { res.status(201).json({ message: 'Dislike retiré !' }) })
-//                     .catch(error => { res.status(400).json({ error }) })
-//             }
-//             //Conditions - If user clicked on un-like and has already clicked on like, proceed
-//             else if (req.body.like == 0 && usersLikedArr.includes(userId)) {
-//                 post.likes--;
-//                 usersLikedArr.splice(usersLikedArr.indexOf(userId));
-//                 post.save()
-//                     .then(() => { res.status(201).json({ message: 'Like retiré !' }) })
-//                     .catch(error => { res.status(400).json({ error }) })
-//             }
-//             //Conditions - If anything else, can't go
-//             else {
-//                 error(`Action impossible`)
-//             }
-//         })
-//         .catch((error) => {
-//             res.status(400).json({ error })
-//         })
-// }
