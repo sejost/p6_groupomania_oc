@@ -20,22 +20,20 @@ const LoadPosts = () => {
 			setPostsList(response.data);
 		};
 		getPosts();
-	}, []);
+	},[]);
 
 	const handleLikes = async (e) => {
 		e.preventDefault();
-		data = new FormData();
-		data.append('authorName', authorId);
-		data.append('userId', 'test',);
-		data.append('userLike', 'test',);
-		data.append('like', '1');
-		await axios.post(
-			{
-				url: `${process.env.REACT_APP_API}post/create`,
-				data,
-				withCredentials : true,
-			}
-		);
+		// data = new FormData();
+		// data.append('userId', auth.userId);
+		// await axios.post(
+		// 	{
+		// 		url: `${process.env.REACT_APP_API}post/create`,
+		// 		data,
+		// 		withCredentials : true,
+		// 	}
+		// );
+		console.log(e.target);
 	};
 
 	const formatDate = (givenDate, format) => {
@@ -67,7 +65,7 @@ const LoadPosts = () => {
 							</div>
 						</div>
 						<div className='post__footPart'>
-							<TiThumbsOk size='30'className='post__likeIcon' onClick={handleLikes}/><span className='post__likeCounter'>{post.likes}</span> 
+							<TiThumbsOk size='30'className='post__likeIcon' onClick={handleLikes}/><span className='post__likeCounter'>{post.likes}{post._id}</span> 
 						</div>
 						<div className='post__commentPart'>
 							Commentaires !

@@ -7,7 +7,7 @@ const axios = require('axios');
 
 const NewPost = () => {
 	const { auth } = useAuth();
-	const [upPicture, setUpPicture] = useState('');
+	const [upPicture, setUpPicture] = useState('none');
 	const [postContent, setPostContent] = useState({
 		title: '',
 		author: '',
