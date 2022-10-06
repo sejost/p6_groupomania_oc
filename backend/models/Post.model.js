@@ -14,11 +14,8 @@ const postSchema = mongoose.Schema({
 		required: true
 	},
 
-	usersLiked: { 
-		type: Array, 
-		default: [String], 
-		required: true 
-	},
+    usersLiked: { type: Array, default: [], required: false },
+
 
 
 	postTitle: {

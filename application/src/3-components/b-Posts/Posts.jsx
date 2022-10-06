@@ -4,7 +4,7 @@ import { TiThumbsOk } from 'react-icons/ti';
 
 import useAuth from '../../1-hooks/useAuth';
 
-import axios from 'axios';
+const axios = require('axios');
 
 const LoadPosts = () => {
 	const [postsList, setPostsList] = useState([]);
@@ -24,16 +24,23 @@ const LoadPosts = () => {
 
 	const handleLikes = async (e) => {
 		e.preventDefault();
-		// data = new FormData();
-		// data.append('userId', auth.userId);
-		// await axios.post(
-		// 	{
-		// 		url: `${process.env.REACT_APP_API}post/create`,
-		// 		data,
-		// 		withCredentials : true,
-		// 	}
-		// );
-		console.log(e.target);
+		const postId = (e.target.id).split('_')[0];
+		const response = await axios({
+			method: 'post',
+			url: `${process.env.REACT_APP_API}post/like`,
+			data : {
+				postId : postId,
+				userId: auth.userId,
+			},
+			withCredentials : true,
+		});
+		try {
+			console.log(response.data);
+		//	console.log(postsList);
+		}
+		catch(error){
+			console.error(error);
+		}
 	};
 
 	const formatDate = (givenDate, format) => {
@@ -54,18 +61,18 @@ const LoadPosts = () => {
 				return (
 					<div className='post__wrapper' key={`${post.id}-${index}`}>
 						<div className='post__headPart'>
-							<h2 className='post__title'>{post.postTitle}</h2>
+							<h2 className='post__title' id={`${post._id}_postTitle`}>{post.postTitle}</h2>
 							<h3 className='post__ownerId'>par {post.authorName}</h3>
-							<span className='post__postDate'>le {formatDate(post.postDate, 'dd/mm/yy à hh:mn')}</span>
+							<span className='post__postDate' id={`${post._id}_postDate`}>le {formatDate(post.postDate, 'dd/mm/yy à hh:mn')}</span>
 						</div>
 						<div className='post__mainPart'>
-							<div className='post__postText'>{post.postText}</div>
+							<div className='post__postText' id={`${post._id}_postText`}>{post.postText}</div>
 							<div className='post__postImage__container'>
-								<img className='post__postImage__content' src={post.postImage} />
+								<img className='post__postImage__content' id={`${post._id}_postImage`}src={post.postImage} />
 							</div>
 						</div>
 						<div className='post__footPart'>
-							<TiThumbsOk size='30'className='post__likeIcon' onClick={handleLikes}/><span className='post__likeCounter'>{post.likes}{post._id}</span> 
+							<TiThumbsOk size='30'className='post__likeIcon' id={`${post._id}_likeIcon`} onClick={handleLikes}/><span className='post__likeCounter' id={`${post._id}_likeCounter`}>{post.likes}</span> 
 						</div>
 						<div className='post__commentPart'>
 							Commentaires !

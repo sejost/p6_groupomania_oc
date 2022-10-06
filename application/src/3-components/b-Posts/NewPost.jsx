@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import useAuth from '../../1-hooks/useAuth';
 const axios = require('axios');
-//import UploadFiles from './UploadFiles';
 
 
 

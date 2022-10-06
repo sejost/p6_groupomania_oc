@@ -1,7 +1,9 @@
 /* --- Post controllers File --- */
+const objectID = require("mongoose").Types.ObjectId;
 const postModel = require('../models/Post.model');
 const userModel = require('../models/User.model');
 const fs = require('fs');
+const { info } = require('console');
 
 //Display all the posts
 exports.getAllPosts = async (req, res, next) => {
@@ -32,77 +34,40 @@ exports.createPost = async (req, res, next) => {
 	})
 	}
 	catch(error){
-		res.status(400).json({message : error})
+		res.status(400).json({message : error});
 	}
 };
 
 exports.like = async (req, res, next) => {
-	postModel.findOne({ _id: req.body.postId })
-	const postInfo = {
-		authorName : req.body.authorName,
-		authorId : req.body.userId,
-		usersLiked : [req.body.userLike],
-		likes : req.body.like
-	}
+	if (!objectID.isValid(req.body.postId))
+    return res.status(400).send("ID inconnu : ");	
+	let likerId = await req.body.userId;
+	let usersLiked = await postModel.usersLiked;
 	try{
-		//res.status(200).json('Success')
-		res.status(200).json(postInfo)
+		if (usersLiked.includes(likerId)){
+			postModel.likes = postModel.likes - 1;
+			usersLiked.splice(usersLiked.indexOf(likerId));
+			await postModel.save();
+            await res.status(201).json({
+				message: 'Like retiré !',
+				postModel : likes 
+			});
+		}
+		else{
+			postModel.likes = postModel.likes + 1
+			usersLiked.push(likerId);
+			await postModel.save();
+			await res.status(201).json({
+				message: 'Like enregistré !',
+				postModel
+			});
+		};
 	}
-	catch{
-		res.status(400).json('Fail')
+	catch(error){
+		res.status(400).json({message : error});
 	}
-	
+		
 }
-
-exports.old_like = (req, res, next) => {
-    //Display a specific sauce in order to like it or not
-    Sauce.findOne({ _id: req.params.id })
-        .then((sauce) => {
-            const userId = req.body.userId;
-            const usersLikedArr = sauce.usersLiked;
-            const usersDislikedArr = sauce.usersDisliked;
-            //Conditions - If user clicked on like and hasn't already clicked on like or dislike, proceed
-            if (req.body.like == 1 && (!usersLikedArr.includes(userId) || !usersDislikedArr.includes(userId))) {
-                sauce.likes++;
-                usersLikedArr.push(userId);
-                sauce.save()
-                    .then(() => { res.status(201).json({ message: 'Like enregistré !' }) })
-                    .catch(error => { res.status(400).json({ error }) })
-            }
-            //Conditions - If user clicked on dislike and hasn't already clicked on like or dislike, proceed
-            else if (req.body.like == -1 && (!usersLikedArr.includes(userId) || !usersDislikedArr.includes(userId))) {
-                sauce.dislikes++;
-                usersDislikedArr.push(userId);
-                sauce.save()
-                    .then(() => { res.status(201).json({ message: 'Dislike enregistré !' }) })
-                    .catch(error => { res.status(400).json({ error }) })
-            }
-            //Conditions - If user clicked on un-dislike and has already clicked on dislike, proceed
-            else if (req.body.like == 0 && usersDislikedArr.includes(userId)) {
-                sauce.dislikes--;
-                usersDislikedArr.splice(usersDislikedArr.indexOf(userId));
-                sauce.save()
-                    .then(() => { res.status(201).json({ message: 'Dislike retiré !' }) })
-                    .catch(error => { res.status(400).json({ error }) })
-            }
-            //Conditions - If user clicked on un-like and has already clicked on like, proceed
-            else if (req.body.like == 0 && usersLikedArr.includes(userId)) {
-                sauce.likes--;
-                usersLikedArr.splice(usersLikedArr.indexOf(userId));
-                sauce.save()
-                    .then(() => { res.status(201).json({ message: 'Like retiré !' }) })
-                    .catch(error => { res.status(400).json({ error }) })
-            }
-            //Conditions - If anything else, can't go
-            else {
-                error(`Action impossible`)
-            }
-        })
-        .catch((error) => {
-            res.status(400).json({ error })
-        })
-}
-
 
 //Display one post
 // exports.getOnePost = (req, res, next) => {
