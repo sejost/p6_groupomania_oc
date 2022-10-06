@@ -25,7 +25,8 @@ const LoadPosts = () => {
 	const handleLikes = async (e) => {
 		e.preventDefault();
 		const postId = (e.target.id).split('_')[0];
-		const response = await axios({
+		//const response = await axios({
+		await axios({
 			method: 'post',
 			url: `${process.env.REACT_APP_API}post/like`,
 			data : {
@@ -35,7 +36,7 @@ const LoadPosts = () => {
 			withCredentials : true,
 		});
 		try {
-			console.log(response.data);
+			console.log('coucou');
 		//	console.log(postsList);
 		}
 		catch(error){
