@@ -102,165 +102,167 @@ function Register({ setOpenModal }) {
 	return (
 		<div className="modalBackground">
 			<div className="modalContainer">
-				{success ? (
-					<section>
-						<h1>Compte créé avec succès !</h1>
-						<p>
-							<a
-								onClick={() => setOpenModal(false)}
-								href="/login"
-							>
+				{
+					success 
+						? (
+							<section>
+								<h1>Compte créé avec succès !</h1>
+								<p>
+									<a
+										onClick={() => setOpenModal(false)}
+										href="/login"
+									>
                                 Connectez vous
-							</a>
-						</p>
-					</section>
-				) : (
-					<section>
-						<h2>S&apos;inscrire à Groupomania</h2>
-						<p
-							ref={errRef}
-							className={errMsg ? 'errmsg' : 'offscreen'}
-							aria-live="assertive"
-						>
-							{errMsg}
-						</p>
-						<form onSubmit={handleSubmit}>
-							<label htmlFor="emailcontent">
-								<FaCheckSquare
-									//icon={faCheck}
-									//icon={FaCheckSquare}
-									className={validEmail ? 'valid' : 'hide'}
-								/>
-								<FaTimes
-									//icon={faTimes}
-									//icon={FaTimes}
-									className={
-										validEmail || !email
-											? 'hide'
-											: 'invalid'
-									}
-								/>
-								<br />
-								<input
-									placeholder='Adresse email'
-									type="text"
-									id="emailcontent"
-									ref={emailRef}
-									autoComplete="off"
-									onChange={(e) => setEmail(e.target.value)}
-									value={email}
-									required
-									aria-invalid={validEmail ? 'false' : 'true'}
-									aria-describedby="uidnote"
-								/>
-							</label>
+									</a>
+								</p>
+							</section>
+						) : (
+							<section>
+								<h2>S&apos;inscrire à Groupomania</h2>
+								<p
+									ref={errRef}
+									className={errMsg ? 'errmsg' : 'offscreen'}
+									aria-live="assertive"
+								>
+									{errMsg}
+								</p>
+								<form onSubmit={handleSubmit}>
+									<label htmlFor="emailcontent">
+										<FaCheckSquare
+											//icon={faCheck}
+											//icon={FaCheckSquare}
+											className={validEmail ? 'valid' : 'hide'}
+										/>
+										<FaTimes
+											//icon={faTimes}
+											//icon={FaTimes}
+											className={
+												validEmail || !email
+													? 'hide'
+													: 'invalid'
+											}
+										/>
+										<br />
+										<input
+											placeholder='Adresse email'
+											type="text"
+											id="emailcontent"
+											ref={emailRef}
+											autoComplete="off"
+											onChange={(e) => setEmail(e.target.value)}
+											value={email}
+											required
+											aria-invalid={validEmail ? 'false' : 'true'}
+											aria-describedby="uidnote"
+										/>
+									</label>
 
-							<label htmlFor="password">
-								<FaCheckSquare
-									//icon={faCheck}
-									//icon={FaCheckSquare}
-									className={validPwd ? 'valid' : 'hide'}
-								/>
-								<FaTimes
-									//icon={faTimes}
-									//icon={FaTimes}
-									className={
-										validPwd || !pwd ? 'hide' : 'invalid'
-									}
-								/>
-								<br/>
-								<input
-									placeholder='Mot de passe'
-									type="password"
-									id="password"
-									onChange={(e) => setPwd(e.target.value)}
-									value={pwd}
-									required
-									aria-invalid={validPwd ? 'false' : 'true'}
-									aria-describedby="pwdnote"
-									onFocus={() => setPwdFocus(true)}
-									onBlur={() => setPwdFocus(false)}
-								/>
-							</label>
+									<label htmlFor="password">
+										<FaCheckSquare
+											//icon={faCheck}
+											//icon={FaCheckSquare}
+											className={validPwd ? 'valid' : 'hide'}
+										/>
+										<FaTimes
+											//icon={faTimes}
+											//icon={FaTimes}
+											className={
+												validPwd || !pwd ? 'hide' : 'invalid'
+											}
+										/>
+										<br/>
+										<input
+											placeholder='Mot de passe'
+											type="password"
+											id="password"
+											onChange={(e) => setPwd(e.target.value)}
+											value={pwd}
+											required
+											aria-invalid={validPwd ? 'false' : 'true'}
+											aria-describedby="pwdnote"
+											onFocus={() => setPwdFocus(true)}
+											onBlur={() => setPwdFocus(false)}
+										/>
+									</label>
 
-							<p
-								id="pwdnote"
-								className={
-									pwdFocus && !validPwd
-										? 'instructions'
-										: 'offscreen'
-								}
-							>
-								{/* <FontAwesomeIcon icon={faInfoCircle} /> */}
-								<FaInfo />
+									<p
+										id="pwdnote"
+										className={
+											pwdFocus && !validPwd
+												? 'instructions'
+												: 'offscreen'
+										}
+									>
+										{/* <FontAwesomeIcon icon={faInfoCircle} /> */}
+										<FaInfo />
                                 Au moins 9 caractères.
-								<br />
+										<br />
                                 Doit inclure au moins : une lettre majuscule,
                                 une miniscule, un chiffre et un caractère
                                 spéciale.
-							</p>
+									</p>
 
-							<label htmlFor="confirm_pwd">
-								<FaCheckSquare
-									//icon={faCheck}
-									//icon={FaCheckSquare}
-									className={
-										validMatch && matchPwd
-											? 'valid'
-											: 'hide'
-									}
-								/>
-								<FaTimes
-									//icon={faTimes}
-									//icon={FaTimes}
-									className={
-										validMatch || !matchPwd
-											? 'hide'
-											: 'invalid'
-									}
-								/>
-								<br/>
-								<input
-									placeholder='Confirmer mot de passe'
-									type="password"
-									id="confirm_pwd"
-									onChange={(e) =>
-										setMatchPwd(e.target.value)
-									}
-									value={matchPwd}
-									required
-									aria-invalid={validMatch ? 'false' : 'true'}
-									aria-describedby="confirmnote"
-									onFocus={() => setMatchFocus(true)}
-									onBlur={() => setMatchFocus(false)}
-								/>
-							</label>
+									<label htmlFor="confirm_pwd">
+										<FaCheckSquare
+											//icon={faCheck}
+											//icon={FaCheckSquare}
+											className={
+												validMatch && matchPwd
+													? 'valid'
+													: 'hide'
+											}
+										/>
+										<FaTimes
+											//icon={faTimes}
+											//icon={FaTimes}
+											className={
+												validMatch || !matchPwd
+													? 'hide'
+													: 'invalid'
+											}
+										/>
+										<br/>
+										<input
+											placeholder='Confirmer mot de passe'
+											type="password"
+											id="confirm_pwd"
+											onChange={(e) =>
+												setMatchPwd(e.target.value)
+											}
+											value={matchPwd}
+											required
+											aria-invalid={validMatch ? 'false' : 'true'}
+											aria-describedby="confirmnote"
+											onFocus={() => setMatchFocus(true)}
+											onBlur={() => setMatchFocus(false)}
+										/>
+									</label>
 
-							<p
-								id="confirmnote"
-								className={
-									matchFocus && !validMatch
-										? 'instructions'
-										: 'offscreen'
-								}
-							>
-								{/* <FontAwesomeIcon icon={faInfoCircle} /> */}
-								<FaInfo />
+									<p
+										id="confirmnote"
+										className={
+											matchFocus && !validMatch
+												? 'instructions'
+												: 'offscreen'
+										}
+									>
+										{/* <FontAwesomeIcon icon={faInfoCircle} /> */}
+										<FaInfo />
                                 Doit correspondre au premier mot de passe
-							</p>
+									</p>
 
-							<button
-								type="submit"
-								disabled={
-									!!(!validEmail || !validPwd || !validMatch)
-								}
-								// disabled={!validEmail || !validPwd || !validMatch ? true : false}
-							>
+									<button
+										type="submit"
+										disabled={
+											!!(!validEmail || !validPwd || !validMatch)
+										}
+										// disabled={!validEmail || !validPwd || !validMatch ? true : false}
+									>
                                 S&apos;inscrire
-							</button>
-						</form>
-					</section>
-				)}
+									</button>
+								</form>
+							</section>
+						)}
 			</div>
 		</div>
 	);

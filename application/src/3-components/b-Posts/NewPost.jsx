@@ -36,13 +36,12 @@ const NewPost = () => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<input className='input--title'
+			<input className='input--title post__title' 
 				placeholder='Titre du post'
 				type="text"
 				id="titleContent"
 				autoComplete="off"
 				onChange={(e) => setPostContent({...postContent, title: e.target.value})}
-				//value={postContent({title})}
 				required
 				aria-describedby="titre à remplir"
 			/>
@@ -52,7 +51,6 @@ const NewPost = () => {
 				id="messageContent"
 				autoComplete="off"
 				onChange={(e) => setPostContent({...postContent, message: e.target.value})}
-				//value={postContent({message})}
 				aria-describedby="titre à remplir"
 			/>
 			<input

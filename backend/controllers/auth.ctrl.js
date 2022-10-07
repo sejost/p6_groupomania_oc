@@ -58,7 +58,7 @@ exports.signIn = async (req, res, next) => {
 		}
 		const displayName = user.displayName;
 		const token = createToken(user._id);
-		res.cookie('token', token, { httpOnly: true, maxAge : 1500000});
+		res.cookie('token', token, { httpOnly: true, sameSite : 'strict', secure : true, maxAge : 1500000});
 		return res.status(200).json({
 			token, 
 			userId : user._id, 

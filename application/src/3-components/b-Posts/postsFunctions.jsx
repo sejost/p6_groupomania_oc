@@ -4,7 +4,6 @@ export const findUser =  (array, myId, myUser) => {
 	return result;
 };
 
-
 export const formatDate = (givenDate, format) => {
 	const date = new Date(givenDate);
 	const map = {
@@ -16,3 +15,4 @@ export const formatDate = (givenDate, format) => {
 	};
 	return format.replace(/mm|dd|yy|hh|mn/gi, matched => map[matched]);
 };
+
