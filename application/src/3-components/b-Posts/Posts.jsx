@@ -4,7 +4,8 @@ import { TiThumbsOk } from 'react-icons/ti';
 
 import useAuth from '../../1-hooks/useAuth';
 
-import { findUser } from './WhoLikes';
+import { findUser } from './postsFunctions';
+import { formatDate } from './postsFunctions';
 
 const axios = require('axios');
 
@@ -38,7 +39,6 @@ const LoadPosts = () => {
 		await handlePostId(e);
 		console.log('réponse :', postId);
 		let response = await axios({
-		//await axios({
 			method: 'post',
 			url: `${process.env.REACT_APP_API}post/like/${postId}`,
 			data : {userId: auth.userId},
@@ -50,20 +50,6 @@ const LoadPosts = () => {
 		catch(error){
 			console.error(error);
 		}
-
-		
-	};
-
-	const formatDate = (givenDate, format) => {
-		const date = new Date(givenDate);
-		const map = {
-			mm: date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1,
-			dd: date.getDate() <10 ? `0${date.getDate()}` : date.getDate(),
-			yy: date.getFullYear().toString(),
-			hh: date.getHours() <10 ? `0${date.getHours()}` : date.getHours(),
-			mn: date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes(),
-		};
-		return format.replace(/mm|dd|yy|hh|mn/gi, matched => map[matched]);
 	};
 
 	return(
