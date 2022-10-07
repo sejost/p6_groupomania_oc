@@ -1,13 +1,12 @@
 /* --- Post controllers File --- */
 const ObjectId = require("mongoose").Types.ObjectId;
 const postModel = require('../models/Post.model');
-const userModel = require('../models/User.model');
 const fs = require('fs');
 const { info } = require('console');
 
 //Display all the posts
 exports.getAllPosts = async (req, res, next) => {
-    const posts = await postModel.find();
+    const posts = await postModel.find().sort({postDate : -1});
 	try{
 		res.status(200).send(posts);
 	}
