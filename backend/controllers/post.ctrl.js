@@ -63,6 +63,35 @@ exports.like = async (req, res, next) => {
 		})
 }
 
+// Modify one post
+exports.modifyPost = (req, res, next) => {
+    const postObject = req.file ? {
+        ...JSON.parse(req.body.post),
+        //Controle the presence of an image
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } : { ...req.body };
+
+    // Display a specific post in order to modify it
+    Post.findOne({ _id: req.params.id })
+        .then((post) => {
+            // Control the authorization of the user
+            if (post.authorId != req.auth.authorId) {
+                res.status(401).json({ message: 'Non autorisé' });
+            } else {
+                const filename = post.imageUrl.split('/images/')[1];
+                //Delete the old image from the folder before updating it
+                fs.unlink(`images/${filename}`, () => {
+                    post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
+                        .then(() => res.status(200).json({ message: 'Objet modifié!' }))
+                        .catch(error => res.status(401).json({ error }));
+                });
+            }
+        })
+        .catch((error) => {
+            res.status(400).json({ error });
+        });
+};
+
 
 //Display one post
 // exports.getOnePost = (req, res, next) => {
@@ -71,35 +100,6 @@ exports.like = async (req, res, next) => {
 //         .catch((error) => { res.status(404).json({ error: error }) });
 // };
 
-//Modify one post
-// exports.modifyPost = (req, res, next) => {
-//     const postObject = req.file ? {
-//         ...JSON.parse(req.body.post),
-//         //Controle the presence of an image
-//         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-//     } : { ...req.body };
-//     delete postObject._userId;
-
-    //Display a specific post in order to modify it
-//     Post.findOne({ _id: req.params.id })
-//         .then((post) => {
-//             // Control the authorization of the user
-//             if (post.userId != req.auth.userId) {
-//                 res.status(401).json({ message: 'Not authorized' });
-//             } else {
-//                 const filename = post.imageUrl.split('/images/')[1];
-//                 //Delete the old image from the folder before updating it
-//                 fs.unlink(`images/${filename}`, () => {
-//                     Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-//                         .then(() => res.status(200).json({ message: 'Objet modifié!' }))
-//                         .catch(error => res.status(401).json({ error }));
-//                 });
-//             }
-//         })
-//         .catch((error) => {
-//             res.status(400).json({ error });
-//         });
-// };
 
 //Find a post then delete it
 // exports.deletePost = (req, res, next) => {
