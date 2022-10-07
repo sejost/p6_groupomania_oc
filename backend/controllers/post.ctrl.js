@@ -38,10 +38,12 @@ exports.createPost = async (req, res, next) => {
 };
 
 exports.like = async (req, res, next) => {
-	
-	if (!ObjectId.isValid(req.body.postId))
-    return ObjectId(req.body.postId), res.status(400).send("ID inconnu : ");
-	postModel.findById(req.body.postId)
+	let postId = (req.params.id).toString()
+	if (!ObjectId.isValid(postId)) {
+		res.status(400).send("ID inconnu");
+	}
+	await ObjectId(postId);
+	postModel.findById(postId)
 		.then((post) => {
 			const userId = req.body.userId;
             const usersLikedArr = post.usersLiked;
@@ -49,60 +51,19 @@ exports.like = async (req, res, next) => {
 				post.likes = post.likes + 1;
 				usersLikedArr.push(userId);
 				post.save()
-					.then(() => { res.status(201).json({ message: 'Like enregistré !' }) })
-					.catch(error => { res.status(400).json({ error }) })
 			}
 			else{
 				post.likes = post.likes - 1;
 				usersLikedArr.splice(usersLikedArr.indexOf(userId));
 				post.save()
-					.then(() => { res.status(201).json({ message: 'Like retiré !' }) })
-					.catch(error => { res.status(400).json({ error }) })
 			}
+			res.status(201).json({ message: 'Action enregistré !', post })
 		})
 		.catch((error) => {
 			console.log('Action impossible', error)
 		})
 }
 
-exports.blablalike = async (req, res, next) => {
-	if (!objectID.isValid(req.body.postId))
-    return res.status(400).send("ID inconnu : ");	
-	let likerId = await req.body.userId
-	let post = await postModel.postId;
-	let usersLiked = await postModel.usersLiked;
-	console.log(post)
-	// try{
-	// 	if (usersLiked.includes(likerId)){
-	// 		post.likes = postModel.likes - 1;
-	// 		usersLiked.splice(usersLiked.indexOf(likerId));
-	// 		await postModel.save();
-    //         await res.status(201).json({
-	// 			message: 'Like retiré !',
-	// 			postModel : likes 
-	// 		});
-	// 	}
-	// 	else{
-	// 		postModel.likes = postModel.likes + 1
-	// 		usersLiked.push(likerId);
-	// 		await postModel.save();
-	// 		await res.status(201).json({
-	// 			message: 'Like enregistré !',
-	// 			postModel
-	// 		});
-	// 	};
-	// }
-	// catch(error){
-	// 	res.status(400).json({message : error});
-	// }
-
-	// catch(error){
-	// 	res.status(400).json({message : error})
-	// }
-	// status(400).json({message : error})
-	// }
-		
-}
 
 //Display one post
 // exports.getOnePost = (req, res, next) => {

@@ -4,11 +4,16 @@ import { TiThumbsOk } from 'react-icons/ti';
 
 import useAuth from '../../1-hooks/useAuth';
 
+import { findUser } from './WhoLikes';
+
 const axios = require('axios');
 
 const LoadPosts = () => {
 	const [postsList, setPostsList] = useState([]);
+	const [postId, setPostId] = useState('');
+	const [postChanged, setPostChanged] = useState([]);
 	const { auth } = useAuth();
+	
 
 	useEffect( () =>  {
 		const getPosts = async () => {
@@ -19,29 +24,34 @@ const LoadPosts = () => {
 			});
 			setPostsList(response.data);
 		};
-		getPosts();
-	},[]);
+		getPosts();	
+
+	},[postChanged]);
+
+	const handlePostId = async (e) => {
+		setPostId((e.target.id).split('_')[0]);
+		return postId;
+	}; 
 
 	const handleLikes = async (e) => {
 		e.preventDefault();
-		const postId = (e.target.id).split('_')[0];
-		//const response = await axios({
-		await axios({
+		await handlePostId(e);
+		console.log('réponse :', postId);
+		let response = await axios({
+		//await axios({
 			method: 'post',
-			url: `${process.env.REACT_APP_API}post/like`,
-			data : {
-				postId : postId,
-				userId: auth.userId,
-			},
+			url: `${process.env.REACT_APP_API}post/like/${postId}`,
+			data : {userId: auth.userId},
 			withCredentials : true,
 		});
 		try {
-			console.log('coucou');
-		//	console.log(postsList);
+			setPostChanged(response.data);
 		}
 		catch(error){
 			console.error(error);
 		}
+
+		
 	};
 
 	const formatDate = (givenDate, format) => {
@@ -73,7 +83,18 @@ const LoadPosts = () => {
 							</div>
 						</div>
 						<div className='post__footPart'>
-							<TiThumbsOk size='30'className='post__likeIcon' id={`${post._id}_likeIcon`} onClick={handleLikes}/><span className='post__likeCounter' id={`${post._id}_likeCounter`}>{post.likes}</span> 
+							{/* <TiThumbsOk size='30'className='post__likeIcon' id={`${post._id}_likeIcon`} onClick={handleLikes}/><span className='post__likeCounter' id={`${post._id}_likeCounter`}>{post.likes}</span>  */}
+							<TiThumbsOk 
+								size='30'
+								//className='post__likeIcon'
+								className={findUser(postsList, post._id, auth.userId) ? 'post__isLikedIcon' :  'post__likeIcon'} 
+								id={`${post._id}_likeIcon`} 
+								onClick={(e) => {
+									handleLikes(e);
+								}}
+							/>
+							<span className='post__likeCounter' id={`${post._id}_likeCounter`}>{post.likes}</span> 
+
 						</div>
 						<div className='post__commentPart'>
 							Commentaires !
