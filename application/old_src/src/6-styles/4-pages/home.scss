@@ -1,0 +1,16 @@
+@use '../1-utils/' as *;
+@use '../2-base/' as *;
+
+.home {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	section {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 30rem;
+		font-size: map-get($font-size, medium);
+		color: $clr-tertiary;
+	}
+}

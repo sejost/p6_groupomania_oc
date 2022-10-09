@@ -1,0 +1,36 @@
+// /* Footer ohmyfood */
+// /* Mobile First */
+// @use "../1-base" as *;
+// @use "../2-utils" as *;
+// @use "_sections.scss" as *;
+
+// footer {
+//   @extend %bg__darkgrey;
+//   padding: 2rem 1.125rem;
+
+//   @include respond(tablet) {
+//     padding: 3rem 4rem;
+//   }
+
+//   @include respond(med-desktop) {
+//     padding: 3rem 5rem;
+//   }
+
+//   .title {
+//     color: white;
+//     padding-bottom: 1rem;
+//   }
+
+//   nav {
+//     display: flex;
+//     flex-direction: column;
+//     a {
+//       color: white;
+//       line-height: 2rem;
+//       i {
+//         color: white;
+//         width: 2rem;
+//       }
+//     }
+//   }
+// }

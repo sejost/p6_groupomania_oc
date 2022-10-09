@@ -1,0 +1,56 @@
+/* Buttons  */
+/* Mobile First */
+@use '../1-utils/' as *;
+@use '../2-base/' as *;
+
+button {
+	@include shadow-box;
+	@include sizeContent1;
+	@extend %border-radius1;
+	background: $clr-primary;
+	color: white;
+	font-weight: 700;
+}
+
+button:hover {
+	@include shadow-box-over;
+	background: $clr-tertiary;
+}
+
+button:disabled {
+	box-shadow: none;
+	background: darken($clr-primary, 20%);
+	color: darken(white, 20%);
+}
+
+// .container-buttons {
+//   width: 100%;
+//   display: flex;
+//   justify-content: center;
+// }
+
+// .button {
+//   @include shadow-box;
+//   @include background-gradient;
+//   @extend %border-radius3;
+//   cursor: pointer;
+//   color: white;
+//   padding: 1rem;
+//   background-size: 300%;
+//   background-position: center;
+//   font-size: map-get($font-size, small);
+
+//   //.button responsive part
+//   @include respond(tablet) {
+//     font-size: map-get($font-size, "smedium");
+//   }
+
+//   @include respond(desktop) {
+//     font-size: map-get($font-size, "medium");
+//   }
+// }
+
+// .button__menu {
+//   margin: 2rem 0;
+//   padding: 1rem 2rem;
+// }

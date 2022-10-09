@@ -2,9 +2,7 @@ import React, {useState} from 'react';
 import useAuth from '../../1-hooks/useAuth';
 const axios = require('axios');
 
-
-
-const NewPost = () => {
+export const PostCreate = () => {
 	const { auth } = useAuth();
 	const [upPicture, setUpPicture] = useState('none');
 	const [postContent, setPostContent] = useState({
@@ -64,5 +62,3 @@ const NewPost = () => {
 		</form>
 	);
 };
-
-export default NewPost;
