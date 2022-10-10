@@ -1,7 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import PropTypes from 'prop-types';
+import PostUpdate from './iv-PostUpdate';
 
-import { UpdateTitle, UpdateText, UpdatePicture, ActiveUpdateBtn, CancelUpdateBtn, SetUpdateBtn } from './iv-PostUpdate';
 import { formatDate } from './x-PostFunctions';
 import useAuth from '../../1-hooks/useAuth';
 
@@ -10,35 +10,81 @@ export const PostRead = (props) => {
 	const { auth } = useAuth();
 	const [postId, setPostId] = useState('');
 	const [changePending, setChangePending] = useState(false);
+
+	const [upPicture, setUpPicture] = useState('none');
+	const [postContent, setPostContent] = useState({
+		title: '',
+		message: '',
+	});
+
 	const authId = auth.userId;
 
 	useEffect(() => {
 		setPostId(props.postId);
+		setPostContent({
+			title: props.postTitle,
+			message: props.postText
+		});
+		setUpPicture(props.postImage);
 	}, []);
 
 	return(
 		<>
 			<div className='post__headPart'>
 				{changePending == false && <h2 className='post__title' id={`${postId}_postTitle`}>{props.postTitle}</h2>}
-				{changePending == true && <UpdateTitle postTitle={props.postTitle} />}
+				{changePending == true && <input className='input--title post__title'
+					type="text"
+					defaultValue={props.postTitle}
+					autoComplete="off"
+					onChange={(e) => setPostContent({...postContent, title: e.target.value})}
+					required
+					aria-describedby="titre à remplir"
+				/>}
 				<h3 className='post__ownerId'>par {props.authorName}</h3>
 				<span className='post__postDate' id={`${postId}_postDate`}>le {formatDate(props.postDate, 'dd/mm/yy à hh:mn')}</span>
 			</div>
 			<div className='post__mainPart'>
 				{changePending == false && <div className='post__postText' id={`${postId}_postText`}>{props.postText}</div>}
-				{changePending == true && <UpdateText postText={props.postText} />}
+				{changePending == true && <input className='input--message'
+					type="text"
+					defaultValue={props.postText}
+					id="messageContent"
+					autoComplete="off"					
+					onChange={(e) => setPostContent({...postContent, message: e.target.value})}
+					aria-describedby="titre à remplir"
+				/>}
 				<div className='post__postImage__container'>
 					<img className='post__postImage__content' id={`${postId}_postImage`}src={props.postImage} />
-					{changePending == true && <UpdatePicture />}
-				</div>
-				{changePending == false &&  ((auth.userId == props.authorId) || (auth.userId == process.env.REACT_APP_ID)) && <ActiveUpdateBtn 
-					authorId={props.authorId} 
-					setChangePending={setChangePending} />}
-				{changePending == true && 
+					{changePending == true && 
 					<>
-						<CancelUpdateBtn setChangePending={setChangePending} /> <SetUpdateBtn postId={postId}/>
-					</>
-				}
+						<span>Modifier l&apos;image</span>
+						<input
+							type="file"
+							id="file-upload"
+							name="file"
+							accept=".jpg, .jpeg, .png"
+							onChange={(e) => setUpPicture(e.target.files[0])}
+						/>
+					</>}
+				</div>
+				{changePending == false &&  ((auth.userId == props.authorId) || (auth.userId == process.env.REACT_APP_ID)) && 
+					<button 
+						onClick={() => setChangePending(true)}>
+						Modifier
+					</button>}
+				{changePending == true && 
+				<>
+					<button onClick={() => setChangePending(false)}>
+					Annuler
+					</button>
+					<PostUpdate 
+						postId={postId}
+						postContent={postContent}
+						postImage={upPicture}
+
+					/>
+				</>}
+
 			</div>
 		</>
 	);
@@ -56,5 +102,3 @@ PostRead.propTypes = {
 	likes: PropTypes.number,
 };
 
-//{postModifying == true  && <UpdateTitle postTitle={props.postTitle} />}
-//{postModifying == true && <UpdateText postText={props.postText}/>}
