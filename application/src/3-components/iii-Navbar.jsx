@@ -12,7 +12,7 @@ function Navbar() {
 		<nav>
 			<div className="nav-container">
 				<div className="logo">
-					<NavLink exact to="/">
+					<NavLink to="/">
 						<div className="logo">
 							<img src={logo} alt="icon" />
 						</div>
@@ -22,7 +22,7 @@ function Navbar() {
 					<ul>
 						<li />
 						<li className="welcome">
-							<NavLink exact to="/profil">
+							<NavLink to="/profil">
 								<h5>Bienvenue {auth.displayName}</h5>
 							</NavLink>
 						</li>
@@ -32,7 +32,7 @@ function Navbar() {
 					<ul>
 						<li />
 						<li>
-							<NavLink exact to="/profil">
+							<NavLink to="/profil">
 								<h5>Il faut se logger</h5>
 							</NavLink>
 						</li>

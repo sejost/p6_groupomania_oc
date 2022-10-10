@@ -22,7 +22,7 @@ export const PostRead = (props) => {
 				{changePending == false && <h2 className='post__title' id={`${postId}_postTitle`}>{props.postTitle}</h2>}
 				{changePending == true && <UpdateTitle postTitle={props.postTitle} />}
 				<h3 className='post__ownerId'>par {props.authorName}</h3>
-				<span className='post__postDate' id={`${postId}_CoucoupostDate`}>le {formatDate(props.postDate, 'dd/mm/yy à hh:mn')}</span>
+				<span className='post__postDate' id={`${postId}_postDate`}>le {formatDate(props.postDate, 'dd/mm/yy à hh:mn')}</span>
 			</div>
 			<div className='post__mainPart'>
 				{changePending == false && <div className='post__postText' id={`${postId}_postText`}>{props.postText}</div>}

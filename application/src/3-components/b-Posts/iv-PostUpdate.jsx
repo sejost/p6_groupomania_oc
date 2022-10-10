@@ -83,7 +83,7 @@ export const SetUpdateBtn = (props) => {
 		message: '',
 	});
 
-	<UpdateTitle setPostContent={setPostContent} />;
+	//<UpdateTitle setPostContent={setPostContent} />;
 
 	const handleSetUpdate = async (e) => {
 		e.preventDefault();

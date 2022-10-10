@@ -33,7 +33,6 @@ const postSchema = mongoose.Schema({
 					type: String, 
 					trim: true
 				},
-				commentImage : String,
 				commentDate: {
 					type : Date, 
 					default: Date.now
