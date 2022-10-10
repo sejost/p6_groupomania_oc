@@ -36,7 +36,7 @@ export const PostRead = (props) => {
 					setChangePending={setChangePending} />}
 				{changePending == true && 
 					<>
-						<CancelUpdateBtn setChangePending={setChangePending} /> <SetUpdateBtn />
+						<CancelUpdateBtn setChangePending={setChangePending} /> <SetUpdateBtn postId={postId}/>
 					</>
 				}
 			</div>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import useAuth from '../../1-hooks/useAuth';
 
 
-export const UpdateTitle = (props) => {
+export const UpdateTitle = (props, {postContent, setPostContent}) => {
 	
 	return (
 		<>
@@ -12,7 +12,7 @@ export const UpdateTitle = (props) => {
 				type="text"
 				defaultValue={props.postTitle}
 				autoComplete="off"
-				onChange={(e) => props.setPostContent({...postContent, title: e.target.value})}
+				onChange={(e) => setPostContent({...postContent, title: e.target.value})}
 				required
 				aria-describedby="titre à remplir"
 			/>
@@ -20,7 +20,7 @@ export const UpdateTitle = (props) => {
 	);
 };
 
-export const UpdateText = (props) => {
+export const UpdateText = (props, {postContent, setPostContent}) => {
 
 	return (
 		<>
@@ -29,14 +29,14 @@ export const UpdateText = (props) => {
 				defaultValue={props.postText}
 				id="messageContent"
 				autoComplete="off"
-				onChange={(e) => props.setPostContent({...postContent, message: e.target.value})}
+				onChange={(e) => setPostContent({...postContent, message: e.target.value})}
 				aria-describedby="titre à remplir"
 			/>
 		</>
 	);
 };
 
-export const UpdatePicture = (props) => {
+export const UpdatePicture = ({ setUpPicture }) => {
 
 	return(
 		<>
@@ -45,7 +45,7 @@ export const UpdatePicture = (props) => {
 				id="file-upload"
 				name="file"
 				accept=".jpg, .jpeg, .png"
-				onChange={(e) => props.setUpPicture(e.target.files[0])}
+				onChange={(e) => setUpPicture(e.target.files[0])}
 			/>Modifier limage
 		</>
 	);
@@ -83,6 +83,8 @@ export const SetUpdateBtn = (props) => {
 		message: '',
 	});
 
+	<UpdateTitle setPostContent={setPostContent} />;
+
 	const handleSetUpdate = async (e) => {
 		e.preventDefault();
 		let data = new FormData();
@@ -92,8 +94,8 @@ export const SetUpdateBtn = (props) => {
 		data.append('postText', postContent.message);
 		try{
 			await axios({
-				method: 'post',
-				url: `${process.env.REACT_APP_API}post/update/`,
+				method: 'put',
+				url: `${process.env.REACT_APP_API}post/update/${props.postId}`,
 				data,
 				withCredentials : true,
 			});

@@ -68,17 +68,17 @@ exports.modifyPost = (req, res, next) => {
     const postObject = req.file ? {
         ...JSON.parse(req.body.post),
         //Controle the presence of an image
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        postImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
 
     // Display a specific post in order to modify it
-    Post.findOne({ _id: req.params.id })
+    postObject.findOne({ _id: req.params.id })
         .then((post) => {
             // Control the authorization of the user
-            if (post.authorId != req.auth.authorId) {
+            if ((post.authorId != req.body.userId) || (process.env.ADMINID != req.body.userId)) {
                 res.status(401).json({ message: 'Non autorisé' });
             } else {
-                const filename = post.imageUrl.split('/images/')[1];
+                const filename = post.postImage.split('/images/')[1];
                 //Delete the old image from the folder before updating it
                 fs.unlink(`images/${filename}`, () => {
                     post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
