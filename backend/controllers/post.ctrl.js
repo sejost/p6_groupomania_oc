@@ -26,7 +26,7 @@ exports.createPost = async (req, res, next) => {
 		postImage: !req.body.image ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : '',
 	})
 	try{
-		const post = await newPost.save();
+		await newPost.save();
 		res.status(201).json({
 			message : 'Nouveau post transmit !'
 		})
@@ -63,42 +63,81 @@ exports.like = async (req, res, next) => {
 		})
 }
 
-// Modify one post
-exports.modifyPost = (req, res, next) => {
-    const postObject = req.file ? {
-        ...JSON.parse(req.body.post),
-        //Controle the presence of an image
-        postImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body };
+// Modify post
+// Try new Version
+// exports.modifyPost = async (req, res, next) => {
+// 	let postId = (req.params.id).toString()
+// 	if (!ObjectId.isValid(postId)) {
+// 		res.status(401).send('ID inconnu');
+// 	}
 
-    // Display a specific post in order to modify it
-    postObject.findOne({ _id: req.params.id })
+// 	await ObjectId(postId);
+// 	postModel.findById(postId)
+// 		.then((post) => {
+// 			if ((post.authorId || process.env.ADMINID)!= req.body.userId) {
+// 				res.status(401).json('Utilisateur non authorisé à modifier')
+// 			}
+// 			const imageName = post.postImage.split('/images/')[1];
+// 			fs.unlink(`images/${imageName}`);
+// 		}) 
+// 	postModel.findByIdAndUpdate(postId, {
+// 		postTitle : req.body.postTitle,
+// 		postText : req.body.postText,
+// 		postImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+// 	})
+// 		.then(() => res.status(200).json({ message: 'Objet modifié!' }))
+// 		.catch(error => res.status(400).json({ error }));
+// }
+
+	// postObject = {
+		// postImage : postModel.postImage,
+		// postText : req.body.postText,
+		// postTitle : req.body.postTitle,
+		// }
+
+
+//Old Versioin
+exports.modifyPost = (req, res, next) => {
+    //delete postObject._userId;
+    //Display a specific post in order to modify it
+    postModel.findOne({ _id: req.params.id })
         .then((post) => {
             // Control the authorization of the user
-            if ((post.authorId != req.body.userId) || (process.env.ADMINID != req.body.userId)) {
-                res.status(401).json({ message: 'Non autorisé' });
+            if ((post.authorId || process.env.ADMINID)!= req.body.userId) {
+                res.status(401).json({ message: 'Not authorized' });
             } else {
-                const filename = post.postImage.split('/images/')[1];
+				let postObject = {}
+				if(req.file?.filename == undefined){
+					console.log('Aucune nouvelle image reçue', req.body.image)
+					postObject = {
+						postText : req.body.postText,
+						postTitle : req.body.postTitle,
+					}
+				}
+				else{
+					const imageFile = post.postImage.split('/images/')[1];
+					fs.unlink(`images/${imageFile}`, () => {
+						console.log('ok')
+					})
+					console.log('Nouvelle image reçue')
+					postObject = {
+						postImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+						postText : req.body.postText,
+						postTitle : req.body.postTitle,
+					}
+				}
                 //Delete the old image from the folder before updating it
-                fs.unlink(`images/${filename}`, () => {
-                    post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-                        .then(() => res.status(200).json({ message: 'Objet modifié!' }))
-                        .catch(error => res.status(401).json({ error }));
-                });
+                //fs.unlink(`images/${imageFile}`, () => {
+                postModel.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
+                    .then(() => res.status(200).json({ message: 'Objet modifié!' }))
+                    .catch(error => res.status(401).json({ error }));
+				//})
             }
         })
         .catch((error) => {
             res.status(400).json({ error });
         });
 };
-
-
-//Display one post
-// exports.getOnePost = (req, res, next) => {
-//     Post.findOne({ _id: req.params.id })
-//         .then((post) => { res.status(200).json(post) })
-//         .catch((error) => { res.status(404).json({ error: error }) });
-// };
 
 
 //Find a post then delete it

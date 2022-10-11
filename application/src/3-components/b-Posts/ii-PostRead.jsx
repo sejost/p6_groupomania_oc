@@ -10,8 +10,11 @@ export const PostRead = (props) => {
 	const { auth } = useAuth();
 	const [postId, setPostId] = useState('');
 	const [changePending, setChangePending] = useState(false);
+	const [postChanged, setPostChange] = useState([]);
 
-	const [upPicture, setUpPicture] = useState('none');
+	const [actualPicture, setActualPicture] = useState('');
+	const [updatePicture, setUpdatePicture] = useState(actualPicture);
+
 	const [postContent, setPostContent] = useState({
 		title: '',
 		message: '',
@@ -25,8 +28,11 @@ export const PostRead = (props) => {
 			title: props.postTitle,
 			message: props.postText
 		});
-		setUpPicture(props.postImage);
-	}, []);
+		setActualPicture(props.postImage);
+		console.log('upPicutre :', updatePicture);
+		console.log('actPicutre :', actualPicture);
+
+	}, [postChanged, updatePicture, changePending]);
 
 	return(
 		<>
@@ -63,7 +69,7 @@ export const PostRead = (props) => {
 							id="file-upload"
 							name="file"
 							accept=".jpg, .jpeg, .png"
-							onChange={(e) => setUpPicture(e.target.files[0])}
+							onChange={(e) => setUpdatePicture(e.target.files[0])}
 						/>
 					</>}
 				</div>
@@ -74,14 +80,21 @@ export const PostRead = (props) => {
 					</button>}
 				{changePending == true && 
 				<>
-					<button onClick={() => setChangePending(false)}>
+					<button onClick={() => {
+						setPostContent({
+							title: '',
+							message: '',
+						});
+						setUpdatePicture(actualPicture);
+						setChangePending(false);}}>
 					Annuler
 					</button>
 					<PostUpdate 
 						postId={postId}
 						postContent={postContent}
-						postImage={upPicture}
-
+						updatePicture={updatePicture}
+						setUpdatePicture={setUpdatePicture}
+						setChangePending={setChangePending}
 					/>
 				</>}
 

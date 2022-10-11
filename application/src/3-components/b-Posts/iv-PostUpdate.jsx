@@ -11,11 +11,14 @@ const PostUpdate = (props) => {
 	const handleSetUpdate = async (e) => {
 		e.preventDefault();
 		let data = new FormData();
-		data.append('image', props.upPicture);
+		//!props.updatePicture ? null : data.append('image', props.updatePicture);
+		data.append('image', props.updatePicture);
 		data.append('userId', auth.userId);
 		data.append('postTitle', props.postContent.title);
 		data.append('postText', props.postContent.message);
+		console.log(data);
 		try{
+			console.log(props.updatePicture);
 			await axios({
 				method: 'put',
 				url: `${process.env.REACT_APP_API}post/update/${props.postId}`,

@@ -14,6 +14,7 @@ export const PostCreate = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		let data = new FormData();
+		console.log(upPicture);
 		data.append('image', upPicture);
 		data.append('authorName', auth.displayName);
 		data.append('userId', auth.userId);
