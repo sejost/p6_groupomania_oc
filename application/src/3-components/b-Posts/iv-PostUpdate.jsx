@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+
 import useAuth from '../../1-hooks/useAuth';
+
 
 
 const PostUpdate = (props) => {
@@ -18,13 +20,13 @@ const PostUpdate = (props) => {
 		data.append('postText', props.postContent.message);
 		console.log(data);
 		try{
-			console.log(props.updatePicture);
-			await axios({
+			let response = await axios({
 				method: 'put',
 				url: `${process.env.REACT_APP_API}post/update/${props.postId}`,
 				data,
 				withCredentials : true,
 			});
+			props.setChangePending(false);
 		}
 		catch(error){
 			console.log(error);

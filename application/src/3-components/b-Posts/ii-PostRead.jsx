@@ -10,7 +10,6 @@ export const PostRead = (props) => {
 	const { auth } = useAuth();
 	const [postId, setPostId] = useState('');
 	const [changePending, setChangePending] = useState(false);
-	const [postChanged, setPostChange] = useState([]);
 
 	const [actualPicture, setActualPicture] = useState('');
 	const [updatePicture, setUpdatePicture] = useState(actualPicture);
@@ -20,7 +19,6 @@ export const PostRead = (props) => {
 		message: '',
 	});
 
-	const authId = auth.userId;
 
 	useEffect(() => {
 		setPostId(props.postId);
@@ -29,10 +27,9 @@ export const PostRead = (props) => {
 			message: props.postText
 		});
 		setActualPicture(props.postImage);
-		console.log('upPicutre :', updatePicture);
-		console.log('actPicutre :', actualPicture);
+		props.setPostChanged(changePending);
 
-	}, [postChanged, updatePicture, changePending]);
+	}, [updatePicture, changePending]);
 
 	return(
 		<>
@@ -93,7 +90,7 @@ export const PostRead = (props) => {
 						postId={postId}
 						postContent={postContent}
 						updatePicture={updatePicture}
-						setUpdatePicture={setUpdatePicture}
+						// setUpdatePicture={setUpdatePicture}
 						setChangePending={setChangePending}
 					/>
 				</>}

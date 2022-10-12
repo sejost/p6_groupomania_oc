@@ -1,37 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import useAuth from '../1-hooks/useAuth';
-import { useEffect } from 'react';
-//import { useDispatch } from 'react-redux';
 
 function RequireAuth() {
 	const { auth } = useAuth();
 	const location = useLocation();
-	//const dispatch = useDispatch();
 
 	useEffect(() => {
-		// const fetchDisplayName = async ()=> {
-		// 	const settings = {
-		// 		method: 'GET',
-		// 		headers: {
-		// 			Accept: 'application/json',
-		// 			'Access-Control-Allow-Headers': true,
-		// 			'Content-Type': 'application/json',
-		// 			'Access-Control-Allow-Origin': '*',
-		// 			Token: auth.token,
-		// 		},
-		// 		withCredentials: true,
-		// 	};
-		// 	const response = await fetch(`${process.env.REACT_APP_API}user/${auth.userId}`, settings);
-		// 	//const jsonData = await response.json();
-		// 	console.log('ma data : ', response);
-		// };
-		// fetchDisplayName();
 	}, []);
-
-	// useEffect(() => {
-	// 	auth.userId ? dispatch(getUser(auth.userId)) : null;
-	// }, []);
 	
 	
 	return auth?.token ? (
@@ -40,6 +16,28 @@ function RequireAuth() {
 		<Navigate to="/login" state={{ from: location }} replace />
 	);
 }
+
+export default RequireAuth;
+
+// useEffect(() => {
+// const fetchDisplayName = async ()=> {
+// 	const settings = {
+// 		method: 'GET',
+// 		headers: {
+// 			Accept: 'application/json',
+// 			'Access-Control-Allow-Headers': true,
+// 			'Content-Type': 'application/json',
+// 			'Access-Control-Allow-Origin': '*',
+// 			Token: auth.token,
+// 		},
+// 		withCredentials: true,
+// 	};
+// 	const response = await fetch(`${process.env.REACT_APP_API}user/${auth.userId}`, settings);
+// 	//const jsonData = await response.json();
+// 	console.log('ma data : ', response);
+// };
+// fetchDisplayName();
+// }, []);
 
 // function RequireAuth({ allowedRoles }) {
 //     const { auth } = useAuth();
@@ -54,4 +52,4 @@ function RequireAuth() {
 //     );
 // }
 
-export default RequireAuth;
+

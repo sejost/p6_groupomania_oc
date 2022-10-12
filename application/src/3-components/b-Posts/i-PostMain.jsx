@@ -21,9 +21,6 @@ export const PostMain = () => {
 			setPostsList(response.data);
 		};
 		getPosts();	
-		console.log(postsList);
-
-
 	},[postChanged]);
 
 	return(
