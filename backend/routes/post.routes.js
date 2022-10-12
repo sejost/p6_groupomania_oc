@@ -11,7 +11,7 @@ const postCtrl = require('../controllers/post.ctrl');
 router.get('/', requireAuth, postCtrl.getAllPosts);
 router.post('/create', requireAuth, multer, postCtrl.createPost);
 router.put('/update/:id', requireAuth, multer, postCtrl.modifyPost);
-// router.delete('/', requireAuth, postCtrl.deletePost);
 router.post('/like/:id', requireAuth, postCtrl.like);
+router.delete('/delete/:id', requireAuth, postCtrl.deletePost);
 
 module.exports = router;

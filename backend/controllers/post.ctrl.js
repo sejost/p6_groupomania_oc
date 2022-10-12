@@ -65,13 +65,15 @@ exports.like = async (req, res, next) => {
 
 // Modify post
 exports.modifyPost = (req, res, next) => {
-    //delete postObject._userId;
-    //Display a specific post in order to modify it
     postModel.findOne({ _id: req.params.id })
         .then((post) => {
             // Control the authorization of the user
-            if ((post.authorId || process.env.ADMINID)!= req.body.userId) {
-                res.status(401).json({ message: 'Not authorized' });
+			console.log('authorId : ', post.authorId)
+			console.log('userId : ', req.body.userId)
+			console.log('AdminID : ', process.env.ADMINID)
+            //if ((post.authorId != req.body.userId) || (`${process.env.ADMINID}` != req.body.userId)) {
+			if ((process.env.ADMINID || post.authorId) != req.body.userId) {
+                res.status(401).json({ message: 'Non authorisé ' });
             } else {
 				let postObject = {}
 				if(req.file?.filename == undefined){
@@ -93,36 +95,36 @@ exports.modifyPost = (req, res, next) => {
 						postTitle : req.body.postTitle,
 					}
 				}
-                //Delete the old image from the folder before updating it
-                //fs.unlink(`images/${imageFile}`, () => {
                 postModel.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
                     .then(() => res.status(200).json({ message: 'Objet modifié!' }))
                     .catch(error => res.status(401).json({ error }));
-				//})
             }
         })
         .catch((error) => {
-            res.status(400).json({ error });
+            res.status(500).json({ error });
         });
 };
 
 
-//Find a post then delete it
-// exports.deletePost = (req, res, next) => {
-//     Post.findOne({ _id: req.params.id })
-//         .then(post => {
-//             // Control the authorization of the user
-//             if (post.userId != req.auth.userId) {
-//                 res.status(401).json({ message: 'Not authorized' });
-//             } else {
-//                 const filename = post.imageUrl.split('/images/')[1];
-//                 //Delete the old image from the folder before delete the post
-//                 fs.unlink(`images/${filename}`, () => {
-//                     Post.deleteOne({ _id: req.params.id })
-//                         .then(() => { res.status(200).json({ message: 'Objet supprimé !' }) })
-//                         .catch(error => res.status(401).json({ error }));
-//                 });
-//             }
-//         })
-//         .catch(error => { res.status(500).json({ error }) });
-// };
+//Delete a post
+exports.deletePost = (req, res, next) => {
+    postModel.findOne({ _id: req.params.id })
+		.then((post) => {
+			console.log(post.authorId)
+            // Control the authorization of the user
+            if ((process.env.ADMINID || post.authorId) != req.body.userId) {
+                res.status(401).json({ message: 'Non authorisé' });
+            } else {
+                const imageFile = post.postImage.split('/images/')[1];
+                //Delete the old image from the folder before delete the post
+                fs.unlink(`images/${imageFile}`, () => {
+                    postModel.deleteOne({ _id: req.params.id })
+						.then(() => res.status(200).json({ message: 'Objet Supprimé!' }))
+                        .catch(error => res.status(401).json({ error }));
+                });
+            }
+        })
+        .catch((error) => {
+            res.status(500).json({ error });
+        });
+};
