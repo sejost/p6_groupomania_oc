@@ -110,7 +110,6 @@ exports.modifyPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     postModel.findOne({ _id: req.params.id })
 		.then((post) => {
-			console.log(post.authorId)
             // Control the authorization of the user
             if ((process.env.ADMINID || post.authorId) != req.body.userId) {
                 res.status(401).json({ message: 'Non authorisé' });

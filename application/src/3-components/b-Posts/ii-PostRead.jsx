@@ -1,6 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import PropTypes from 'prop-types';
 import PostUpdate from './iv-PostUpdate';
+import PostDelete from './v-PostDelete';
 
 import { formatDate } from './x-PostFunctions';
 import useAuth from '../../1-hooks/useAuth';
@@ -91,6 +92,10 @@ export const PostRead = (props) => {
 						postContent={postContent}
 						updatePicture={updatePicture}
 						// setUpdatePicture={setUpdatePicture}
+						setChangePending={setChangePending}
+					/>
+					<PostDelete 
+						postId={postId}
 						setChangePending={setChangePending}
 					/>
 				</>}
