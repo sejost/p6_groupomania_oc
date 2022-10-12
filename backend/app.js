@@ -13,6 +13,7 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth.routes');
 const postRoutes = require('./routes/post.routes')
 const usersRoutes = require('./routes/user.routes')
+const commentRoutes = require('./routes/user.routes')
 const adminRoutes = require('./routes/admin.routes')
 
 const path = require('path');
@@ -44,6 +45,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/auth', authRoutes);
 app.use('/post', postRoutes);
+app.use('/comment', commentRoutes);
 app.use('/user', usersRoutes);
 
 app.use(`/${process.env.ADMIN}/user`, adminRoutes)
