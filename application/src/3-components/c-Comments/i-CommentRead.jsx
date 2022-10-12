@@ -13,11 +13,11 @@ const CommentRead = (props) => {
 	return (
 		<>		
 			<div className="comment__headPart">
-				<h4 className="comment__ownerId"></h4>
-				<span className="comment__commentDate"></span>
+				<h4 className="comment__ownerId">Commentaire de {props.commenterName}</h4>
+				<span className="comment__commentDate">le {props.commentDate}</span>
 			</div>
 			<div className="comment__maintPart">
-				<div className="comment__commentText"></div>
+				<div className="comment__commentText">{props.commentText}</div>
 			</div>
 		</>
 	);

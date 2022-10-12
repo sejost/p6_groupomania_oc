@@ -7,7 +7,7 @@ import { formatDate } from './x-PostFunctions';
 import useAuth from '../../1-hooks/useAuth';
 
 
-export const PostRead = (props) => {
+const PostRead = (props) => {
 	const { auth } = useAuth();
 	const [postId, setPostId] = useState('');
 	const [changePending, setChangePending] = useState(false);
@@ -104,6 +104,8 @@ export const PostRead = (props) => {
 		</>
 	);
 };
+
+export default PostRead;
 				
 PostRead.propTypes = {
 	postsList: PropTypes.array,

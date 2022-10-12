@@ -1,14 +1,13 @@
 import React, { useState, useEffect }  from 'react';
-import useAuth from '../../1-hooks/useAuth';
 import CommentRead from '../c-Comments/i-CommentRead';
-import { PostRead } from './ii-PostRead';
-import { PostLike } from './vi-PostLike';
+import CommentCreate from '../c-Comments/ii-CommentCreate';
+import PostRead from './ii-PostRead';
+import PostLike from './vi-PostLike';
 
 const axios = require('axios');
 
 export const PostMain = () => {
 	const [postsList, setPostsList] = useState([]);
-	const [commentsList, setCommentList] = useState([]);
 	const [postChanged, setPostChanged] = useState([]);	
 
 	useEffect( () =>  {
@@ -46,8 +45,10 @@ export const PostMain = () => {
 							postId={post._id}
 							likes={post.likes}
 						/>
+
+						<CommentCreate />
 						
-						{/* {post.comments.map((comment, index) => {
+						{post.comments.map((comment, index) => {
 							return (
 								<div className='comment__wrapper' key={`${comment.id}-${index}`}>
 									<CommentRead setPostChanged={setPostChanged}
@@ -62,7 +63,7 @@ export const PostMain = () => {
 								</div>
 							); 
 						})
-						} */}
+						}
 
 					</div>
 				);

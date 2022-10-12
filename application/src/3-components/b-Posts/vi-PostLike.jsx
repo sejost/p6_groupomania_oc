@@ -6,7 +6,7 @@ import useAuth from '../../1-hooks/useAuth';
 
 const axios = require('axios');
 
-export const PostLike = (props) => {
+const PostLike = (props) => {
 	const { auth } = useAuth();
 	const [postId, setPostId] = useState('');
 
@@ -51,3 +51,5 @@ PostLike.propTypes = {
 	postId: PropTypes.string,
 	likes: PropTypes.number,
 };
+
+export default PostLike;
