@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import useAuth from '../../1-hooks/useAuth';
 const axios = require('axios');
 
-export const PostCreate = () => {
+const PostCreate = (props) => {
 	const { auth } = useAuth();
 	const [upPicture, setUpPicture] = useState('none');
 	const [postContent, setPostContent] = useState({
@@ -21,12 +21,19 @@ export const PostCreate = () => {
 		data.append('postTitle', postContent.title);
 		data.append('postText', postContent.message);
 		try{
-			await axios({
+			let response = await axios({
 				method: 'post',
 				url: `${process.env.REACT_APP_API}post/create`,
 				data,
 				withCredentials : true,
 			});
+			setUpPicture('');
+			setPostContent({
+				title: '',
+				author: '',
+				message: '',
+			});
+			props.setPostChanged(response.data);
 		}
 		catch(error){
 			console.log(error);
@@ -63,3 +70,5 @@ export const PostCreate = () => {
 		</form>
 	);
 };
+
+export default PostCreate;

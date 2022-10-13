@@ -1,8 +1,5 @@
 import React from 'react';
-import { PostMain } from '../3-components/b-Posts/i-PostMain';
-import { PostCreate } from '../3-components/b-Posts/iii-PostCreate';
-
-
+import PostMain from '../3-components/b-Posts/i-PostMain';
 
 function Home() {
 	return (
@@ -13,9 +10,6 @@ function Home() {
 			</section>
 
 			<section className='home__mainPart'>
-				<div className="addPost__container">
-					<PostCreate />
-				</div>
 				<div className='post__container'>
 					<PostMain />
 				</div>
