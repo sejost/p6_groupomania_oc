@@ -8,7 +8,7 @@ const commentCtrl = require('../controllers/comment.ctrl');
 
 
 //Comment Routes
-router.post('/create', requireAuth, commentCtrl.createComment);
+router.put('/create/:id', requireAuth, commentCtrl.createComment);
 //router.put('/update/:id', requireAuth, commentCtrl.modifyComment);
 //router.post('/like/:id', requireAuth, commentCtrl.like);
 //router.delete('/delete/:id', requireAuth, commentCtrl.deleteComment);

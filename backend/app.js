@@ -13,7 +13,7 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth.routes');
 const postRoutes = require('./routes/post.routes')
 const usersRoutes = require('./routes/user.routes')
-const commentRoutes = require('./routes/user.routes')
+const commentRoutes = require('./routes/comment.routes')
 const adminRoutes = require('./routes/admin.routes')
 
 const path = require('path');

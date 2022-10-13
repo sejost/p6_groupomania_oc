@@ -46,7 +46,9 @@ export const PostMain = () => {
 							likes={post.likes}
 						/>
 
-						<CommentCreate />
+						<CommentCreate 
+							postId={post._id}
+						/>
 						
 						{post.comments.map((comment, index) => {
 							return (

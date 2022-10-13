@@ -1,20 +1,26 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import useAuth from '../../1-hooks/useAuth';
 const axios = require('axios');
 
-const CommentCreate = () => {
+const CommentCreate = (props) => {
 	const { auth } = useAuth();
+	const [postId, setPostId] = useState('');
 	const [commentContent, setCommentContent] = useState({
 		author: '',
 		message: '',
 	});
 
+	useEffect(() => {
+		setPostId(props.postId);
+	}, []);
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+	
 		try{
 			await axios({
-				method: 'post',
-				url: `${process.env.REACT_APP_API}comment/create`,
+				method: 'put',
+				url: `${process.env.REACT_APP_API}comment/create/${postId}`,
 				data : { 
 					commenterId : auth.userId,
 					commenterName : auth.displayName,

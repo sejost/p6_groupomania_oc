@@ -67,10 +67,6 @@ exports.modifyPost = (req, res, next) => {
     postModel.findOne({ _id: req.params.id })
         .then((post) => {
             // Control the authorization of the user
-			console.log('authorId : ', post.authorId)
-			console.log('userId : ', req.body.userId)
-			console.log('AdminID : ', process.env.ADMINID)
-            //if ((post.authorId != req.body.userId) || (`${process.env.ADMINID}` != req.body.userId)) {
 			if ((process.env.ADMINID || post.authorId) != req.body.userId) {
                 res.status(401).json({ message: 'Non authorisé ' });
             } else {

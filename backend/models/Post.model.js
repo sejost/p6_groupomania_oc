@@ -35,11 +35,13 @@ const postSchema = mongoose.Schema({
 				},
 				commentDate: {
 					type : Date, 
-					default: Date.now
+					default: Date.now,
+					required: true
 				},
 				commentUpDate: {
 					type : Date, 
-					default: Date.now
+					default: Date.now,
+					required: true
 				},
 			}
 		],
