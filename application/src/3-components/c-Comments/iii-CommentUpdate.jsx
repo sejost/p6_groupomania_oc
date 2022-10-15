@@ -13,17 +13,17 @@ const CommentUpdate = (props) => {
 		try{
 			console.log(props.commentId);
 
-			// let response = await axios({
-			// 	method: 'put',
-			// 	url: `${process.env.REACT_APP_API}comment/update/${props.postId}`,
-			// 	data : { 
-			// 		commentId : props.commentId,
-			// 		commenterId : auth.userId,
-			// 		commentText : props.commentContent.message
-			// 	},
-			// 	withCredentials : true,
-			// });
-			// props.setChangePending(false);
+			let response = await axios({
+				method: 'put',
+				url: `${process.env.REACT_APP_API}comment/update/${props.postId}`,
+				data : { 
+					commentId : props.commentId,
+					commenterId : auth.userId,
+					commentText : props.commentContent.message
+				},
+				withCredentials : true,
+			});
+			props.setChangePending(false);
 		}
 		catch(error){
 			console.log(error);

@@ -4,7 +4,7 @@ const postModel = require('../models/Post.model');
 //Create a Comment
 exports.createComment = (req, res) => {
 	if (!ObjectId.isValid(req.params.id))
-		return res.status(400).send("ID inconnu");
+		return res.status(400).send("ID unknown : " + req.params.id);
 	try {
 		return postModel.findByIdAndUpdate(
 		req.params.id,
@@ -20,15 +20,41 @@ exports.createComment = (req, res) => {
 		{ new: true })
 			.then((data) => res.send(data))
 			.catch((error) => res.status(500).send({ message: error }));
-		} catch (error) {
-			return res.status(400).json({message : error});
+	} catch (error) {
+		return res.status(400).send(error);
 	}
 };
 
 //Update a Comment
 module.exports.modifyComment = (req, res) => {
 	if (!ObjectId.isValid(req.params.id))
-		return res.status(400).send("ID inconnu");
+		return res.status(400).send("ID unknown : " + req.params.id);
+
+	try {
+		postModel.findById(req.params.id, (error, post) => {
+			const theComment = post.comments.find((comment) =>
+			comment._id.toString() === req.body.commentId);
+
+			if (!theComment) return res.status(404).send("Comment not found");
+			theComment.commentText = req.body.commentText;
+			
+			if((process.env.ADMINID || theComment.commenterId) != req.body.commenterId)
+                return res.status(401).json({ message: 'Non authorisé ' });
+
+			return post.save((error) => {
+				if (!error) return res.status(200).send(post);
+				return res.status(500).send(error);
+			})
+		})
+	} catch (err) {
+		return res.status(400).send(err);
+	}
+};
+
+//Delete a Comment
+exports.deleteComment = (req, res) => {
+	if (!ObjectId.isValid(req.params.id))
+		return res.status(400).send("ID unknown : " + req.params.id);
 
 	try {
 		postModel.findById(req.params.id, (error, post) => {
@@ -38,22 +64,9 @@ module.exports.modifyComment = (req, res) => {
 			if (!theComment) return res.status(404).send("Comment not found");
 			theComment.commentText = req.body.commentText;
 
-			return post.save((error) => {
-				if (!error) return res.status(200).send(post);
-				return res.status(500).send(error);
-			})
-		})
-	} catch (error) {
-		return res.status(400).json({message : error});
-	}
-};
-
-//Delete a Comment
-exports.deleteComment = (req, res) => {
-	if (!ObjectId.isValid(req.params.id))
-		return res.status(400).send("ID inconnu");
-
-	try {
+			if((process.env.ADMINID || theComment.commenterId) != req.body.commenterId)
+                return res.status(401).json({ message: 'Non authorisé ' });
+		});
 		postModel.findByIdAndUpdate(
 		req.params.id,
 		{
@@ -66,7 +79,7 @@ exports.deleteComment = (req, res) => {
 		{ new: true })
 				.then((data) => res.send(data))
 				.catch((error) => res.status(500).send({ message: error }));
-		} catch (error) {
-			return res.status(400).json({message : error});
+		} catch (err) {
+			return res.status(400).send(err);
 		}
 };
