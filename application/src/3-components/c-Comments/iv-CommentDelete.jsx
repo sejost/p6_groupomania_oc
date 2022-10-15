@@ -13,12 +13,17 @@ const CommentDelete = (props) => {
 		try{
 			if (ask) {
 				console.log('Suppression confirmé');
+				console.log(props.commentId);
 				let response = await axios({
 					method: 'delete',
 					url: `${process.env.REACT_APP_API}comment/delete/${props.postId}`,
-					data : { userId : auth.userId},
+					data : { 
+						commentId : props.commentId,
+						commenterId : auth.userId,
+					},
 					withCredentials : true,
 				});
+				console.log(response.data);
 				props.setChangePending(false);
 			}
 			else {

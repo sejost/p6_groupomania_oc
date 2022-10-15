@@ -25,6 +25,7 @@ exports.createComment = (req, res) => {
 	}
 };
 
+//Update a Comment
 module.exports.modifyComment = (req, res) => {
 	if (!ObjectId.isValid(req.params.id))
 		return res.status(400).send("ID unknown : " + req.params.id);
@@ -47,14 +48,13 @@ module.exports.modifyComment = (req, res) => {
 	}
 };
 
-//Splice pour suppresion dans le tablea
-//Find Index
+//Delete a Comment
 exports.deleteComment = (req, res) => {
 	if (!ObjectId.isValid(req.params.id))
 		return res.status(400).send("ID unknown : " + req.params.id);
 
 	try {
-		return postModel.findByIdAndUpdate(
+		postModel.findByIdAndUpdate(
 		req.params.id,
 		{
 			$pull: {
@@ -65,7 +65,7 @@ exports.deleteComment = (req, res) => {
 		},
 		{ new: true })
 				.then((data) => res.send(data))
-				.catch((err) => res.status(500).send({ message: err }));
+				.catch((error) => res.status(500).send({ message: error }));
 		} catch (err) {
 			return res.status(400).send(err);
 		}
