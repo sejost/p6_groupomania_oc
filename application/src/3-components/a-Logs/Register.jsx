@@ -1,16 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import {
-// 	faCheck,
-// 	faTimes,
-// 	faInfoCircle,
-// } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {FaCheckSquare, FaTimes, FaInfo } from 'react-icons/fa';
+
+const axios = require('axios');
 
 const EMAIL_REGEX =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const PWD_REGEX =
+const PASSWORD_REGEX =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{9,64}$/;
 
 function Register({ setOpenModal }) {
@@ -20,11 +16,11 @@ function Register({ setOpenModal }) {
 	const [email, setEmail] = useState('');
 	const [validEmail, setValidEmail] = useState(false);
 
-	const [pwd, setPwd] = useState('');
-	const [validPwd, setValidPwd] = useState(false);
-	const [pwdFocus, setPwdFocus] = useState(false);
+	const [password, setPassword] = useState('');
+	const [validPassword, setValidPassword] = useState(false);
+	const [passwordFocus, setPasswordFocus] = useState(false);
 
-	const [matchPwd, setMatchPwd] = useState('');
+	const [matchPassword, setMatchPassword] = useState('');
 	const [validMatch, setValidMatch] = useState(false);
 	const [matchFocus, setMatchFocus] = useState(false);
 
@@ -46,54 +42,49 @@ function Register({ setOpenModal }) {
 	}, [email]);
 
 	useEffect(() => {
-		setValidPwd(PWD_REGEX.test(pwd));
-		setValidMatch(pwd === matchPwd);
-	}, [pwd, matchPwd]);
+		setValidPassword(PASSWORD_REGEX.test(password));
+		setValidMatch(password === matchPassword);
+	}, [password, matchPassword]);
 
 	useEffect(() => {
 		setErrMsg('');
-	}, [email, pwd, matchPwd]);
+	}, [email, password, matchPassword]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		// if button enabled with JS hack
 		const valid1 = EMAIL_REGEX.test(email);
-		const valid2 = PWD_REGEX.test(pwd);
+		const valid2 = PASSWORD_REGEX.test(password);
 		if (!valid1 || !valid2) {
-			setErrMsg('Unvalid Entry ');
+			setErrMsg('Déclaration non conforme');
 			return;
 		}
-		const password = pwd;
-		const data = { email, password };
-		const settings = {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Access-Control-Allow-Headers': true,
-				'Content-Type': 'application/json',
-				withCredentials: true,
-				'Access-Control-Allow-Origin': '*',
-			},
-			body: JSON.stringify(data),
-		};
+
 		try {
-			// const response = await fetch(REGISTER_URL, settings);
-			// const jsonData = await response.json();
-			fetch(`${process.env.REACT_APP_API_URL}signup`, settings);
+			let response = await axios({
+				method: 'post',
+				url: `${process.env.REACT_APP_API}auth/register`,
+				data : {
+					email : email,
+					password : password
+				},
+				withCredentials : true,
+			});
+
 			setSuccess(true);
 			setEmail('');
-			setPwd('');
-			setMatchPwd('');
+			setPassword('');
+			setMatchPassword('');
 		} catch (err) {
-			setPwd('');
-			setMatchPwd('');
+			setPassword('');
+			setMatchPassword('');
 			setErrMsg(err);
 			if (!err?.response) {
-				setErrMsg('No Server Response');
+				setErrMsg('Pas de réponse du serveur');
 			} else if (err.response?.status === 409) {
-				setErrMsg('Email already used');
+				setErrMsg('Email déjà utilisé');
 			} else {
-				setErrMsg('Registration Failed');
+				setErrMsg('Echec lors de la vérification');
 			}
 			errRef.current.focus();
 		}
@@ -129,13 +120,9 @@ function Register({ setOpenModal }) {
 								<form onSubmit={handleSubmit}>
 									<label htmlFor="emailcontent">
 										<FaCheckSquare
-											//icon={faCheck}
-											//icon={FaCheckSquare}
 											className={validEmail ? 'valid' : 'hide'}
 										/>
 										<FaTimes
-											//icon={faTimes}
-											//icon={FaTimes}
 											className={
 												validEmail || !email
 													? 'hide'
@@ -159,15 +146,11 @@ function Register({ setOpenModal }) {
 
 									<label htmlFor="password">
 										<FaCheckSquare
-											//icon={faCheck}
-											//icon={FaCheckSquare}
-											className={validPwd ? 'valid' : 'hide'}
+											className={validPassword ? 'valid' : 'hide'}
 										/>
 										<FaTimes
-											//icon={faTimes}
-											//icon={FaTimes}
 											className={
-												validPwd || !pwd ? 'hide' : 'invalid'
+												validPassword || !password ? 'hide' : 'invalid'
 											}
 										/>
 										<br/>
@@ -175,25 +158,24 @@ function Register({ setOpenModal }) {
 											placeholder='Mot de passe'
 											type="password"
 											id="password"
-											onChange={(e) => setPwd(e.target.value)}
-											value={pwd}
+											onChange={(e) => setPassword(e.target.value)}
+											value={password}
 											required
-											aria-invalid={validPwd ? 'false' : 'true'}
-											aria-describedby="pwdnote"
-											onFocus={() => setPwdFocus(true)}
-											onBlur={() => setPwdFocus(false)}
+											aria-invalid={validPassword ? 'false' : 'true'}
+											aria-describedby="passwordnote"
+											onFocus={() => setPasswordFocus(true)}
+											onBlur={() => setPasswordFocus(false)}
 										/>
 									</label>
 
 									<p
-										id="pwdnote"
+										id="passwordnote"
 										className={
-											pwdFocus && !validPwd
+											passwordFocus && !validPassword
 												? 'instructions'
 												: 'offscreen'
 										}
 									>
-										{/* <FontAwesomeIcon icon={faInfoCircle} /> */}
 										<FaInfo />
                                 Au moins 9 caractères.
 										<br />
@@ -202,21 +184,17 @@ function Register({ setOpenModal }) {
                                 spéciale.
 									</p>
 
-									<label htmlFor="confirm_pwd">
+									<label htmlFor="confirm_password">
 										<FaCheckSquare
-											//icon={faCheck}
-											//icon={FaCheckSquare}
 											className={
-												validMatch && matchPwd
+												validMatch && matchPassword
 													? 'valid'
 													: 'hide'
 											}
 										/>
 										<FaTimes
-											//icon={faTimes}
-											//icon={FaTimes}
 											className={
-												validMatch || !matchPwd
+												validMatch || !matchPassword
 													? 'hide'
 													: 'invalid'
 											}
@@ -225,11 +203,11 @@ function Register({ setOpenModal }) {
 										<input
 											placeholder='Confirmer mot de passe'
 											type="password"
-											id="confirm_pwd"
+											id="confirm_password"
 											onChange={(e) =>
-												setMatchPwd(e.target.value)
+												setMatchPassword(e.target.value)
 											}
-											value={matchPwd}
+											value={matchPassword}
 											required
 											aria-invalid={validMatch ? 'false' : 'true'}
 											aria-describedby="confirmnote"
@@ -246,7 +224,6 @@ function Register({ setOpenModal }) {
 												: 'offscreen'
 										}
 									>
-										{/* <FontAwesomeIcon icon={faInfoCircle} /> */}
 										<FaInfo />
                                 Doit correspondre au premier mot de passe
 									</p>
@@ -254,9 +231,9 @@ function Register({ setOpenModal }) {
 									<button
 										type="submit"
 										disabled={
-											!!(!validEmail || !validPwd || !validMatch)
+											!!(!validEmail || !validPassword || !validMatch)
 										}
-										// disabled={!validEmail || !validPwd || !validMatch ? true : false}
+										// disabled={!validEmail || !validPassword || !validMatch ? true : false}
 									>
                                 S&apos;inscrire
 									</button>

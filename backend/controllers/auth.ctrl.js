@@ -6,34 +6,33 @@ const createToken = (id) => {
 	return jwt.sign({id}, process.env.RANDOMSTRING, {expiresIn: 1500000})
 }
 
-const createDisplayName = (info)  => {
-	const name = info.split('@')[0];
-	if (name.includes('.')){
-		const firstPart = name.split('.')[0];
-		const secondPart = name.split('.')[1];
-		const firstName = firstPart.charAt(0).toUpperCase() + firstPart.slice(1);
-		const lastName = secondPart.charAt(0).toUpperCase() + secondPart.slice(1);
-		return `${firstName} ${lastName}`
-	}
-	return initialName.charAt(0).toUpperCase() + initialName.slice(1);
-}
-
 exports.signUp = async (req, res, next) => {
-	const {email, password} = req.body;
+	const createDisplayName = (info)  => {
+		const name = info.split('@')[0];
+		if (name.includes('.')){
+			const firstPart = name.split('.')[0];
+			const secondPart = name.split('.')[1];
+			const firstName = firstPart.charAt(0).toUpperCase() + firstPart.slice(1);
+			const lastName = secondPart.charAt(0).toUpperCase() + secondPart.slice(1);
+			return `${firstName} ${lastName}`
+		}
+		return name.charAt(0).toUpperCase() + name.slice(1);
+	}
+
 	try{
-		if(!email){
+		if(!req.body.email){
 			const error = new Error(`Aucun email renseigné`);
 			return res.status(403).json({message: error.message});
 		}
-		if(!password){
+		if(!req.body.password){
 			const error = new Error(`Aucun mot de passe renseigné`);
 			return res.status(403).json({message: error.message});
 		}
-		const hashedPwd = await bcrypt.hash(password, 10);
-		const displayName = createDisplayName(email);
+		const hashedPassword = await bcrypt.hash(req.body.password, 10);
+		const displayName = createDisplayName(req.body.email);
 		const user = new userModel({
-			email: email,
-			password: hashedPwd,
+			email: req.body.email,
+			password: hashedPassword,
 			displayName: displayName
 		});
 		user.save()

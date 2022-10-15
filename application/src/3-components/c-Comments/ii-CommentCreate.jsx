@@ -10,16 +10,18 @@ const CommentCreate = (props) => {
 		message: '',
 	});
 	const [commentPending, setCommentPending] = useState(false);
+	const [commentCreated, setCommentCreated] = useState('');
 
 	useEffect(() => {
 		setPostId(props.postId);
-	}, []);
+		props.setPostChanged(commentPending);
+	}, [commentCreated]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 	
 		try{
-			await axios({
+			let response = await axios({
 				method: 'put',
 				url: `${process.env.REACT_APP_API}comment/create/${postId}`,
 				data : { 
@@ -29,6 +31,7 @@ const CommentCreate = (props) => {
 				},
 				withCredentials : true,
 			});
+			setCommentCreated(response.data);
 			setCommentContent({
 				author: '',
 				message: '',
