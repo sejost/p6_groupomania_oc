@@ -4,7 +4,7 @@ const postModel = require('../models/Post.model');
 //Create a Comment
 exports.createComment = (req, res) => {
 	if (!ObjectId.isValid(req.params.id))
-		return res.status(400).send("ID unknown : " + req.params.id);
+		return res.status(400).send("ID inconnu");
 	try {
 		return postModel.findByIdAndUpdate(
 		req.params.id,
@@ -20,15 +20,15 @@ exports.createComment = (req, res) => {
 		{ new: true })
 			.then((data) => res.send(data))
 			.catch((error) => res.status(500).send({ message: error }));
-	} catch (error) {
-		return res.status(400).send(error);
+		} catch (error) {
+			return res.status(400).json({message : error});
 	}
 };
 
 //Update a Comment
 module.exports.modifyComment = (req, res) => {
 	if (!ObjectId.isValid(req.params.id))
-		return res.status(400).send("ID unknown : " + req.params.id);
+		return res.status(400).send("ID inconnu");
 
 	try {
 		postModel.findById(req.params.id, (error, post) => {
@@ -43,15 +43,15 @@ module.exports.modifyComment = (req, res) => {
 				return res.status(500).send(error);
 			})
 		})
-	} catch (err) {
-		return res.status(400).send(err);
+	} catch (error) {
+		return res.status(400).json({message : error});
 	}
 };
 
 //Delete a Comment
 exports.deleteComment = (req, res) => {
 	if (!ObjectId.isValid(req.params.id))
-		return res.status(400).send("ID unknown : " + req.params.id);
+		return res.status(400).send("ID inconnu");
 
 	try {
 		postModel.findByIdAndUpdate(
@@ -66,7 +66,7 @@ exports.deleteComment = (req, res) => {
 		{ new: true })
 				.then((data) => res.send(data))
 				.catch((error) => res.status(500).send({ message: error }));
-		} catch (err) {
-			return res.status(400).send(err);
+		} catch (error) {
+			return res.status(400).json({message : error});
 		}
 };
