@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 
 import useAuth from '../../1-hooks/useAuth';
-
-
 
 
 const PostUpdate = (props) => {

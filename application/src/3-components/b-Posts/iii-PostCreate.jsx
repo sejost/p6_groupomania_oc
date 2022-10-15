@@ -27,7 +27,7 @@ const PostCreate = (props) => {
 				data,
 				withCredentials : true,
 			});
-			setUpPicture('');
+			setUpPicture('none');
 			setPostContent({
 				title: '',
 				author: '',
@@ -47,6 +47,7 @@ const PostCreate = (props) => {
 				type="text"
 				id="titleContent"
 				autoComplete="off"
+				value={postContent.title}
 				onChange={(e) => setPostContent({...postContent, title: e.target.value})}
 				required
 				aria-describedby="titre à remplir"
@@ -56,6 +57,7 @@ const PostCreate = (props) => {
 				type="text"
 				id="messageContent"
 				autoComplete="off"
+				value={postContent.message}
 				onChange={(e) => setPostContent({...postContent, message: e.target.value})}
 				aria-describedby="titre à remplir"
 			/>
@@ -64,6 +66,7 @@ const PostCreate = (props) => {
 				id="file-upload"
 				name="file"
 				accept=".jpg, .jpeg, .png"
+				
 				onChange={(e) => setUpPicture(e.target.files[0])}
 			/>
 			<button type='submit'>Envoyer</button> 

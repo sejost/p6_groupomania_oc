@@ -9,9 +9,9 @@ const commentCtrl = require('../controllers/comment.ctrl');
 
 //Comment Routes
 router.put('/create/:id', requireAuth, commentCtrl.createComment);
-//router.put('/update/:id', requireAuth, commentCtrl.modifyComment);
+router.put('/update/:id', requireAuth, commentCtrl.modifyComment);
+router.delete('/delete/:id', requireAuth, commentCtrl.deleteComment);
 //router.post('/like/:id', requireAuth, commentCtrl.like);
-//router.delete('/delete/:id', requireAuth, commentCtrl.deleteComment);
 
 
 module.exports = router;

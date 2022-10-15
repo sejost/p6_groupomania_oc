@@ -59,6 +59,7 @@ const PostMain = () => {
 									<CommentRead setPostChanged={setPostChanged}
 										postsList={postsList}
 										postId={post._id}
+										commentId={comment._id}
 
 										commenterId={comment.commenterId}
 										commenterName={comment.commenterName}
@@ -66,13 +67,14 @@ const PostMain = () => {
 										commentText={comment.commentText}
 									/>
 								</div>
-							); 
+							);
 						})
 						}
 
 					</div>
+
 				);
-			})};
+			})}
 		</div>
 	);
 };

@@ -28,6 +28,10 @@ const CommentCreate = (props) => {
 				},
 				withCredentials : true,
 			});
+			setCommentContent({
+				author: '',
+				message: '',
+			});
 		}
 		catch(error){
 			console.log(error);
@@ -42,8 +46,9 @@ const CommentCreate = (props) => {
 				type="text"
 				id="messageContentComment"
 				autoComplete="off"
+				value={commentContent.message}
 				onChange={(e) => setCommentContent({...commentContent, message: e.target.value})}
-				aria-describedby="titre à remplir"
+				aria-describedby="texte à remplir"
 			/>
 			<button type='submit'>Envoyer</button> 
 		</form>

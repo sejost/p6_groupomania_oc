@@ -24,3 +24,49 @@ exports.createComment = (req, res) => {
 		return res.status(400).send(error);
 	}
 };
+
+module.exports.modifyComment = (req, res) => {
+	if (!ObjectId.isValid(req.params.id))
+		return res.status(400).send("ID unknown : " + req.params.id);
+
+	try {
+		postModel.findById(req.params.id, (error, post) => {
+			const theComment = post.comments.find((comment) =>
+			comment._id.toString() === req.body.commentId);
+
+			if (!theComment) return res.status(404).send("Comment not found");
+			theComment.commentText = req.body.commentText;
+
+			return post.save((error) => {
+				if (!error) return res.status(200).send(post);
+				return res.status(500).send(error);
+			})
+		})
+	} catch (err) {
+		return res.status(400).send(err);
+	}
+};
+
+//Splice pour suppresion dans le tablea
+//Find Index
+exports.deleteComment = (req, res) => {
+	if (!ObjectId.isValid(req.params.id))
+		return res.status(400).send("ID unknown : " + req.params.id);
+
+	try {
+		return postModel.findByIdAndUpdate(
+		req.params.id,
+		{
+			$pull: {
+			comments: {
+				_id: req.body.commentId,
+			},
+			},
+		},
+		{ new: true })
+				.then((data) => res.send(data))
+				.catch((err) => res.status(500).send({ message: err }));
+		} catch (err) {
+			return res.status(400).send(err);
+		}
+};
