@@ -10,6 +10,7 @@
 
 # production
 /build
+/Images Bank
 
 # sensitive data
 .env

@@ -10,6 +10,7 @@ const PostCreate = (props) => {
 		author: '',
 		message: '',
 	});
+	const [creationPending, setCreationPending] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -39,38 +40,55 @@ const PostCreate = (props) => {
 			console.log(error);
 		}
 	};
+	
 
-	return (
-		<form onSubmit={handleSubmit}>
-			<input className='input--title post__title' 
-				placeholder='Titre du post'
-				type="text"
-				id="titleContent"
-				autoComplete="off"
-				value={postContent.title}
-				onChange={(e) => setPostContent({...postContent, title: e.target.value})}
-				required
-				aria-describedby="titre à remplir"
-			/>
-			<input className='input--message'
-				placeholder=''
-				type="text"
-				id="messageContent"
-				autoComplete="off"
-				value={postContent.message}
-				onChange={(e) => setPostContent({...postContent, message: e.target.value})}
-				aria-describedby="titre à remplir"
-			/>
-			<input
-				type="file"
-				id="file-upload"
-				name="file"
-				accept=".jpg, .jpeg, .png"
+	if(creationPending == true){
+		return (
+			<>
+				<form onSubmit={handleSubmit}>
+					<input className='input--title post__title' 
+						placeholder='Titre du post'
+						type="text"
+						id="titleContent"
+						autoComplete="off"
+						value={postContent.title}
+						onChange={(e) => setPostContent({...postContent, title: e.target.value})}
+						required
+						aria-describedby="titre à remplir"
+					/>
+					<input className='input--message'
+						placeholder=''
+						type="text"
+						id="messageContent"
+						autoComplete="off"
+						value={postContent.message}
+						onChange={(e) => setPostContent({...postContent, message: e.target.value})}
+						aria-describedby="titre à remplir"
+					/>
+					<input
+						type="file"
+						id="file-upload"
+						name="file"
+						accept=".jpg, .jpeg, .png"
 				
-				onChange={(e) => setUpPicture(e.target.files[0])}
-			/>
-			<button type='submit'>Envoyer</button> 
-		</form>
+						onChange={(e) => setUpPicture(e.target.files[0])}
+					/>
+					<button type='submit'>Envoyer</button> 
+				</form>
+				<button onClick={()=>{
+					setCreationPending(false);
+					setUpPicture('none');
+					setPostContent({
+						title: '',
+						author: '',
+						message: '',
+					});
+				}}>Annuler</button>
+			</>
+		);
+	}
+	return(
+		<button onClick={() => {setCreationPending(true);}}>Créer une nouvelle publication</button>
 	);
 };
 
