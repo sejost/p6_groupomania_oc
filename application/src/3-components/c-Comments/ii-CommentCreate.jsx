@@ -9,6 +9,7 @@ const CommentCreate = (props) => {
 		author: '',
 		message: '',
 	});
+	const [commentPending, setCommentPending] = useState(false);
 
 	useEffect(() => {
 		setPostId(props.postId);
@@ -38,21 +39,39 @@ const CommentCreate = (props) => {
 		}
 	};
 
-	return (
-		<form onSubmit={handleSubmit}>
-			<span>Commenter cette publication : </span>
-			<input className='input--message'
-				placeholder=''
-				type="text"
-				id="messageContentComment"
-				autoComplete="off"
-				value={commentContent.message}
-				onChange={(e) => setCommentContent({...commentContent, message: e.target.value})}
-				aria-describedby="texte à remplir"
-			/>
-			<button type='submit'>Envoyer</button> 
-		</form>
-	);
+	{
+		if (commentPending==true){
+			return (
+				<>
+					<form onSubmit={handleSubmit}>
+						<input className='input--message'
+							placeholder=''
+							type="text"
+							id="messageContentComment"
+							autoComplete="off"
+							value={commentContent.message}
+							onChange={(e) => setCommentContent({...commentContent, message: e.target.value})}
+							aria-describedby="texte à remplir"
+						/>
+						<button type='submit'>Envoyer</button> 
+					</form>
+					<button onClick={() => {
+						setCommentPending(false);
+						setCommentContent({
+							author: '',
+							message: '',
+						});}}>
+							Annuler</button>
+				</>
+			);
+		}
+	
+		else{
+			return(
+				<button onClick={() => {setCommentPending(true);}}>Commenter la publication</button>
+			);
+		}
+	}
 };
 
 export default CommentCreate;
