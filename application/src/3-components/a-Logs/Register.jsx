@@ -74,7 +74,6 @@ function Register({ setOpenModal }) {
 				},
 				withCredentials : true,
 			});
-			console.log('Succès');
 
 			setSuccess(true);
 			setEmail('');
@@ -82,7 +81,6 @@ function Register({ setOpenModal }) {
 			setMatchPassword('');
 		} catch (error) {
 			const errorReceived = error.response.data.error;
-			console.log('Erreur ?');
 			setPassword('');
 			setMatchPassword('');
 			setErrorMsg(errorReceived);
