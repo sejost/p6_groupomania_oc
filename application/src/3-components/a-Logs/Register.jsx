@@ -1,18 +1,21 @@
 import React, { useRef, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import {FaCheckSquare, FaTimes, FaInfo } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 const axios = require('axios');
 
-const EMAIL_REGEX =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const PASSWORD_REGEX =
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{9,64}$/;
+/* -- Regex -- */
+const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const PASSWORD_REGEX = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{9,64}$/;
 
+/* -- Main Function Register with SetOpenModal Props from Login -- */
 function Register({ setOpenModal }) {
-	const emailRef = useRef();
-	const errRef = useRef();
 
+	/* -- useRef Déclaratations -- */
+	const emailRef = useRef();
+	const errorRef = useRef();
+	
+	/* -- UseState Déclaratations -- */
 	const [email, setEmail] = useState('');
 	const [validEmail, setValidEmail] = useState(false);
 
@@ -24,39 +27,40 @@ function Register({ setOpenModal }) {
 	const [validMatch, setValidMatch] = useState(false);
 	const [matchFocus, setMatchFocus] = useState(false);
 
-	const [errMsg, setErrMsg] = useState('');
+	const [errorMsg, setErrorMsg] = useState('');
 	const [success, setSuccess] = useState(false);
 
-	// // Proptypes definition
+	/* -- Proptypes -- */
 	Register.propTypes = {
 		setOpenModal: PropTypes.func.isRequired,
 	};
 
-	// UseEffects declaration
+	/* -- UseEffects declarations -- */
+	//Define the automatic focus on the email
 	useEffect(() => {
 		emailRef.current.focus();
-	}, []);
+	}, [errorMsg]);
 
+	//Test the email regex each email change
 	useEffect(() => {
 		setValidEmail(EMAIL_REGEX.test(email));
+		setErrorMsg('');
 	}, [email]);
 
+	//Test the password regex each password change
 	useEffect(() => {
 		setValidPassword(PASSWORD_REGEX.test(password));
 		setValidMatch(password === matchPassword);
 	}, [password, matchPassword]);
 
-	useEffect(() => {
-		setErrMsg('');
-	}, [email, password, matchPassword]);
-
+	/* -- Submit Form -- */
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// if button enabled with JS hack
+		//Blocks non-compliant requests if button force validated
 		const valid1 = EMAIL_REGEX.test(email);
 		const valid2 = PASSWORD_REGEX.test(password);
 		if (!valid1 || !valid2) {
-			setErrMsg('Déclaration non conforme');
+			setErrorMsg('Déclaration non conforme');
 			return;
 		}
 
@@ -70,23 +74,19 @@ function Register({ setOpenModal }) {
 				},
 				withCredentials : true,
 			});
+			console.log('Succès');
 
 			setSuccess(true);
 			setEmail('');
 			setPassword('');
 			setMatchPassword('');
-		} catch (err) {
+		} catch (error) {
+			const errorReceived = error.response.data.error;
+			console.log('Erreur ?');
 			setPassword('');
 			setMatchPassword('');
-			setErrMsg(err);
-			if (!err?.response) {
-				setErrMsg('Pas de réponse du serveur');
-			} else if (err.response?.status === 409) {
-				setErrMsg('Email déjà utilisé');
-			} else {
-				setErrMsg('Echec lors de la vérification');
-			}
-			errRef.current.focus();
+			setErrorMsg(errorReceived);
+			errorRef.current.focus();
 		}
 	};
 
@@ -109,26 +109,18 @@ function Register({ setOpenModal }) {
 							</section>
 						) : (
 							<section>
-								<h2>S&apos;inscrire à Groupomania</h2>
+								<h2>Formulaire d&apos;insicrption à Groupomania</h2>
 								<p
-									ref={errRef}
-									className={errMsg ? 'errmsg' : 'offscreen'}
+									ref={errorRef}
+									className={errorMsg ? 'errormsg' : 'offscreen'}
 									aria-live="assertive"
 								>
-									{errMsg}
+									{errorMsg}
 								</p>
 								<form onSubmit={handleSubmit}>
 									<label htmlFor="emailcontent">
-										<FaCheckSquare
-											className={validEmail ? 'valid' : 'hide'}
-										/>
-										<FaTimes
-											className={
-												validEmail || !email
-													? 'hide'
-													: 'invalid'
-											}
-										/>
+										<FaCheckSquare className={validEmail ? 'valid' : 'hide'} />
+										<FaTimes className={validEmail || !email ? 'hide' : 'invalid'} />
 										<br />
 										<input
 											placeholder='Adresse email'

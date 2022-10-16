@@ -21,12 +21,15 @@ exports.signUp = async (req, res, next) => {
 
 	try{
 		if(!req.body.email){
-			const error = new Error(`Aucun email renseigné`);
-			return res.status(403).json({message: error.message});
+			return res.status(403).json({error: `Aucun email renseigné`});
 		}
+		const emailExists = await userModel.findOne({ email: req.body.email });
+		if (emailExists) {
+			return res.status(409).json({ error: 'Email déjà utilisé' });
+		}
+
 		if(!req.body.password){
-			const error = new Error(`Aucun mot de passe renseigné`);
-			return res.status(403).json({message: error.message});
+			return res.status(403).json({error: `Aucun mot de passe renseigné`});
 		}
 		const hashedPassword = await bcrypt.hash(req.body.password, 10);
 		const displayName = createDisplayName(req.body.email);
@@ -36,10 +39,10 @@ exports.signUp = async (req, res, next) => {
 			displayName: displayName
 		});
 		user.save()
-		res.status(201).json({message : `Compte créé : ${displayName}`})
+		res.status(201).json({message : `Compte ${displayName} créé`})
 	}
 	catch(error){
-		res.status(500).json({message : error.message});
+		res.status(500).json({error : error});
 	}
 }
 
