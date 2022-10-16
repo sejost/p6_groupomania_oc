@@ -15,7 +15,6 @@ const PostUpdate = (props) => {
 		data.append('userId', auth.userId);
 		data.append('postTitle', props.postContent.title);
 		data.append('postText', props.postContent.message);
-		console.log(data);
 		try{
 			let response = await axios({
 				method: 'put',
@@ -24,6 +23,7 @@ const PostUpdate = (props) => {
 				withCredentials : true,
 			});
 			props.setChangePending(false);
+			console.log(response);
 		}
 		catch(error){
 			console.log(error);

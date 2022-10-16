@@ -38,8 +38,12 @@ module.exports.modifyComment = (req, res) => {
 			if (!theComment) return res.status(404).send("Comment not found");
 			theComment.commentText = req.body.commentText;
 			
-			if((process.env.ADMINID || theComment.commenterId) != req.body.commenterId)
-                return res.status(401).json({ message: 'Non authorisé ' });
+			// Control the authorization of the user
+			const userId = req.body.commenterId;
+			const adminId = process.env.ADMINID;
+			const commenterId = theComment.commenterId;
+			console.log(userId, adminId, commenterId)
+			if ((userId != adminId) && (userId != commenterId)) return res.status(401).json({error : 'Non authorisé'})
 
 			return post.save((error) => {
 				if (!error) return res.status(200).send(post);
@@ -64,8 +68,12 @@ exports.deleteComment = (req, res) => {
 			if (!theComment) return res.status(404).send("Comment not found");
 			theComment.commentText = req.body.commentText;
 
-			if((process.env.ADMINID || theComment.commenterId) != req.body.commenterId)
-                return res.status(401).json({ message: 'Non authorisé ' });
+			// Control the authorization of the user
+			const userId = req.body.commenterId;
+			const adminId = process.env.ADMINID;
+			const commenterId = theComment.commenterId;
+			console.log(userId, adminId, commenterId)
+			if ((userId != adminId) && (userId != commenterId)) return res.status(401).json({error : 'Non authorisé'})
 		});
 		postModel.findByIdAndUpdate(
 		req.params.id,

@@ -48,19 +48,19 @@ exports.signUp = async (req, res, next) => {
 
 exports.signIn = async (req, res, next) => {
 	try {
-		const user = await userModel.findOne({email: req.body.email});	
-		if(!user){
-			const error = new Error(`Utilisateur inconnu`);
-			return res.status(401).json({message: error.message});
-		}
+		//Check user
+		const user = await userModel.findOne({ email: req.body.email });	
+		if(!user) return res.status(401).json({ error: `Utilisateur inconnu` });
+
+		//Check password
 		const validPwd = await bcrypt.compare(req.body.password, user.password);
-		if (!validPwd){
-			const error = new Error('Mot de passe incorrect');
-			return res.status(401).json({message: error.message});
-		}
+		if (!validPwd) return res.status(401).json({ error: 'Mot de passe incorrect' });
+	
+		//Set cookie with token for 25 minutes
 		const displayName = user.displayName;
 		const token = createToken(user._id);
 		res.cookie('token', token, { httpOnly: true, sameSite : 'strict', secure : true, maxAge : 1500000});
+		
 		return res.status(200).json({
 			token, 
 			userId : user._id, 
@@ -69,13 +69,13 @@ exports.signIn = async (req, res, next) => {
 	}
 	catch(error){
 		console.error(error);
-		res.status(500).json({message : error.message})
+		res.status(500).json({error : error.message})
 	}
 };
 
 exports.signOut = (req, res, next) => {
 	try{
-		res.cookie('token', '', { maxAge : 1})
+		res.cookie('token', token, { maxAge : 1})
 		res.redirect('/')
 	}
 	catch(error){

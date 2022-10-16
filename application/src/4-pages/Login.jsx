@@ -1,70 +1,61 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useNavigate, useLocation, json } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../1-hooks/useAuth';
 import Register from '../3-components/a-Logs/Register';
 import logo from '../6-styles/5-images/icon-left-font.svg';
-import Cookies from 'js-cookie';
+
+const axios = require('axios');
 /* -- -- -- -- */
 
 /* -- Login Function -- */
 function Login() {
 	/* -- UseState, UseRef & UseEffect Declaration-- */
-	const { auth, setAuth } = useAuth();
+	const { setAuth } = useAuth();
 
 	const navigate = useNavigate();
 	const location = useLocation();
 	const from = location.state?.from?.pathname || '/';
 
 	const emailRef = useRef();
-	const errRef = useRef();
-
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [errMsg, setErrMsg] = useState('');
-	// const [success, setSuccess] = useState(false);
+	const errorRef = useRef();
 
 	const [signUpModal, setSignUpModal] = useState(false);
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [errorMsg, setErrorMsg] = useState('');
+	// const [success, setSuccess] = useState(false);
 
 	useEffect(() => {
 		emailRef.current.focus();
-	}, []);
+	}, [errorMsg]);
 	/* -- -- -- --*/
 
 	/* -- Function on Handle Submit Form -- */
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		const settings = {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Access-Control-Allow-Headers': true,
-				'Content-Type': 'application/json',
-				'Access-Control-Allow-Origin': 'http://localho.st:3000/',
-			},
-			//withCredentials: true,
-			credentials: 'include',
-			body: JSON.stringify({ email, password }),
-		};
-		const response = await fetch(`${process.env.REACT_APP_API}auth/login`, settings);
-		const jsonData = await response.json();
 		
 		try {
-			const token = jsonData.token;
-			const userId = jsonData.userId;
-			const displayName = jsonData.displayName;
-			if (!token || !userId){
-				setErrMsg('Authentification incorrect');
-			}
-			else {
-				setAuth({token, userId, displayName});
-			}
+			let response = await axios({
+				method: 'post',
+				url: `${process.env.REACT_APP_API}auth/login`,
+				data : {
+					email : email,
+					password : password
+				},
+				withCredentials: true,
+			});
+			const token = response.data.token;
+			const userId = response.data.userId;
+			const displayName = response.data.displayName;
+			setAuth({token, userId, displayName});
 			navigate(from, { replace: true });
 			setEmail('');
 			setPassword('');
-		} catch (err) {
-			setErrMsg(jsonData?.error);
-			errRef.current.focus();
+			console.log('test');
+		} 
+		catch (error) {
+			setErrorMsg(error.response.data.error);
+			errorRef.current.focus();
 		}
 	};
 	/* -- -- -- -- -- */
@@ -79,11 +70,11 @@ function Login() {
 
 			<section className='login__section'>
 				<p
-					ref={errRef}
-					className={errMsg ? 'errmsg' : 'offscreen'}
+					ref={errorRef}
+					className={errorMsg ? 'errormsg' : 'offscreen'}
 					aria-live="assertive"
 				>
-					{errMsg}
+					{errorMsg}
 				</p>
 				<form onSubmit={handleSubmit}>
 					<label htmlFor="emailcontent">

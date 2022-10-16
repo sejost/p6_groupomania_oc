@@ -66,35 +66,34 @@ exports.like = async (req, res, next) => {
 exports.modifyPost = (req, res, next) => {
     postModel.findOne({ _id: req.params.id })
         .then((post) => {
-            // Control the authorization of the user
-			if ((process.env.ADMINID || post.authorId) != req.body.userId) {
-                res.status(401).json({ message: 'Non authorisé ' });
-            } else {
-				let postObject = {}
-				if(req.file?.filename == undefined){
-					console.log('Aucune nouvelle image reçue', req.body.image)
-					postObject = {
-						postText : req.body.postText,
-						postTitle : req.body.postTitle,
-					}
+			const userId = req.body.userId;
+			const adminId = process.env.ADMINID;
+			const authorId = post.authorId;
+
+			// Control the authorization of the user
+			if ((userId != adminId) && (userId != authorId)) return res.status(401).json({error : 'Non authorisé'})
+			let postObject = {}
+			if(req.file?.filename == undefined){
+				postObject = {
+					postText : req.body.postText,
+					postTitle : req.body.postTitle,
 				}
-				else{
-					const imageFile = post.postImage.split('/images/')[1];
-					fs.unlink(`images/${imageFile}`, () => {
-						console.log('ok')
-					})
-					console.log('Nouvelle image reçue')
-					postObject = {
-						postImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-						postText : req.body.postText,
-						postTitle : req.body.postTitle,
-					}
+			}
+			else{
+				const imageFile = post.postImage.split('/images/')[1];
+				fs.unlink(`images/${imageFile}`, () => {
+				})
+				postObject = {
+					postImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+					postText : req.body.postText,
+					postTitle : req.body.postTitle,
 				}
-                postModel.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-                    .then(() => res.status(200).json({ message: 'Objet modifié!' }))
-                    .catch(error => res.status(401).json({ error }));
+			}
+            postModel.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
+                .then(() => res.status(200).json({ message: 'Objet modifié!' }))
+                .catch(error => res.status(401).json({ error }));
             }
-        })
+		)
         .catch((error) => {
             res.status(500).json({ error });
         });
@@ -105,19 +104,21 @@ exports.modifyPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     postModel.findOne({ _id: req.params.id })
 		.then((post) => {
+			const userId = req.body.userId;
+			const adminId = process.env.ADMINID;
+			const authorId = post.authorId;
+
             // Control the authorization of the user
-            if ((process.env.ADMINID || post.authorId) != req.body.userId) {
-                res.status(401).json({ message: 'Non authorisé' });
-            } else {
-                const imageFile = post.postImage.split('/images/')[1];
-                //Delete the old image from the folder before delete the post
-                fs.unlink(`images/${imageFile}`, () => {
-                    postModel.deleteOne({ _id: req.params.id })
-						.then(() => res.status(200).json({ message: 'Objet Supprimé!' }))
-                        .catch(error => res.status(401).json({ error }));
-                });
-            }
-        })
+            if ((userId != adminId) && (userId != authorId)) return res.status(401).json({error : 'Non authorisé'})
+
+            //Delete the old image from the folder before delete the post
+			const imageFile = post.postImage.split('/images/')[1];
+            fs.unlink(`images/${imageFile}`, () => {
+                postModel.deleteOne({ _id: req.params.id })
+					.then(() => res.status(200).json({ message: 'Objet Supprimé!' }))
+                    .catch(error => res.status(401).json({ error }));
+            });
+		})
         .catch((error) => {
             res.status(500).json({ error });
         });

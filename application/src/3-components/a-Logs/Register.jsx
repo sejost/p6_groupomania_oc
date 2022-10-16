@@ -64,8 +64,9 @@ function Register({ setOpenModal }) {
 			return;
 		}
 
+		/* -- Axios Request  -- */
 		try {
-			let response = await axios({
+			await axios({
 				method: 'post',
 				url: `${process.env.REACT_APP_API}auth/register`,
 				data : {
@@ -79,6 +80,7 @@ function Register({ setOpenModal }) {
 			setEmail('');
 			setPassword('');
 			setMatchPassword('');
+
 		} catch (error) {
 			const errorReceived = error.response.data.error;
 			setPassword('');
@@ -88,6 +90,7 @@ function Register({ setOpenModal }) {
 		}
 	};
 
+	/* -- Rendering part -- */
 	return (
 		<div className="modalBackground">
 			<div className="modalContainer">
