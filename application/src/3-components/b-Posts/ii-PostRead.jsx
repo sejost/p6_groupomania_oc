@@ -1,3 +1,4 @@
+/* -- Post Read React --*/
 import React, { useState, useEffect }  from 'react';
 import PropTypes from 'prop-types';
 import PostUpdate from './iv-PostUpdate';
@@ -7,6 +8,7 @@ import { formatDate } from './x-PostFunctions';
 import useAuth from '../../1-hooks/useAuth';
 
 
+/* -- Post Read Function --*/
 const PostRead = (props) => {
 	const { auth } = useAuth();
 	const [postId, setPostId] = useState('');
@@ -20,7 +22,10 @@ const PostRead = (props) => {
 		message: '',
 	});
 
-
+	/* -- On useEffect --*/
+	/* -- Get the postId from parent  --*/
+	/* -- get the content from parent  --*/
+	/* -- Refresh on change picture or when change is pending  --*/
 	useEffect(() => {
 		setPostId(props.postId);
 		setPostContent({
@@ -108,7 +113,6 @@ const PostRead = (props) => {
 export default PostRead;
 				
 PostRead.propTypes = {
-	postsList: PropTypes.array,
 	postId: PropTypes.string,
 	postTitle: PropTypes.string,
 	authorName: PropTypes.string,
@@ -116,6 +120,6 @@ PostRead.propTypes = {
 	postDate: PropTypes.string,
 	postImage: PropTypes.string,
 	postText: PropTypes.string,
-	likes: PropTypes.number,
+	setPostChanged: PropTypes.bool,
 };
 

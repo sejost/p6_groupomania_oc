@@ -3,8 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../1-hooks/useAuth';
 import Register from '../3-components/a-Logs/Register';
 import logo from '../6-styles/5-images/icon-left-font.svg';
-
-const axios = require('axios');
+import axios from 'axios';
 /* -- -- -- -- */
 
 /* -- Login Function -- */

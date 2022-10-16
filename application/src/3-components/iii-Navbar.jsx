@@ -1,3 +1,4 @@
+/* -- Navbar React --*/
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from '../6-styles/5-images/globe-logo.jpg';
@@ -6,7 +7,6 @@ import Logout from './a-Logs/Logout';
 
 function Navbar() {
 	const { auth } = useAuth();
-	// const userData = useSelector((state) => state.userReducer);
 
 	return (
 		<nav>
@@ -32,8 +32,8 @@ function Navbar() {
 					<ul>
 						<li />
 						<li>
-							<NavLink to="/profil">
-								<h5>Il faut se logger</h5>
+							<NavLink to="/login">
+								<h5>Se connecter</h5>
 							</NavLink>
 						</li>
 					</ul>

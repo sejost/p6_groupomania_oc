@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import {FaCheckSquare, FaTimes, FaInfo } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 
-const axios = require('axios');
+import axios from 'axios';
 
 /* -- Regex -- */
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

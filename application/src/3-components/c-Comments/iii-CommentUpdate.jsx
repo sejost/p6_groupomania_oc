@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import PropTypes from 'prop-types';
 import useAuth from '../../1-hooks/useAuth';
 
 
@@ -13,7 +13,7 @@ const CommentUpdate = (props) => {
 		try{
 			console.log(props.commentId);
 
-			let response = await axios({
+			await axios({
 				method: 'put',
 				url: `${process.env.REACT_APP_API}comment/update/${props.postId}`,
 				data : { 
@@ -37,3 +37,10 @@ const CommentUpdate = (props) => {
 };
 
 export default CommentUpdate;
+
+CommentUpdate.propTypes = {
+	postId: PropTypes.string.isRequired,
+	commentId: PropTypes.string.isRequired,
+	setChangePending: PropTypes.bool.isRequired,
+	commentContent: PropTypes.string.isRequired,
+};

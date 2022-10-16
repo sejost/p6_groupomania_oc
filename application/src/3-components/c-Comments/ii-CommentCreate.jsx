@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useAuth from '../../1-hooks/useAuth';
-const axios = require('axios');
+import axios from 'axios';
+import PropTypes from 'prop-types';
 
 const CommentCreate = (props) => {
 	const { auth } = useAuth();
@@ -78,3 +79,8 @@ const CommentCreate = (props) => {
 };
 
 export default CommentCreate;
+
+CommentCreate.propTypes = {
+	postId: PropTypes.string.isRequired,
+	setPostChanged: PropTypes.bool.isRequired,
+};

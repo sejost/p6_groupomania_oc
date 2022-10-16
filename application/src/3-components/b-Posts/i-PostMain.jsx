@@ -1,3 +1,4 @@
+/* -- Main Post React --*/
 import React, { useState, useEffect }  from 'react';
 import PostCreate from './iii-PostCreate';
 import PostRead from './ii-PostRead';
@@ -5,13 +6,13 @@ import PostLike from './vi-PostLike';
 import CommentRead from '../c-Comments/i-CommentRead';
 import CommentCreate from '../c-Comments/ii-CommentCreate';
 
-
 const axios = require('axios');
 
 const PostMain = () => {
 	const [postsList, setPostsList] = useState([]);
 	const [postChanged, setPostChanged] = useState([]);	
 
+	/* -- Refresh Page on useEffect --*/
 	useEffect( () =>  {
 		const getPosts = async () => {
 			const response = await axios({
@@ -24,12 +25,15 @@ const PostMain = () => {
 		getPosts();	
 	},[postChanged]);
 
+	/* -- Rendering --*/
 	return(
 		<div>
-			<PostCreate setPostChanged={setPostChanged} />
-			{postsList.map((post, index) => {
+			<div className="postCreate__wrapper">
+				<PostCreate setPostChanged={setPostChanged} />
+			</div>
+			{postsList.map((post) => {
 				return (
-					<div className='post__wrapper' key={`${post.id}-${index}`}>
+					<div className='post__wrapper' key={`${post.id}`}>
 						<PostRead setPostChanged={setPostChanged}
 						// Left part : idname from the children, 
 						// Right part :  postsList.map(post, index)
@@ -53,9 +57,9 @@ const PostMain = () => {
 							postId={post._id}
 						/>
 						
-						{post.comments.map((comment, index) => {
+						{post.comments.map((comment) => {
 							return (
-								<div className='comment__wrapper' key={`${comment.id}-${index}`}>
+								<div className='comment__wrapper' key={`${comment.id}`}>
 									<CommentRead setPostChanged={setPostChanged}
 										postsList={postsList}
 										postId={post._id}

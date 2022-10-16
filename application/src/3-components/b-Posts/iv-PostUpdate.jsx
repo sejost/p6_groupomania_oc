@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import PropTypes from 'prop-types';
 import useAuth from '../../1-hooks/useAuth';
 
 
@@ -37,3 +37,10 @@ const PostUpdate = (props) => {
 };
 
 export default PostUpdate;
+
+PostUpdate.propTypes = {
+	postId: PropTypes.string,
+	updatePicture: PropTypes.string,
+	postContent: PropTypes, string,
+	setChangePending: PropTypes, bool,
+};

@@ -1,6 +1,5 @@
 import React, { useState, useEffect }  from 'react';
 import PropTypes from 'prop-types';
-
 import CommentUpdate from './iii-CommentUpdate';
 import CommentDelete from './iv-CommentDelete';
 import { formatDate } from '../b-Posts/x-PostFunctions';
@@ -16,7 +15,9 @@ const CommentRead = (props) => {
 		message: '',
 	});
 
-	
+	/* -- On useEffect --*/
+	/* -- Get props from parent  --*/
+	/* -- Refresh on page loading and change pending  --*/
 	useEffect(() => {
 		setPostId(props.postId);
 		setCommentId(props.commentId);
@@ -75,3 +76,13 @@ const CommentRead = (props) => {
 };
 
 export default CommentRead;
+
+CommentRead.propTypes = {
+	postId: PropTypes.string.isRequired,
+	commentId: PropTypes.string.isRequired,
+	commenterName: PropTypes.string.isRequired,
+	commenterId: PropTypes.string.isRequired,
+	commentText: PropTypes.string.isRequired,
+	commentDate: PropTypes.string.isRequired,
+	setPostChanged: PropTypes.bool.isRequired,
+};

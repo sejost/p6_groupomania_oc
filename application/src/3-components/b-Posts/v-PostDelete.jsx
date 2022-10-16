@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import PropTypes from 'prop-types';
 import useAuth from '../../1-hooks/useAuth';
 
 
@@ -13,7 +13,7 @@ const PostDelete = (props) => {
 		try{
 			if (ask) {
 				console.log('Suppression confirmé');
-				let response = await axios({
+				await axios({
 					method: 'delete',
 					url: `${process.env.REACT_APP_API}post/delete/${props.postId}`,
 					data : { userId : auth.userId},
@@ -39,3 +39,8 @@ const PostDelete = (props) => {
 };
 
 export default PostDelete;
+
+PostDelete.propTypes = {
+	postId: PropTypes.string,
+	setChangePending: PropTypes, bool,
+};

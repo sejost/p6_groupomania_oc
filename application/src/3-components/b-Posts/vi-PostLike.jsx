@@ -10,6 +10,9 @@ const PostLike = (props) => {
 	const { auth } = useAuth();
 	const [postId, setPostId] = useState('');
 
+	/* -- On useEffect --*/
+	/* -- Get the postId from parent  --*/
+	/* -- Refresh on page loading  --*/
 	useEffect(() => {
 		setPostId(props.postId);
 	}, []);
@@ -50,6 +53,7 @@ PostLike.propTypes = {
 	postsList: PropTypes.array,
 	postId: PropTypes.string,
 	likes: PropTypes.number,
+	setPostChanged: PropTypes.bool,
 };
 
 export default PostLike;

@@ -19,6 +19,8 @@ function RequireAuth() {
 
 export default RequireAuth;
 
+/* -- Alternative Persistent Login - Work in Progress --*/
+
 // useEffect(() => {
 // const fetchDisplayName = async ()=> {
 // 	const settings = {

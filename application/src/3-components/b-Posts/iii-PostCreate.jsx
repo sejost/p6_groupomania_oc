@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import useAuth from '../../1-hooks/useAuth';
-const axios = require('axios');
+import axios from 'axios';
+import PropTypes from 'prop-types';
 
 const PostCreate = (props) => {
 	const { auth } = useAuth();
@@ -93,3 +94,7 @@ const PostCreate = (props) => {
 };
 
 export default PostCreate;
+
+PostCreate.propTypes = {
+	setPostChanged: PropTypes.bool.isRequired,
+};
