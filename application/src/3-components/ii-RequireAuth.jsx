@@ -36,7 +36,6 @@ export default RequireAuth;
 // 	};
 // 	const response = await fetch(`${process.env.REACT_APP_API}user/${auth.userId}`, settings);
 // 	//const jsonData = await response.json();
-// 	console.log('ma data : ', response);
 // };
 // fetchDisplayName();
 // }, []);

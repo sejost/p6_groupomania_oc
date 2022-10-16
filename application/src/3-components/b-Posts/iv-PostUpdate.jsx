@@ -23,10 +23,9 @@ const PostUpdate = (props) => {
 				withCredentials : true,
 			});
 			props.setChangePending(false);
-			console.log(response);
 		}
 		catch(error){
-			console.log(error);
+			alert(error);
 		}
 	};
 

@@ -12,7 +12,7 @@ const PostDelete = (props) => {
 		let ask = confirm('Confirmer la suppresion ?');
 		try{
 			if (ask) {
-				console.log('Suppression confirmé');
+				alert('Suppresion confirmé');
 				await axios({
 					method: 'delete',
 					url: `${process.env.REACT_APP_API}post/delete/${props.postId}`,
@@ -22,13 +22,13 @@ const PostDelete = (props) => {
 				props.setChangePending(false);
 			}
 			else {
-				console.log('Suppression annulé');
+				alert('Suppression annulé');
 				props.setChangePending(false);
 			}
 
 		}
 		catch(error){
-			console.log(error);
+			alert(error);
 		}
 	};
 

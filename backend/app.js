@@ -1,6 +1,4 @@
 /* --- Main app file --- */
-
-//Call the modules
 const express = require('express');
 const app = express();
 const cors = require('./middlewares/cors.mdw')
@@ -36,7 +34,6 @@ app.use(cookieParser());
 
 app.get('*', checkAuth);
 app.get('/jwtid', requireAuth, (req, res) => {
-	console.log(res.locals)
 	res.status(200).send(res.locals.user._id)
 });
 

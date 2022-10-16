@@ -9,10 +9,7 @@ const CommentUpdate = (props) => {
 
 	const handleSetUpdate = async (e) => {
 		e.preventDefault();
-		console.log('coucou');
 		try{
-			console.log(props.commentId);
-
 			await axios({
 				method: 'put',
 				url: `${process.env.REACT_APP_API}comment/update/${props.postId}`,
@@ -26,7 +23,7 @@ const CommentUpdate = (props) => {
 			props.setChangePending(false);
 		}
 		catch(error){
-			console.log(error);
+			alert(error);
 		}
 	};
 

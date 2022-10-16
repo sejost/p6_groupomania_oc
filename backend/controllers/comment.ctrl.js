@@ -4,7 +4,7 @@ const postModel = require('../models/Post.model');
 //Create a Comment
 exports.createComment = (req, res) => {
 	if (!ObjectId.isValid(req.params.id))
-		return res.status(400).send("ID unknown : " + req.params.id);
+		return res.status(400).send('ID inconnu');
 	try {
 		return postModel.findByIdAndUpdate(
 		req.params.id,
@@ -26,9 +26,9 @@ exports.createComment = (req, res) => {
 };
 
 //Update a Comment
-module.exports.modifyComment = (req, res) => {
+exports.modifyComment = (req, res) => {
 	if (!ObjectId.isValid(req.params.id))
-		return res.status(400).send("ID unknown : " + req.params.id);
+		return res.status(400).send('ID inconnu');
 
 	try {
 		postModel.findById(req.params.id, (error, post) => {
@@ -42,7 +42,6 @@ module.exports.modifyComment = (req, res) => {
 			const userId = req.body.commenterId;
 			const adminId = process.env.ADMINID;
 			const commenterId = theComment.commenterId;
-			console.log(userId, adminId, commenterId)
 			if ((userId != adminId) && (userId != commenterId)) return res.status(401).json({error : 'Non authorisé'})
 
 			return post.save((error) => {
@@ -58,7 +57,7 @@ module.exports.modifyComment = (req, res) => {
 //Delete a Comment
 exports.deleteComment = (req, res) => {
 	if (!ObjectId.isValid(req.params.id))
-		return res.status(400).send("ID unknown : " + req.params.id);
+		return res.status(400).send('ID inconnu');
 
 	try {
 		postModel.findById(req.params.id, (error, post) => {
@@ -72,7 +71,6 @@ exports.deleteComment = (req, res) => {
 			const userId = req.body.commenterId;
 			const adminId = process.env.ADMINID;
 			const commenterId = theComment.commenterId;
-			console.log(userId, adminId, commenterId)
 			if ((userId != adminId) && (userId != commenterId)) return res.status(401).json({error : 'Non authorisé'})
 		});
 		postModel.findByIdAndUpdate(

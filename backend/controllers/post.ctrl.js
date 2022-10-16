@@ -38,7 +38,7 @@ exports.createPost = async (req, res, next) => {
 exports.like = async (req, res, next) => {
 	let postId = (req.params.id).toString()
 	if (!ObjectId.isValid(postId)) {
-		res.status(400).send("ID inconnu");
+		res.status(400).json({error : "ID inconnu"});
 	}
 	await ObjectId(postId);
 	postModel.findById(postId)
@@ -58,7 +58,7 @@ exports.like = async (req, res, next) => {
 			res.status(201).json({ message: 'Action enregistré !', post })
 		})
 		.catch((error) => {
-			console.log('Action impossible', error)
+			res.status(500).json({error : 'Action impossible'})
 		})
 }
 

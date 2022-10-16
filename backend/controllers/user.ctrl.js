@@ -11,13 +11,13 @@ exports.getAllUsers = async (req, res) => {
 	}
 }
 
-module.exports.userInfo = (req, res) => {
+exports.userInfo = (req, res) => {
 	if(!userModel.findOne({ _id: req.params.id })) 
 		return res.status(400).json('ID utilisateur inconnu');
 
 	userModel.findById(req.params.id, (err, docs) => {
 		if (!err) res.send(docs);
-		else console.log("ID unknown : " + err);
+		else res.status(401).json('ID inconnu');
 	}).select("-password");
 };
 

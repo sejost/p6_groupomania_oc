@@ -39,7 +39,7 @@ const CommentCreate = (props) => {
 			});
 		}
 		catch(error){
-			console.log(error);
+			alert(error);
 		}
 	};
 

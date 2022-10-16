@@ -30,8 +30,6 @@ const Profil = () => {
 
 			const response = await fetch(`${process.env.REACT_APP_API}user/${auth.userId}`, settings);
 			const data = await response.json();
-			console.log(data);
-			console.log;
 		};
 		fetchDisplayName();
 	};

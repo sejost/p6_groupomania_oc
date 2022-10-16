@@ -9,7 +9,6 @@ const Logout = () => {
 	const handleLogout = async (e) => {
 		e.preventDefault();
 
-		console.log(process.env.REACT_APP_API);
 		try{
 			axios({
 				method: 'get',

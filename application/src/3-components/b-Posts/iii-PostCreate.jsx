@@ -16,7 +16,6 @@ const PostCreate = (props) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		let data = new FormData();
-		console.log(upPicture);
 		data.append('image', upPicture);
 		data.append('authorName', auth.displayName);
 		data.append('userId', auth.userId);
@@ -38,7 +37,7 @@ const PostCreate = (props) => {
 			props.setPostChanged(response.data);
 		}
 		catch(error){
-			console.log(error);
+			alert(error);
 		}
 	};
 	
