@@ -41,6 +41,6 @@ export default PostUpdate;
 PostUpdate.propTypes = {
 	postId: PropTypes.string,
 	updatePicture: PropTypes.string,
-	postContent: PropTypes, string,
-	setChangePending: PropTypes, bool,
+	postContent: PropTypes.string,
+	setChangePending: PropTypes.bool,
 };

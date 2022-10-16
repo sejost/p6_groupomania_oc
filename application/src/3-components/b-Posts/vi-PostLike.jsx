@@ -53,7 +53,7 @@ PostLike.propTypes = {
 	postsList: PropTypes.array,
 	postId: PropTypes.string,
 	likes: PropTypes.number,
-	setPostChanged: PropTypes.bool,
+	setPostChanged: PropTypes.func,
 };
 
 export default PostLike;

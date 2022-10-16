@@ -84,5 +84,5 @@ CommentRead.propTypes = {
 	commenterId: PropTypes.string.isRequired,
 	commentText: PropTypes.string.isRequired,
 	commentDate: PropTypes.string.isRequired,
-	setPostChanged: PropTypes.bool.isRequired,
+	setPostChanged: PropTypes.func.isRequired,
 };

@@ -120,6 +120,6 @@ PostRead.propTypes = {
 	postDate: PropTypes.string,
 	postImage: PropTypes.string,
 	postText: PropTypes.string,
-	setPostChanged: PropTypes.bool,
+	setPostChanged: PropTypes.func,
 };
 

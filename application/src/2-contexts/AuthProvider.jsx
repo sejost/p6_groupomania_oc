@@ -1,3 +1,5 @@
+/* ---- Auth Provider ---*/
+/* ---- Purpose : To provide the Auth Context through the pages wich need it ---*/
 import React, { createContext, useState } from 'react';
 
 const AuthContext = createContext({});

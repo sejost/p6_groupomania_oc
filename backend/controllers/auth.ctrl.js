@@ -75,7 +75,7 @@ exports.signIn = async (req, res, next) => {
 
 exports.signOut = (req, res, next) => {
 	try{
-		res.cookie('token', token, { maxAge : 1})
+		res.cookie('token', '', { maxAge: 1 });		
 		res.redirect('/')
 	}
 	catch(error){

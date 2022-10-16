@@ -50,7 +50,6 @@ function Login() {
 			navigate(from, { replace: true });
 			setEmail('');
 			setPassword('');
-			console.log('test');
 		} 
 		catch (error) {
 			setErrorMsg(error.response.data.error);

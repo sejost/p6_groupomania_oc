@@ -96,5 +96,5 @@ const PostCreate = (props) => {
 export default PostCreate;
 
 PostCreate.propTypes = {
-	setPostChanged: PropTypes.bool.isRequired,
+	setPostChanged: PropTypes.func.isRequired,
 };

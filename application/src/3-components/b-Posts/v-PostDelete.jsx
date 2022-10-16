@@ -42,5 +42,5 @@ export default PostDelete;
 
 PostDelete.propTypes = {
 	postId: PropTypes.string,
-	setChangePending: PropTypes, bool,
+	setChangePending: PropTypes.bool,
 };

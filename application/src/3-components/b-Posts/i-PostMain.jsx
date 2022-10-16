@@ -31,9 +31,9 @@ const PostMain = () => {
 			<div className="postCreate__wrapper">
 				<PostCreate setPostChanged={setPostChanged} />
 			</div>
-			{postsList.map((post) => {
+			{postsList.map((post, index) => {
 				return (
-					<div className='post__wrapper' key={`${post.id}`}>
+					<div className='post__wrapper' key={`${post.id}-${index}`}>
 						<PostRead setPostChanged={setPostChanged}
 						// Left part : idname from the children, 
 						// Right part :  postsList.map(post, index)
@@ -59,7 +59,7 @@ const PostMain = () => {
 						
 						{post.comments.map((comment) => {
 							return (
-								<div className='comment__wrapper' key={`${comment.id}`}>
+								<div className='comment__wrapper' key={`${post.id}-${index}`}>
 									<CommentRead setPostChanged={setPostChanged}
 										postsList={postsList}
 										postId={post._id}

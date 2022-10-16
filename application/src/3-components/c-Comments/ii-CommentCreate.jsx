@@ -82,5 +82,5 @@ export default CommentCreate;
 
 CommentCreate.propTypes = {
 	postId: PropTypes.string.isRequired,
-	setPostChanged: PropTypes.bool.isRequired,
+	setPostChanged: PropTypes.func.isRequired,
 };
