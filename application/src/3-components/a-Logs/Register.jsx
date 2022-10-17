@@ -3,15 +3,15 @@
 import React, { useRef, useState, useEffect } from 'react';
 import {FaCheckSquare, FaTimes, FaInfo } from 'react-icons/fa';
 import PropTypes from 'prop-types';
-
+import logo from '../../6-styles/5-images/icon-left-font.png';
 import axios from 'axios';
 
 /* -- Regex -- */
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{9,64}$/;
 
-/* -- Main Function Register with SetOpenModal Props from Login -- */
-function Register({ setOpenModal }) {
+/* -- Main Function Register with setSignUpModal Props from Login -- */
+function Register(props) {
 
 	/* -- useRef Déclaratations to memorize position -- */
 	const emailRef = useRef();
@@ -91,35 +91,36 @@ function Register({ setOpenModal }) {
 
 	/* -- Rendering part -- */
 	return (
-		<div className="modalBackground">
-			<div className="modalContainer">
+		<div className="register">
+			<img src={logo} alt='' className='login__logo' />
+			<section className="register__section">
 				{
 					success 
 						? (
-							<section>
+							<>
 								{/* Modal part if the signup is complete and successful */}
 								<h1>Compte créé avec succès !</h1>
 								<p>
 									<a
-										onClick={() => setOpenModal(false)}
-										href="/login"
+										onClick={() => props.setSignUpModal(false)}
 									>
                                 Connectez vous
 									</a>
 								</p>
-							</section>
+							</>
 						) : (
-							<section>
+							<>
 								{/* Modal part with the register form */}
-								<h2>Formulaire d&apos;insicrption à Groupomania</h2>
-								<p
-									ref={errorRef}
-									className={errorMsg ? 'errormsg' : 'offscreen'}
-									aria-live="assertive"
-								>
-									{errorMsg}
-								</p>
+								
 								<form onSubmit={handleSubmit}>
+									<h1>Formulaire d&apos;inscription</h1>
+									<p
+										ref={errorRef}
+										className={errorMsg ? 'errormsg' : 'offscreen'}
+										aria-live="assertive"
+									>
+										{errorMsg}
+									</p>
 									<label htmlFor="emailcontent">
 										<FaCheckSquare className={validEmail ? 'valid' : 'hide'} />
 										<FaTimes className={validEmail || !email ? 'hide' : 'invalid'} />
@@ -231,15 +232,14 @@ function Register({ setOpenModal }) {
 									>
                                 S&apos;inscrire
 									</button>
-									<a
-										onClick={() => setOpenModal(false)}
-										href="/login"
+									<a className='link'
+										onClick={() => props.setSignUpModal(false)}
 									>Revenir à la page de connexion</a>
 								</form>
 								
-							</section>
+							</>
 						)}
-			</div>
+			</section>
 		</div>
 	);
 }
@@ -248,5 +248,5 @@ export default Register;
 
 /* -- Proptypes -- */
 Register.propTypes = {
-	setOpenModal: PropTypes.func.isRequired,
+	setSignUpModal: PropTypes.func.isRequired,
 };

@@ -11,6 +11,33 @@
 	transition: all 0.2s, box-shadow 0.08s ease-in;
 }
 
+h1 {
+	font-size: map-get($font-size, 'medlarge');
+	font-weight: map-get($font-weight, 'bold');
+	@include respond(desktop) {
+		font-size: map-get($font-size, 'large');
+	}
+}
+
+h2 {
+	font-size: map-get($font-size, 'medium');
+	font-weight: map-get($font-weight, 'xbold');
+	@include respond(desktop) {
+		font-size: map-get($font-size, 'medlarge');
+	}
+}
+
+h3 {
+	font-size: map-get($font-size, 'smedium');
+	font-weight: map-get($font-weight, 'bold');
+	@include respond(desktop) {
+		font-size: map-get($font-size, 'medium');
+	}
+	@include respond(large-desktop) {
+		font-size: map-get($font-size, 'medium');
+	}
+}
+
 a,
 p,
 span,
@@ -18,10 +45,22 @@ input,
 button {
 	font-size: map-get($font-size, 'small');
 	font-weight: map-get($font-weight, 'medium');
-	@include respond(tablet) {
+	@include respond(desktop) {
+		font-size: map-get($font-size, 'smedium');
+	}
+	@include respond(large-desktop) {
 		font-size: map-get($font-size, 'medium');
 	}
-	@include respond(desktop) {
-		font-size: map-get($font-size, 'medlarge');
-	}
+}
+
+.link {
+	text-decoration: underline;
+}
+
+.link:hover,
+.link:focus,
+.link:active {
+	cursor: pointer;
+	color: $clr-primary;
+	font-weight: map-get($font-weight, 'bold');
 }

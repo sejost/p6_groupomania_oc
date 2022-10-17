@@ -6,47 +6,12 @@
 form input {
 	@include sizeContent1;
 	@extend %border-radius1;
+	@include respond(desktop) {
+		width: 15rem;
+		height: 2.5rem;
+	}
 }
 
 form input:focus {
-	outline: 2px solid $clr-primary;
+	outline: 2px solid $clr-secondary;
 }
-
-// .form__locate {
-//   padding: 1rem;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// }
-
-// .form__instructions {
-//   height: 18rem;
-//   padding: 2rem 3rem;
-//   text-align: center;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-around;
-//   align-items: center;
-
-//   @include respond(tablet) {
-//     height: 15rem;
-//   }
-// }
-
-// fieldset:nth-child(1) {
-//   @extend %bg__darkgrey--fo1;
-// }
-
-// fieldset:nth-child(2) {
-//   @extend %bg__darkgrey--fo2;
-// }
-
-// input {
-//   border: none;
-//   background: transparent;
-//   text-align: center;
-
-//   &:focus {
-//     outline: none;
-//   }
-// }

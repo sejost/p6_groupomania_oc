@@ -24,20 +24,19 @@ function Navbar() {
 				{auth.userId ? (
 					<ul>
 						<li className="welcome">
-							<NavLink to="/profil">
-								<span>Bienvenue {auth.displayName}</span>
+							<NavLink to="/profil" className='link'>
+								Profil de {auth.displayName}
 							</NavLink>
 						</li>
 						<li className="logout">
 							<Logout />
 						</li>
-						
 					</ul>
 				) : (
 					<ul>
 						<li>
-							<NavLink to="/login">
-								<span>Se connecter</span>
+							<NavLink to="/login" className='link'>
+								Se connecter
 							</NavLink>
 						</li>
 					</ul>

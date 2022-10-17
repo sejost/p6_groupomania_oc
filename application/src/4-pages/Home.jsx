@@ -1,12 +1,15 @@
 import React from 'react';
 import PostMain from '../3-components/b-Posts/i-PostMain';
+import useAuth from '../1-hooks/useAuth';
 
 function Home() {
+	const { auth } = useAuth();
+	
 	return (
 		<div className='home'>
 
 			<section className='home__headPart'>
-				<h1>Groupomania Bonjour</h1>
+				<h1>Bonjour {auth.displayName}</h1>
 			</section>
 
 			<section className='home__mainPart'>

@@ -28,7 +28,6 @@ function Login() {
 		emailRef.current.focus();
 	}, [errorMsg]);
 	/* -- -- -- --*/
-
 	/* -- Function on Handle Submit Form -- */
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -59,7 +58,7 @@ function Login() {
 	/* -- -- -- -- -- */
 
 	if (signUpModal) {
-		return <Register setOpenModal={setSignUpModal} />;
+		return <Register setSignUpModal={setSignUpModal} />;
 	}
 
 	return (
@@ -75,6 +74,7 @@ function Login() {
 					{errorMsg}
 				</p>
 				<form onSubmit={handleSubmit}>
+					<h1>Formulaire de connexion</h1>
 					<label htmlFor="emailcontent">
 						<input
 							placeholder='Adresse email'
@@ -105,17 +105,14 @@ function Login() {
                         Se connecter
 					</button>
 				</form>
-				<div></div>
 				<p>
-					<button
-						type="button"
-						className="openModalBtn"
+					<span className='link'
 						onClick={() => {
 							setSignUpModal(true);
 						}}
 					>
-                        Créer un Compte ?
-					</button>
+						Vous n&apos;avez pas de compte ?
+					</span>
 				</p>
 			</section>
 		</div>

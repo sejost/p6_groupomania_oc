@@ -16,13 +16,19 @@ nav {
 		justify-content: space-evenly;
 		align-items: center;
 		text-align: center;
-
-		width: 70%;
-	}
-	li span:hover {
-		cursor: pointer;
-		color: $clr-primary;
-		font-weight: map-get($font-weight, 'bold');
+		width: 80%;
+		@include respond(large-phone) {
+			width: 50%;
+		}
+		@include respond(tablet) {
+			width: 35%;
+		}
+		@include respond(desktop) {
+			width: 30%;
+		}
+		@include respond(large-desktop) {
+			width: 20%;
+		}
 	}
 
 	.icon {
@@ -41,5 +47,17 @@ nav {
 				display: none;
 			}
 		}
+	}
+
+	.link {
+		@extend %border-radius1;
+		padding: 0.375rem;
+		text-decoration: none;
+		border: 1px solid;
+		color: $clr-tertiary;
+	}
+	.link:hover {
+		background: $clr-primary;
+		color: white;
 	}
 }

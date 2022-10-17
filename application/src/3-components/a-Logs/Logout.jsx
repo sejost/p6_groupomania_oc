@@ -31,7 +31,7 @@ const Logout = () => {
 	};
 
 	return (
-		<span onClick={handleLogout}>Se Déconnecter</span>
+		<a className='link' onClick={handleLogout}>Se Déconnecter</a>
 	);
 };
 

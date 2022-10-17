@@ -4,13 +4,12 @@
 @use '../2-base/' as *;
 
 button {
-	@include shadow-box;
 	@include sizeContent1;
 	@extend %border-radius1;
-	background: $clr-primary;
-	cursor: pointer;
-	color: white;
-	border: 0;
+	padding: 0.375rem;
+	text-decoration: none;
+	border: 1px solid $clr-tertiary;
+	color: $clr-tertiary;
 	box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset, rgba(50, 50, 93, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
 	line-height: 1.15;
 	margin: 12px 0 0;
@@ -18,18 +17,19 @@ button {
 	transform: translateZ(0);
 }
 
-button:hover {
+button:hover,
+button:focus {
 	@include shadow-box-over;
-	background: $clr-tertiary;
+	background: $clr-primary;
+	color: white;
+	border: 1px solid $clr-primary;
+	cursor: pointer;
 }
 
 button:disabled {
 	box-shadow: none;
-	background: darken($clr-primary, 20%);
-	color: darken(white, 20%);
+	border: none;
+	background: $clr-tertiary;
+	color: darken(white, 10%);
 	cursor: default;
-}
-
-button:focus {
-	box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset, rgba(50, 50, 93, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0, rgba(50, 151, 211, 0.3) 0 0 0 4px;
 }
