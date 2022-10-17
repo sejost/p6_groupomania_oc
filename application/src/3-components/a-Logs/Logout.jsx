@@ -1,3 +1,5 @@
+/* --- Logout Component React ---*/
+/* --- Purpose : Handle Logout Button, remove the token and redirect to the home page ---*/
 import React from 'react';
 import useAuth from '../../1-hooks/useAuth';
 import axios from 'axios';
@@ -9,6 +11,7 @@ const Logout = () => {
 	const handleLogout = async (e) => {
 		e.preventDefault();
 
+		//Send the get auth/logout, will inevitably failed because we cannot "get" this route
 		try{
 			axios({
 				method: 'get',
@@ -28,7 +31,7 @@ const Logout = () => {
 	};
 
 	return (
-		<button onClick={handleLogout}>Se déconnecter</button>
+		<span onClick={handleLogout}>Se Déconnecter</span>
 	);
 };
 

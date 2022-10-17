@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../1-hooks/useAuth';
 import Register from '../3-components/a-Logs/Register';
-import logo from '../6-styles/5-images/icon-left-font.svg';
+import logo from '../6-styles/5-images/icon-left-font.png';
 import axios from 'axios';
 /* -- -- -- -- */
 

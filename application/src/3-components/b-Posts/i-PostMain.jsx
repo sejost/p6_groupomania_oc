@@ -1,4 +1,5 @@
 /* -- Main Post React --*/
+/* --- Purpose : Compiling all Posts Component ---*/
 import React, { useState, useEffect }  from 'react';
 import PostCreate from './iii-PostCreate';
 import PostRead from './ii-PostRead';

@@ -9,3 +9,18 @@
 	box-sizing: border-box;
 	font-family: 'Lato', sans-serif;
 }
+
+a,
+p,
+span,
+input,
+button {
+	font-size: map-get($font-size, 'small');
+	font-weight: map-get($font-weight, 'medium');
+	@include respond(tablet) {
+		font-size: map-get($font-size, 'medium');
+	}
+	@include respond(desktop) {
+		font-size: map-get($font-size, 'medlarge');
+	}
+}

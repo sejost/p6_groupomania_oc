@@ -1,7 +1,8 @@
 /* -- Navbar React --*/
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import logo from '../6-styles/5-images/globe-logo.jpg';
+import logo from '../6-styles/5-images/logo.png';
+import logoComputer from '../6-styles/5-images/basic-logo.jpg';
 import useAuth from '../1-hooks/useAuth';
 import Logout from './a-Logs/Logout';
 
@@ -14,26 +15,29 @@ function Navbar() {
 				<div className="logo">
 					<NavLink to="/">
 						<div className="logo">
-							<img src={logo} alt="icon" />
+							<img src={logo} alt="icon" className='icon icon--short'/>
+							<img src={logoComputer} alt="icon" className='icon icon--long'/>
+
 						</div>
 					</NavLink>
 				</div>
 				{auth.userId ? (
 					<ul>
-						<li />
 						<li className="welcome">
 							<NavLink to="/profil">
-								<h5>Bienvenue {auth.displayName}</h5>
+								<span>Bienvenue {auth.displayName}</span>
 							</NavLink>
 						</li>
-						<Logout />
+						<li className="logout">
+							<Logout />
+						</li>
+						
 					</ul>
 				) : (
 					<ul>
-						<li />
 						<li>
 							<NavLink to="/login">
-								<h5>Se connecter</h5>
+								<span>Se connecter</span>
 							</NavLink>
 						</li>
 					</ul>

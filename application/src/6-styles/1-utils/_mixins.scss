@@ -28,73 +28,9 @@
 	height: 30rem;
 }
 
-// /* Definition of the text shadow */
-// @mixin shadow-text {
-//   text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
-// }
-
-// /* Definition of the text colour gradient (background) */
-// @mixin background-gradient {
-//   background: linear-gradient(
-//     175deg,
-//     $colour-reddishMagenta 10%,
-//     $colour-mediumPurple 50%
-//   );
-// }
-
-// /* Definition of the text colour gradient */
-// @mixin text-gradient {
-//   //background: $colour-mediumPurple;
-//   background: linear-gradient(
-//     175deg,
-//     $colour-reddishMagenta 10%,
-//     $colour-mediumPurple 100%
-//   );
-
-//   /* Following prefixers still needed even with autoprefixer */
-//   -webkit-background-clip: text;
-//   -webkit-text-fill-color: transparent;
-// }
-
-// /* Definition of the breakpoints with device name called */
-// @mixin respond($device) {
-//   $bp: map-get($breakpoints, $device);
-//   @media only screen and (min-width: $bp) {
-//     @content;
-//   }
-// }
-
-// @mixin transition {
-//   transition: ease-in-out 0.2s;
-// }
-
-// /* Definition of a mixins with a loop of all the transition's proporties in _animations.scss */
-// @mixin transition($properties...) {
-//   // "..." allow you to declare multiple properties at the same time
-//   $result: ();
-//   @for $i from 1 through length($properties) {
-//     $prop: nth($properties, $i);
-//     $result: append($result, $prop);
-//     $result: append($result, ease-in-out 0.2s);
-
-//     @if $i != length($properties) {
-//       $result: append(
-//         $result,
-//         unquote(
-//           $string: ",",
-//         )
-//       );
-//     }
-//   }
-//   transition: $result;
-// }
-
-// /* Definition of the cards' display delay.
-// This is a loop so that the cards appear one after the other.  */
-// @mixin animation-delay-loop($cardsnb, $delay) {
-//   @for $i from 1 through $cardsnb {
-//     &--#{$i} {
-//       animation-delay: $delay + (0.25s * $i);
-//     }
-//   }
-// }
+@mixin respond($device) {
+	$bp: map-get($breakpoints, $device);
+	@media only screen and (min-width: $bp) {
+		@content;
+	}
+}

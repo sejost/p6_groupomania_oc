@@ -1,3 +1,5 @@
+/* --- Register Component&Modal React ---*/
+/* --- Purpose : Allow the creation of a new user ---*/
 import React, { useRef, useState, useEffect } from 'react';
 import {FaCheckSquare, FaTimes, FaInfo } from 'react-icons/fa';
 import PropTypes from 'prop-types';
@@ -11,7 +13,7 @@ const PASSWORD_REGEX = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]
 /* -- Main Function Register with SetOpenModal Props from Login -- */
 function Register({ setOpenModal }) {
 
-	/* -- useRef Déclaratations -- */
+	/* -- useRef Déclaratations to memorize position -- */
 	const emailRef = useRef();
 	const errorRef = useRef();
 	
@@ -29,11 +31,6 @@ function Register({ setOpenModal }) {
 
 	const [errorMsg, setErrorMsg] = useState('');
 	const [success, setSuccess] = useState(false);
-
-	/* -- Proptypes -- */
-	Register.propTypes = {
-		setOpenModal: PropTypes.func.isRequired,
-	};
 
 	/* -- UseEffects declarations -- */
 	//Define the automatic focus on the email
@@ -76,11 +73,13 @@ function Register({ setOpenModal }) {
 				withCredentials : true,
 			});
 
+			/* -- If Axios Request  succced useState Success change to true -- */
 			setSuccess(true);
 			setEmail('');
 			setPassword('');
 			setMatchPassword('');
 
+			/* -- If NOK dsiplay an error collected from the backend -- */
 		} catch (error) {
 			const errorReceived = error.response.data.error;
 			setPassword('');
@@ -98,6 +97,7 @@ function Register({ setOpenModal }) {
 					success 
 						? (
 							<section>
+								{/* Modal part if the signup is complete and successful */}
 								<h1>Compte créé avec succès !</h1>
 								<p>
 									<a
@@ -110,6 +110,7 @@ function Register({ setOpenModal }) {
 							</section>
 						) : (
 							<section>
+								{/* Modal part with the register form */}
 								<h2>Formulaire d&apos;insicrption à Groupomania</h2>
 								<p
 									ref={errorRef}
@@ -230,7 +231,12 @@ function Register({ setOpenModal }) {
 									>
                                 S&apos;inscrire
 									</button>
+									<a
+										onClick={() => setOpenModal(false)}
+										href="/login"
+									>Revenir à la page de connexion</a>
 								</form>
+								
 							</section>
 						)}
 			</div>
@@ -239,3 +245,8 @@ function Register({ setOpenModal }) {
 }
 
 export default Register;
+
+/* -- Proptypes -- */
+Register.propTypes = {
+	setOpenModal: PropTypes.func.isRequired,
+};
