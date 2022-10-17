@@ -8,8 +8,14 @@ button {
 	@include sizeContent1;
 	@extend %border-radius1;
 	background: $clr-primary;
+	cursor: pointer;
 	color: white;
-	font-weight: 700;
+	border: 0;
+	box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset, rgba(50, 50, 93, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
+	line-height: 1.15;
+	margin: 12px 0 0;
+	padding: 0 25px;
+	transform: translateZ(0);
 }
 
 button:hover {
@@ -21,36 +27,9 @@ button:disabled {
 	box-shadow: none;
 	background: darken($clr-primary, 20%);
 	color: darken(white, 20%);
+	cursor: default;
 }
 
-// .container-buttons {
-//   width: 100%;
-//   display: flex;
-//   justify-content: center;
-// }
-
-// .button {
-//   @include shadow-box;
-//   @include background-gradient;
-//   @extend %border-radius3;
-//   cursor: pointer;
-//   color: white;
-//   padding: 1rem;
-//   background-size: 300%;
-//   background-position: center;
-//   font-size: map-get($font-size, small);
-
-//   //.button responsive part
-//   @include respond(tablet) {
-//     font-size: map-get($font-size, "smedium");
-//   }
-
-//   @include respond(desktop) {
-//     font-size: map-get($font-size, "medium");
-//   }
-// }
-
-// .button__menu {
-//   margin: 2rem 0;
-//   padding: 1rem 2rem;
-// }
+button:focus {
+	box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset, rgba(50, 50, 93, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0, rgba(50, 151, 211, 0.3) 0 0 0 4px;
+}

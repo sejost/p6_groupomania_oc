@@ -1,18 +1,18 @@
-// /* Placeholders 
+// /* Placeholders
 // This file defines all placeholders and extension class */
-@use "vars" as *;
+@use 'vars' as *;
 
 // /* PlaceHolders of the radius parts */
 %border-radius1 {
-    border-radius: 0.5rem;
+	border-radius: 0.375rem;
 }
 
 %border-radius2 {
-    border-radius: 0.75rem;
+	border-radius: 0.5rem;
 }
 
 %border-radius3 {
-    border-radius: 1rem;
+	border-radius: 0.75rem;
 }
 
 // /* PlaceHolders for the background colours part */
