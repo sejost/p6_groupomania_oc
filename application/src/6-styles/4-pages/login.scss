@@ -19,6 +19,13 @@ html {
 		align-items: center;
 		padding-top: 3rem;
 	}
+	input {
+		height: 2.2rem;
+		@include respond(desktop) {
+			height: 2.5rem;
+			width: 15rem;
+		}
+	}
 }
 
 .login__logo {
@@ -32,8 +39,9 @@ html {
 
 .login__section {
 	@include shadow-box;
-	@include sizeContent2;
 	@extend %border-radius1;
+	width: 20rem;
+	height: 25rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;

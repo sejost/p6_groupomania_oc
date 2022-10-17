@@ -11,6 +11,11 @@
 	transition: all 0.2s, box-shadow 0.08s ease-in;
 }
 
+h1,
+h2 {
+	padding-bottom: 0.75rem;
+}
+
 h1 {
 	font-size: map-get($font-size, 'medlarge');
 	font-weight: map-get($font-weight, 'bold');

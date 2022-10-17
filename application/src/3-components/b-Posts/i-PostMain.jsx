@@ -28,7 +28,7 @@ const PostMain = () => {
 
 	/* -- Rendering --*/
 	return(
-		<div>
+		<>
 			<div className="postCreate__wrapper">
 				<PostCreate setPostChanged={setPostChanged} />
 			</div>
@@ -80,7 +80,7 @@ const PostMain = () => {
 
 				);
 			})}
-		</div>
+		</>
 	);
 };
 

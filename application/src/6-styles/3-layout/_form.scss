@@ -3,15 +3,12 @@
 @use '../1-utils/' as *;
 @use '../2-base/' as *;
 
-form input {
-	@include sizeContent1;
+form input,
+form textarea {
 	@extend %border-radius1;
-	@include respond(desktop) {
-		width: 15rem;
-		height: 2.5rem;
-	}
 }
 
-form input:focus {
+form input:focus,
+form textarea:focus {
 	outline: 2px solid $clr-secondary;
 }

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import useAuth from '../../1-hooks/useAuth';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { BiCommentAdd } from 'react-icons/bi';
+
 
 const CommentCreate = (props) => {
 	const { auth } = useAuth();
@@ -72,7 +74,8 @@ const CommentCreate = (props) => {
 	
 		else{
 			return(
-				<button onClick={() => {setCommentPending(true);}}>Commenter la publication</button>
+				//<button onClick={() => {setCommentPending(true);}}>Commenter la publication</button>
+				<BiCommentAdd onClick={() => {setCommentPending(true);}} className='icon icon__tools icon__addComment'/>
 			);
 		}
 	}

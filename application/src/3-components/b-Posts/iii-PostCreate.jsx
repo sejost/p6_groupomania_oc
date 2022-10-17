@@ -44,8 +44,9 @@ const PostCreate = (props) => {
 
 	if(creationPending == true){
 		return (
-			<>
+			<> 
 				<form onSubmit={handleSubmit}>
+					<h2>Nouvelle publication : </h2>
 					<input className='input--title post__title' 
 						placeholder='Titre du post'
 						type="text"
@@ -56,7 +57,7 @@ const PostCreate = (props) => {
 						required
 						aria-describedby="titre à remplir"
 					/>
-					<input className='input--message'
+					<textarea className='input--message'
 						placeholder=''
 						type="text"
 						id="messageContent"
@@ -74,21 +75,22 @@ const PostCreate = (props) => {
 						onChange={(e) => setUpPicture(e.target.files[0])}
 					/>
 					<button type='submit'>Envoyer</button> 
+					<button onClick={()=>{
+						setCreationPending(false);
+						setUpPicture('none');
+						setPostContent({
+							title: '',
+							author: '',
+							message: '',
+						});
+					}}>Annuler</button>
 				</form>
-				<button onClick={()=>{
-					setCreationPending(false);
-					setUpPicture('none');
-					setPostContent({
-						title: '',
-						author: '',
-						message: '',
-					});
-				}}>Annuler</button>
+				
 			</>
 		);
 	}
 	return(
-		<button onClick={() => {setCreationPending(true);}}>Créer une nouvelle publication</button>
+		<button onClick={() => {setCreationPending(true);}}>Publier</button>
 	);
 };
 

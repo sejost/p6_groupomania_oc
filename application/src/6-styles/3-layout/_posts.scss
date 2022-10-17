@@ -1,12 +1,78 @@
 @use '../1-utils/' as *;
 @use '../2-base/' as *;
 
+.post__container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.postCreate__wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	button {
+		width: 12rem;
+	}
+	form {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+		align-items: center;
+		width: 90vw;
+		height: 20rem;
+		padding: 0.5rem;
+		@include respond(tablet) {
+			height: 25rem;
+			input {
+				width: 15rem;
+			}
+			#file-upload {
+				width: 25rem;
+			}
+			textarea {
+				width: 25rem;
+			}
+		}
+		@include respond(desktop) {
+			height: 30rem;
+			input {
+				height: 2.5rem;
+				width: 20rem;
+			}
+			textarea {
+				width: 30rem;
+			}
+		}
+		@include respond(large-desktop) {
+			height: 35rem;
+			input {
+				width: 15rem;
+			}
+			textarea {
+				width: 45rem;
+			}
+		}
+	}
+	input {
+		height: 2.2rem;
+	}
+	textarea {
+		height: 10rem;
+		width: 15rem;
+	}
+}
+
 .post__wrapper {
 	@include shadow-box;
-	@extend %border-radius2;
-	box-sizing: border-box;
+	@extend %border-radius1;
+	width: 90vw;
 	padding: 0.25rem 1rem;
 	margin-top: 2rem;
+	@include respond(tablet) {
+		width: 40rem;
+	}
 }
 
 .post__ownerId,
@@ -18,6 +84,9 @@
 }
 
 .post__mainPart {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	margin: 0.5rem 0;
 	padding: 0.5rem 0;
 	border-top: solid thin $clr-tertiary;
@@ -32,9 +101,7 @@
 
 .post__postImage__container {
 	padding: 0.5rem 0.12rem;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	width: 100%;
 }
 .post__footPart {
 	display: flex;

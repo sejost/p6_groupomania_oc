@@ -5,7 +5,9 @@ import PostUpdate from './iv-PostUpdate';
 import PostDelete from './v-PostDelete';
 
 import { formatDate } from './x-PostFunctions';
+import { MdEditNote, MdPlusOne } from 'react-icons/md';
 import useAuth from '../../1-hooks/useAuth';
+
 
 
 /* -- Post Read Function --*/
@@ -77,10 +79,12 @@ const PostRead = (props) => {
 					</>}
 				</div>
 				{changePending == false &&  ((auth.userId == props.authorId) || (auth.userId == process.env.REACT_APP_ID)) && 
-					<button 
-						onClick={() => setChangePending(true)}>
-						Modifier
-					</button>}
+					// <button 
+					// 	onClick={() => setChangePending(true)}>
+					// 	Modifier
+					// </button>
+					<MdEditNote onClick={() => setChangePending(true)} className='icon icon__tools icon__edit'/>
+				}
 				{changePending == true && 
 				<>
 					<button onClick={() => {

@@ -13,21 +13,6 @@
 	box-shadow: 5px 5px 8px 4px rgba(0, 0, 0, 0.35);
 }
 
-@mixin sizeContent1 {
-	width: 15rem;
-	height: 2.2rem;
-}
-
-@mixin sizeContent2 {
-	width: 20rem;
-	height: 25rem;
-}
-
-@mixin sizeContent3 {
-	width: 25rem;
-	height: 30rem;
-}
-
 @mixin respond($device) {
 	$bp: map-get($breakpoints, $device);
 	@media only screen and (min-width: $bp) {
