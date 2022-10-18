@@ -13,7 +13,7 @@ const PostMain = () => {
 	const [postsList, setPostsList] = useState([]);
 	const [postChanged, setPostChanged] = useState([]);	
 
-	/* -- Refresh Page on useEffect --*/
+	/* -- Refresh Page on useEffect and set the Posts list based on the axios response --*/
 	useEffect( () =>  {
 		const getPosts = async () => {
 			const response = await axios({
@@ -34,6 +34,7 @@ const PostMain = () => {
 			</div>
 			{postsList.map((post, index) => {
 				return (
+					// Rendering the post individually in the PostRead Component based on the postsList.map function
 					<div className='post__wrapper' key={`${post._id}-${index}`}>
 						<PostRead setPostChanged={setPostChanged}
 						// Left part : idname from the children, 
@@ -48,6 +49,7 @@ const PostMain = () => {
 							postImage={post.postImage}
 							likes={post.likes}
 						/>
+
 						<PostLike setPostChanged={setPostChanged}
 							postsList={postsList}
 							postId={post._id}
@@ -56,6 +58,8 @@ const PostMain = () => {
 						
 						{post.comments.map((comment) => {
 							return (
+							// Rendering the comment individually in the PostRead Component based on the postsList.map function
+
 								<div className='post__comment comment__wrapper' key={`${comment._id}-${index}`}>
 									<CommentRead setPostChanged={setPostChanged}
 										postsList={postsList}

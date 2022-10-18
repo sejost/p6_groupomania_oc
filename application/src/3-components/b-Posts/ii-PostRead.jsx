@@ -42,6 +42,7 @@ const PostRead = (props) => {
 
 	return(
 		<>
+			{/* Render the Post with a headpart (Post Auhor Name, date etc.) Can be Modifief if setChangePeding to true */}
 			<div className='post__headPart'>
 				{changePending == false && <h2 className='post__title'>{props.postTitle}</h2>}
 				{changePending == true && <input className='input--title post__title'
@@ -56,6 +57,7 @@ const PostRead = (props) => {
 				<span className='post__postDate'>le {formatDate(props.postDate, 'dd/mm/yy à hh:mn')}</span>
 			</div>
 
+			{/* Render the Main Post Part with (the message content) Can be Modifief if setChangePeding to true */}
 			<div className='post__mainPart'>
 				{changePending == false && <div className='post__postText'>{props.postText}</div>}
 				{changePending == true && <textarea className='textarea--message'
@@ -67,6 +69,7 @@ const PostRead = (props) => {
 					aria-describedby="titre à remplir"
 				/>}
 
+				{/* Render the Image Part Can be Modifief if setChangePeding to true */}
 				<div className='post__postImage__container'>
 					<img className='post__postImage__content' src={props.postImage} />
 					{changePending == true && 
@@ -82,6 +85,7 @@ const PostRead = (props) => {
 					</div>}
 				</div>
 				
+				{/* Render the updating icons -- the condition is checking if the  */}
 				<div className='post__icon__container icon__container'>
 					{changePending == false &&  ((auth.userId == props.authorId) || (auth.userId == process.env.REACT_APP_ID)) && 
 					<MdEditNote aria-labelledby='Accéder à la modification du post' onClick={() => setChangePending(true)} className='icon icon__tools icon__edit'/>
