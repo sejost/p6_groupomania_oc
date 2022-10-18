@@ -37,7 +37,7 @@ function Login() {
 				method: 'post',
 				url: `${process.env.REACT_APP_API}auth/login`,
 				data : {
-					email : email,
+					email :  email,
 					password : password
 				},
 				withCredentials: true,
@@ -82,7 +82,7 @@ function Login() {
 							id="emailcontent"
 							ref={emailRef}
 							autoComplete="off"
-							onChange={(e) => setEmail(e.target.value)}
+							onChange={(e) => setEmail((e.target.value).toLowerCase())}
 							value={email}
 							required
 							aria-describedby="emaildnote"

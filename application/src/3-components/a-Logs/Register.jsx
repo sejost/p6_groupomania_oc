@@ -131,7 +131,7 @@ function Register(props) {
 											id="emailcontent"
 											ref={emailRef}
 											autoComplete="off"
-											onChange={(e) => setEmail(e.target.value)}
+											onChange={(e) => setEmail((e.target.value).toLowerCase())}
 											value={email}
 											required
 											aria-invalid={validEmail ? 'false' : 'true'}
