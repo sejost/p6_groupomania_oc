@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import useAuth from '../../1-hooks/useAuth';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { BiCommentAdd } from 'react-icons/bi';
+import { BiCommentAdd, BiSend } from 'react-icons/bi';
+import { MdCancel, MdDeleteForever } from 'react-icons/md';
+
 
 
 const CommentCreate = (props) => {
@@ -59,15 +61,23 @@ const CommentCreate = (props) => {
 							onChange={(e) => setCommentContent({...commentContent, message: e.target.value})}
 							aria-describedby="texte à remplir"
 						/>
-						<button type='submit'>Envoyer</button> 
+						{/* <button type='submit'>Envoyer</button>  */}
+						<BiSend onClick={handleSubmit} type='submit' className='icon icon__tools icon__send'/>
+						{/* <button onClick={() => {
+							setCommentPending(false);
+							setCommentContent({
+								author: '',
+								message: '',
+							});}}>
+							Annuler</button> */}
+						<MdCancel onClick={() => {
+							setCommentPending(false);
+							setCommentContent({
+								author: '',
+								message: '',
+							});}} className='icon icon__tools icon__cancel'/>
 					</form>
-					<button onClick={() => {
-						setCommentPending(false);
-						setCommentContent({
-							author: '',
-							message: '',
-						});}}>
-							Annuler</button>
+					
 				</>
 			);
 		}

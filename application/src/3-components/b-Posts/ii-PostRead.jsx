@@ -5,8 +5,10 @@ import PostUpdate from './iv-PostUpdate';
 import PostDelete from './v-PostDelete';
 
 import { formatDate } from './x-PostFunctions';
-import { MdEditNote, MdPlusOne } from 'react-icons/md';
 import useAuth from '../../1-hooks/useAuth';
+
+import { BiCommentAdd, BiSend } from 'react-icons/bi';
+import { MdEditNote, MdCancel, MdDeleteForever } from 'react-icons/md';
 
 
 
@@ -68,7 +70,7 @@ const PostRead = (props) => {
 					<img className='post__postImage__content' id={`${postId}_postImage`}src={props.postImage} />
 					{changePending == true && 
 					<>
-						<span>Modifier l&apos;image</span>
+						<span>Modifier l&apos;image :</span>
 						<input
 							type="file"
 							id="file-upload"
@@ -87,7 +89,7 @@ const PostRead = (props) => {
 				}
 				{changePending == true && 
 				<>
-					<button onClick={() => {
+					{/* <button onClick={() => {
 						setPostContent({
 							title: '',
 							message: '',
@@ -95,7 +97,17 @@ const PostRead = (props) => {
 						setUpdatePicture(actualPicture);
 						setChangePending(false);}}>
 					Annuler
-					</button>
+					</button> */}
+					<MdCancel 
+						onClick={() => {
+							setPostContent({
+								title: '',
+								message: '',
+							});
+							setUpdatePicture(actualPicture);
+							setChangePending(false);}}
+						className='icon icon__tools icon__cancel'
+					/>
 					<PostUpdate 
 						postId={postId}
 						postContent={postContent}

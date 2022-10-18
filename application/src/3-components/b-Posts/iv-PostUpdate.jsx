@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import useAuth from '../../1-hooks/useAuth';
+import { BiCommentAdd, BiSend } from 'react-icons/bi';
+import { MdEditNote, MdCancel, MdDeleteForever } from 'react-icons/md';
 
 
 const PostUpdate = (props) => {
@@ -16,7 +18,7 @@ const PostUpdate = (props) => {
 		data.append('postTitle', props.postContent.title);
 		data.append('postText', props.postContent.message);
 		try{
-			let response = await axios({
+			await axios({
 				method: 'put',
 				url: `${process.env.REACT_APP_API}post/update/${props.postId}`,
 				data,
@@ -30,7 +32,8 @@ const PostUpdate = (props) => {
 	};
 
 	return(
-		<button onClick={handleSetUpdate}>Valider modification</button>
+		// <button onClick={handleSetUpdate}>Valider modification</button>
+		<BiSend onClick={handleSetUpdate} className='icon icon__tools icon__send'/>
 	);
 
 };
@@ -39,7 +42,7 @@ export default PostUpdate;
 
 PostUpdate.propTypes = {
 	postId: PropTypes.string,
-	updatePicture: PropTypes.string,
-	postContent: PropTypes.string,
-	setChangePending: PropTypes.bool,
+	updatePicture: PropTypes.object,
+	postContent: PropTypes.object,
+	setChangePending: PropTypes.func,
 };

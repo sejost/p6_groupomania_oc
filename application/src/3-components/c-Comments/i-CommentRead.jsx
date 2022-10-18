@@ -4,6 +4,8 @@ import CommentUpdate from './iii-CommentUpdate';
 import CommentDelete from './iv-CommentDelete';
 import { formatDate } from '../b-Posts/x-PostFunctions';
 import useAuth from '../../1-hooks/useAuth';
+import { BiCommentAdd, BiSend } from 'react-icons/bi';
+import { MdEditNote, MdCancel, MdDeleteForever } from 'react-icons/md';
 
 const CommentRead = (props) => {
 	const { auth } = useAuth();
@@ -46,19 +48,27 @@ const CommentRead = (props) => {
 					aria-describedby="texte à remplir" />}
 			</div>
 			{changePending == false &&  ((auth.userId == props.commenterId) || (auth.userId == process.env.REACT_APP_ID)) && 
-					<button 
-						onClick={() => setChangePending(true)}>
-						Modifier
-					</button>}
+					// <button 
+					// 	onClick={() => setChangePending(true)}>
+					// 	Modifier
+					// </button>
+					<MdEditNote onClick={() => setChangePending(true)} className='icon icon__tools icon__edit'/>
+			}
 			{changePending == true && 
 				<>
-					<button onClick={() => {
+					{/* <button onClick={() => {
 						setCommentContent({
 							message: '',
 						});
 						setChangePending(false);}}>
 					Annuler
-					</button>
+					</button> */}
+					<MdCancel onClick={() => {
+						setCommentContent({message: '',});
+						setChangePending(false);
+					}} 
+					className='icon icon__tols icon__cancel'/>
+					
 					<CommentUpdate 
 						postId={postId}
 						commentId={commentId}
