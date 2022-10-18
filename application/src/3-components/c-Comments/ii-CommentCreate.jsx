@@ -3,7 +3,7 @@ import useAuth from '../../1-hooks/useAuth';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { BiCommentAdd, BiSend } from 'react-icons/bi';
-import { MdCancel } from 'react-icons/md';
+import { MdOutlineSettingsBackupRestore } from 'react-icons/md';
 
 
 
@@ -52,7 +52,7 @@ const CommentCreate = (props) => {
 			return (
 				<>
 					<form onSubmit={handleSubmit}>
-						<input className='input--message'
+						<textarea className='comment--message'
 							placeholder=''
 							type="text"
 							id="messageContentComment"
@@ -61,21 +61,16 @@ const CommentCreate = (props) => {
 							onChange={(e) => setCommentContent({...commentContent, message: e.target.value})}
 							aria-describedby="texte à remplir"
 						/>
-						{/* <button type='submit'>Envoyer</button>  */}
-						<BiSend onClick={handleSubmit} type='submit' className='icon icon__tools icon__send'/>
-						{/* <button onClick={() => {
-							setCommentPending(false);
-							setCommentContent({
-								author: '',
-								message: '',
-							});}}>
-							Annuler</button> */}
-						<MdCancel onClick={() => {
-							setCommentPending(false);
-							setCommentContent({
-								author: '',
-								message: '',
-							});}} className='icon icon__tools icon__cancel'/>
+						<div className='icon__tools__wrapper'>
+							<MdOutlineSettingsBackupRestore onClick={() => {
+								setCommentPending(false);
+								setCommentContent({
+									author: '',
+									message: '',
+								});}} className='icon icon__tools icon__cancel'/>
+							<BiSend onClick={handleSubmit} type='submit' className='icon icon__tools icon__send'/>
+						</div>
+
 					</form>
 					
 				</>
@@ -84,7 +79,6 @@ const CommentCreate = (props) => {
 	
 		else{
 			return(
-				//<button onClick={() => {setCommentPending(true);}}>Commenter la publication</button>
 				<BiCommentAdd onClick={() => {setCommentPending(true);}} className='icon icon__tools icon__addComment'/>
 			);
 		}

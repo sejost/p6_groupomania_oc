@@ -3,7 +3,7 @@ import useAuth from '../../1-hooks/useAuth';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { BiSend } from 'react-icons/bi';
-import { MdCancel } from 'react-icons/md';
+import { MdOutlineSettingsBackupRestore } from 'react-icons/md';
 
 const PostCreate = (props) => {
 	const { auth } = useAuth();
@@ -76,9 +76,8 @@ const PostCreate = (props) => {
 				
 						onChange={(e) => setUpPicture(e.target.files[0])}
 					/>
-					{/* <button type='submit'>Envoyer</button>  */}
 					<BiSend onClick={handleSubmit} type='submit' className='icon icon__tools icon__send'/>
-					{/* <button onClick={()=>{
+					<MdOutlineSettingsBackupRestore className='icon icon__tools icon__cancel' onClick={()=>{
 						setCreationPending(false);
 						setUpPicture('none');
 						setPostContent({
@@ -86,16 +85,7 @@ const PostCreate = (props) => {
 							author: '',
 							message: '',
 						});
-					}}>Annuler</button> */}
-					<MdCancel onClick={()=>{
-						setCreationPending(false);
-						setUpPicture('none');
-						setPostContent({
-							title: '',
-							author: '',
-							message: '',
-						});
-						className='icon icon__tools icon__cancel';
+						
 					}} />
 				</form>
 				

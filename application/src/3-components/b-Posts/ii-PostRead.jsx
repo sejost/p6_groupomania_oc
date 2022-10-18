@@ -7,7 +7,7 @@ import PostDelete from './v-PostDelete';
 import { formatDate } from './x-PostFunctions';
 import useAuth from '../../1-hooks/useAuth';
 
-import { MdEditNote, MdCancel } from 'react-icons/md';
+import { MdEditNote, MdOutlineSettingsBackupRestore } from 'react-icons/md';
 
 
 
@@ -88,7 +88,7 @@ const PostRead = (props) => {
 					}
 					{changePending == true && 
 					<>
-						<MdCancel 
+						<MdOutlineSettingsBackupRestore 
 							onClick={() => {
 								setPostContent({
 									title: '',

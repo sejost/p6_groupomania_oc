@@ -1,0 +1,45 @@
+@use '../1-utils/' as *;
+@use '../2-base/' as *;
+
+.post__comment form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	.icon__tools__wrapper {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+}
+
+.comment__wrapper,
+.comment__wrapper textarea {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-top: 1rem;
+	border-bottom: dashed thin $clr-tertiary;
+	padding: 0.375rem 1rem;
+	width: 100%;
+}
+
+.comment__headPart {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+	justify-content: space-between;
+	padding-bottom: 0.375rem;
+}
+
+.comment__iconEdit,
+.icon__tools__wrapper {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.comment__iconCreation {
+	display: flex;
+	justify-content: center;
+	margin-top: 0.5rem;
+}

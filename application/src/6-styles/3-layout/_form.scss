@@ -10,5 +10,10 @@ form textarea {
 
 form input:focus,
 form textarea:focus {
-	outline: 2px solid $clr-secondary;
+	outline: 2px solid $clr-primary;
+}
+
+input:focus,
+textarea:focus {
+	outline: 2px solid $clr-primary;
 }

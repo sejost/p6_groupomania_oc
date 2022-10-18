@@ -33,14 +33,16 @@ function Navbar() {
 						</li>
 					</ul>
 				) : (
-					<ul>
-						<li>
-							<NavLink to="/login" className='link'>
-								Se connecter
-							</NavLink>
-						</li>
-					</ul>
-				)}
+					// <ul>
+					// 	<li>
+					// 		<NavLink to="/login" className='link'>
+					// 			Se connecter
+					// 		</NavLink>
+					// 	</li>
+					// </ul>
+					null
+				)
+				}
 			</div>
 		</nav>
 	);

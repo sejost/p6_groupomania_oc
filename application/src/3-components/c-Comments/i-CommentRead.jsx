@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CommentUpdate from './iii-CommentUpdate';
 import CommentDelete from './iv-CommentDelete';
 import useAuth from '../../1-hooks/useAuth';
-import { MdEditNote, MdCancel } from 'react-icons/md';
+import { MdEditNote, MdOutlineSettingsBackupRestore } from 'react-icons/md';
 import { formatDate } from '../b-Posts/x-PostFunctions';
 
 
@@ -32,14 +32,14 @@ const CommentRead = (props) => {
 
 
 	return (
-		<>		
+		<>	
 			<div className="comment__headPart">
-				<h4 className="comment__ownerId">Commentaire de {props.commenterName}</h4>
+				<h3 className="comment__ownerId">Commentaire de {props.commenterName}</h3>
 				<span className="comment__commentDate">le {formatDate(props.commentDate, 'dd/mm/yy à hh:mn')}</span>
 			</div>
 			<div className="comment__maintPart">
 				{changePending == false && <div className="comment__commentText">{props.commentText}</div>}
-				{changePending == true && <input className='input--message'
+				{changePending == true && <textarea className='comment--message'
 					type="text"
 					id="messageContentComment"
 					defaultValue={props.commentText}
@@ -48,26 +48,15 @@ const CommentRead = (props) => {
 					aria-describedby="texte à remplir" />}
 			</div>
 			{changePending == false &&  ((auth.userId == props.commenterId) || (auth.userId == process.env.REACT_APP_ID)) && 
-					// <button 
-					// 	onClick={() => setChangePending(true)}>
-					// 	Modifier
-					// </button>
-					<MdEditNote onClick={() => setChangePending(true)} className='icon icon__tools icon__edit'/>
+					<MdEditNote onClick={() => setChangePending(true)} className='icon icon__tools comment__iconEdit'/>
 			}
 			{changePending == true && 
-				<>
-					{/* <button onClick={() => {
-						setCommentContent({
-							message: '',
-						});
-						setChangePending(false);}}>
-					Annuler
-					</button> */}
-					<MdCancel onClick={() => {
+				<div className='comment__iconEdit'>
+					<MdOutlineSettingsBackupRestore onClick={() => {
 						setCommentContent({message: '',});
 						setChangePending(false);
 					}} 
-					className='icon icon__tols icon__cancel'/>
+					className='icon icon__tools icon__cancel'/>
 					
 					<CommentUpdate 
 						postId={postId}
@@ -80,7 +69,7 @@ const CommentRead = (props) => {
 						commentId={commentId}
 						setChangePending={setChangePending}
 					/>
-				</>}
+				</div>}
 		</>
 	);
 };
@@ -88,11 +77,11 @@ const CommentRead = (props) => {
 export default CommentRead;
 
 CommentRead.propTypes = {
-	postId: PropTypes.string.isRequired,
-	commentId: PropTypes.string.isRequired,
-	commenterName: PropTypes.string.isRequired,
-	commenterId: PropTypes.string.isRequired,
-	commentText: PropTypes.string.isRequired,
-	commentDate: PropTypes.string.isRequired,
-	setPostChanged: PropTypes.func.isRequired,
+	postId: PropTypes.string,
+	commentId: PropTypes.string,
+	commenterName: PropTypes.string,
+	commenterId: PropTypes.string,
+	commentText: PropTypes.string,
+	commentDate: PropTypes.string,
+	setPostChanged: PropTypes.func,
 };

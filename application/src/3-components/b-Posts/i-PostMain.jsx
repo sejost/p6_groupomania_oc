@@ -53,14 +53,10 @@ const PostMain = () => {
 							postId={post._id}
 							likes={post.likes}
 						/>
-
-						<CommentCreate  setPostChanged={setPostChanged}
-							postId={post._id}
-						/>
 						
 						{post.comments.map((comment) => {
 							return (
-								<div className='comment__wrapper' key={`${comment._id}-${index}`}>
+								<div className='post__comment comment__wrapper' key={`${comment._id}-${index}`}>
 									<CommentRead setPostChanged={setPostChanged}
 										postsList={postsList}
 										postId={post._id}
@@ -75,6 +71,11 @@ const PostMain = () => {
 							);
 						})
 						}
+						<div className='post__comment comment__iconCreation'>
+							<CommentCreate  setPostChanged={setPostChanged}
+								postId={post._id}
+							/>
+						</div>
 
 					</div>
 
