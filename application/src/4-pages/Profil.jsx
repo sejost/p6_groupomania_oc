@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import useAuth from '../1-hooks/useAuth';
 
 const Profil = () => {
-	const { auth, setAuth } = useAuth();
+	const { auth } = useAuth();
 	const [name, setName] = useState('');
 
 	useContext(() => {

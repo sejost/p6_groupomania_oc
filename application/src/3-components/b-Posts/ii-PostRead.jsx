@@ -43,7 +43,7 @@ const PostRead = (props) => {
 	return(
 		<>
 			<div className='post__headPart'>
-				{changePending == false && <h2 className='post__title' id={`${postId}_postTitle`}>{props.postTitle}</h2>}
+				{changePending == false && <h2 className='post__title'>{props.postTitle}</h2>}
 				{changePending == true && <input className='input--title post__title'
 					type="text"
 					defaultValue={props.postTitle}
@@ -53,11 +53,12 @@ const PostRead = (props) => {
 					aria-describedby="titre à remplir"
 				/>}
 				<h3 className='post__ownerId'>par {props.authorName}</h3>
-				<span className='post__postDate' id={`${postId}_postDate`}>le {formatDate(props.postDate, 'dd/mm/yy à hh:mn')}</span>
+				<span className='post__postDate'>le {formatDate(props.postDate, 'dd/mm/yy à hh:mn')}</span>
 			</div>
+
 			<div className='post__mainPart'>
-				{changePending == false && <div className='post__postText' id={`${postId}_postText`}>{props.postText}</div>}
-				{changePending == true && <input className='input--message'
+				{changePending == false && <div className='post__postText'>{props.postText}</div>}
+				{changePending == true && <textarea className='textarea--message'
 					type="text"
 					defaultValue={props.postText}
 					id="messageContent"
@@ -65,11 +66,12 @@ const PostRead = (props) => {
 					onChange={(e) => setPostContent({...postContent, message: e.target.value})}
 					aria-describedby="titre à remplir"
 				/>}
+
 				<div className='post__postImage__container'>
-					<img className='post__postImage__content' id={`${postId}_postImage`}src={props.postImage} />
+					<img className='post__postImage__content' src={props.postImage} />
 					{changePending == true && 
-					<>
-						<span>Modifier l&apos;image :</span>
+					<div className='postImage__update'>
+						<span aria-label='Modifier Image'>Modifier l&apos;image :</span>
 						<input
 							type="file"
 							id="file-upload"
@@ -77,48 +79,38 @@ const PostRead = (props) => {
 							accept=".jpg, .jpeg, .png"
 							onChange={(e) => setUpdatePicture(e.target.files[0])}
 						/>
+					</div>}
+				</div>
+				
+				<div className='post__icon__container icon__container'>
+					{changePending == false &&  ((auth.userId == props.authorId) || (auth.userId == process.env.REACT_APP_ID)) && 
+					<MdEditNote aria-labelledby='Accéder à la modification du post' onClick={() => setChangePending(true)} className='icon icon__tools icon__edit'/>
+					}
+					{changePending == true && 
+					<>
+						<MdCancel 
+							onClick={() => {
+								setPostContent({
+									title: '',
+									message: '',
+								});
+								setUpdatePicture(actualPicture);
+								setChangePending(false);}}
+							className='icon icon__tools icon__cancel'
+						/>
+						<PostUpdate 
+							postId={postId}
+							postContent={postContent}
+							updatePicture={updatePicture}
+							// setUpdatePicture={setUpdatePicture}
+							setChangePending={setChangePending}
+						/>
+						<PostDelete 
+							postId={postId}
+							setChangePending={setChangePending}
+						/>
 					</>}
 				</div>
-				{changePending == false &&  ((auth.userId == props.authorId) || (auth.userId == process.env.REACT_APP_ID)) && 
-					// <button 
-					// 	onClick={() => setChangePending(true)}>
-					// 	Modifier
-					// </button>
-					<MdEditNote onClick={() => setChangePending(true)} className='icon icon__tools icon__edit'/>
-				}
-				{changePending == true && 
-				<>
-					{/* <button onClick={() => {
-						setPostContent({
-							title: '',
-							message: '',
-						});
-						setUpdatePicture(actualPicture);
-						setChangePending(false);}}>
-					Annuler
-					</button> */}
-					<MdCancel 
-						onClick={() => {
-							setPostContent({
-								title: '',
-								message: '',
-							});
-							setUpdatePicture(actualPicture);
-							setChangePending(false);}}
-						className='icon icon__tools icon__cancel'
-					/>
-					<PostUpdate 
-						postId={postId}
-						postContent={postContent}
-						updatePicture={updatePicture}
-						// setUpdatePicture={setUpdatePicture}
-						setChangePending={setChangePending}
-					/>
-					<PostDelete 
-						postId={postId}
-						setChangePending={setChangePending}
-					/>
-				</>}
 
 			</div>
 		</>

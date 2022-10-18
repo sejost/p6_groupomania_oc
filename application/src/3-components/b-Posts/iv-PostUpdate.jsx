@@ -31,7 +31,6 @@ const PostUpdate = (props) => {
 	};
 
 	return(
-		// <button onClick={handleSetUpdate}>Valider modification</button>
 		<BiSend onClick={handleSetUpdate} className='icon icon__tools icon__send'/>
 	);
 

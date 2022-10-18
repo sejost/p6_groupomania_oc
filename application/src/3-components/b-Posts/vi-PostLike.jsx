@@ -38,13 +38,12 @@ const PostLike = (props) => {
 		<div className='post__footPart'>
 			<TiThumbsOk 
 				size='30'
-				className={findUser(props.postsList, props.postId, auth.userId) ? 'post__isLikedIcon' :  'post__likeIcon'} 
-				id={`${props.postId}_likeIcon`} 
+				className={findUser(props.postsList, props.postId, auth.userId) ? 'icon icon__liked' :  'icon icon__like'} 
 				onClick={(e) => {
 					handleLikes(e);
 				}}
 			/>
-			<span className='post__likeCounter' id={`${props.postId}_likeCounter`}>{props.likes}</span>
+			<span className={props.likes != 0 ? 'post__likeCounter--display' : 'post__likeCounter--hide'} id={`${props.postId}_likeCounter`}>{props.likes}</span>
 		</div> 
 	);
 };
