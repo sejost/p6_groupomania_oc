@@ -7,8 +7,7 @@ import PostDelete from './v-PostDelete';
 import { formatDate } from './x-PostFunctions';
 import useAuth from '../../1-hooks/useAuth';
 
-import { BiCommentAdd, BiSend } from 'react-icons/bi';
-import { MdEditNote, MdCancel, MdDeleteForever } from 'react-icons/md';
+import { MdEditNote, MdCancel } from 'react-icons/md';
 
 
 

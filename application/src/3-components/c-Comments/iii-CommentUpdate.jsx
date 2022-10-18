@@ -2,8 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import useAuth from '../../1-hooks/useAuth';
-import { BiCommentAdd, BiSend } from 'react-icons/bi';
-import { MdCancel, MdDeleteForever } from 'react-icons/md';
+import { BiSend } from 'react-icons/bi';
 
 
 const CommentUpdate = (props) => {

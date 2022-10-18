@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import useAuth from '../../1-hooks/useAuth';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { BiCommentAdd, BiSend } from 'react-icons/bi';
-import { MdEditNote, MdCancel, MdDeleteForever } from 'react-icons/md';
+import { BiSend } from 'react-icons/bi';
+import { MdCancel } from 'react-icons/md';
 
 const PostCreate = (props) => {
 	const { auth } = useAuth();

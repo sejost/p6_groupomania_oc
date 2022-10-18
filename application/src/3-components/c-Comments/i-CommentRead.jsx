@@ -2,10 +2,10 @@ import React, { useState, useEffect }  from 'react';
 import PropTypes from 'prop-types';
 import CommentUpdate from './iii-CommentUpdate';
 import CommentDelete from './iv-CommentDelete';
-import { formatDate } from '../b-Posts/x-PostFunctions';
 import useAuth from '../../1-hooks/useAuth';
-import { BiCommentAdd, BiSend } from 'react-icons/bi';
-import { MdEditNote, MdCancel, MdDeleteForever } from 'react-icons/md';
+import { MdEditNote, MdCancel } from 'react-icons/md';
+import { formatDate } from '../b-Posts/x-PostFunctions';
+
 
 const CommentRead = (props) => {
 	const { auth } = useAuth();

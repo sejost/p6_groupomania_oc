@@ -3,8 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import useAuth from '../../1-hooks/useAuth';
-import { BiCommentAdd, BiSend } from 'react-icons/bi';
-import { MdEditNote, MdCancel, MdDeleteForever } from 'react-icons/md';
+import { MdDeleteForever } from 'react-icons/md';
 
 const CommentDelete = (props) => {
 	const { auth } = useAuth();
