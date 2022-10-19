@@ -64,6 +64,6 @@ Depuis le dossier principal du projet :
 
 ## Lien du projet
 
-| Dépôt  | Lien                                                    |
-| ------ | ------------------------------------------------------- |
-| GitHub | https://github.com/sejost/p7_groupomania_oc/tree/master |
+| Dépôt  | Lien                                        |
+| ------ | ------------------------------------------- |
+| GitHub | https://github.com/sejost/p7_groupomania_oc |
