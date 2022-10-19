@@ -1,3 +1,4 @@
+/* -- Posts Update React --*/
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -5,11 +6,14 @@ import useAuth from '../../1-hooks/useAuth';
 import { BiSend } from 'react-icons/bi';
 
 
+/* -- Posts Update Main Function --*/
 const PostUpdate = (props) => {
 	const { auth } = useAuth();
 
 	const handleSetUpdate = async (e) => {
 		e.preventDefault();
+
+		/* -- Preparing the updating data into a FormData --*/
 		let data = new FormData();
 		//!props.updatePicture ? null : data.append('image', props.updatePicture);
 		data.append('image', props.updatePicture);
@@ -40,7 +44,7 @@ export default PostUpdate;
 
 PostUpdate.propTypes = {
 	postId: PropTypes.string,
-	updatePicture: PropTypes.object,
+	updatePicture: PropTypes.string,
 	postContent: PropTypes.object,
 	setChangePending: PropTypes.func,
 };

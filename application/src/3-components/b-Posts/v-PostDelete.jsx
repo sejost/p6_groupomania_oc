@@ -1,13 +1,15 @@
+/* -- Posts Delete React --*/
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import useAuth from '../../1-hooks/useAuth';
 import { MdDeleteForever } from 'react-icons/md';
 
-
+/* -- Posts Delete Main Function  --*/
 const PostDelete = (props) => {
 	const { auth } = useAuth();
 
+	/* -- We first ask if the user is safe to delete, then the process continues --*/
 	const handleDelete = async (e) => {
 		e.preventDefault();
 		let ask = confirm('Confirmer la suppresion ?');
@@ -34,7 +36,6 @@ const PostDelete = (props) => {
 	};
 
 	return(
-		// <button onClick={handleDelete}>Supprimer</button>
 		<MdDeleteForever onClick={handleDelete} className='icon icon__tools icon__delete'/>
 	);
 

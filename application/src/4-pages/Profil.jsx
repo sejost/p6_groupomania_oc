@@ -1,3 +1,7 @@
+/* Profil Management Page React */
+/* This page is a Work In Progress */
+/* Here you'll can manage all profiles of users as an admin 
+or just change your own displayname and password as a user*/
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import useAuth from '../1-hooks/useAuth';

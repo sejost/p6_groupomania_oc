@@ -1,3 +1,4 @@
+/* -- Comments Create React --*/
 import React, { useState, useEffect } from 'react';
 import useAuth from '../../1-hooks/useAuth';
 import axios from 'axios';
@@ -5,9 +6,13 @@ import PropTypes from 'prop-types';
 import { BiCommentAdd, BiSend } from 'react-icons/bi';
 import { MdOutlineSettingsBackupRestore } from 'react-icons/md';
 
-
-
+/* -- Comments Create Main Function  --*/
 const CommentCreate = (props) => {
+/* Here we need several states:
+the ID of the post we are working on
+The mandatory content of the desired comment
+The current status of the comment
+Comment information created for update*/
 	const { auth } = useAuth();
 	const [postId, setPostId] = useState('');
 	const [commentContent, setCommentContent] = useState({

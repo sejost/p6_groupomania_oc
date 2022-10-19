@@ -1,3 +1,5 @@
+/* Gather all the App Information and Providers then use Routes to manage all 
+Finally sending the global redenring into the index html page inside root */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';

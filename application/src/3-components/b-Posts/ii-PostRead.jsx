@@ -1,4 +1,4 @@
-/* -- Post Read React --*/
+/* -- Posts Read React --*/
 import React, { useState, useEffect }  from 'react';
 import PropTypes from 'prop-types';
 import PostUpdate from './iv-PostUpdate';
@@ -10,8 +10,7 @@ import useAuth from '../../1-hooks/useAuth';
 import { MdEditNote, MdOutlineSettingsBackupRestore } from 'react-icons/md';
 
 
-
-/* -- Post Read Function --*/
+/* -- Post Read Main Function --*/
 const PostRead = (props) => {
 	const { auth } = useAuth();
 	const [postId, setPostId] = useState('');

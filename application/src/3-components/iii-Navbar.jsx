@@ -1,4 +1,4 @@
-/* -- Navbar React --*/
+/* -- Navbar Component React --*/
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from '../6-styles/5-images/logo.png';

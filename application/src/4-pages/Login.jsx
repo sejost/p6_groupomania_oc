@@ -1,3 +1,4 @@
+/* Login page rendering */
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../1-hooks/useAuth';
@@ -42,7 +43,9 @@ function Login() {
 				},
 				withCredentials: true,
 			});
-			const token = response.data.token;
+
+			/* Get the needed information to setUp the Auth Context*/
+			const token = response.data.token; 
 			const userId = response.data.userId;
 			const displayName = response.data.displayName;
 			setAuth({token, userId, displayName});
@@ -57,10 +60,12 @@ function Login() {
 	};
 	/* -- -- -- -- -- */
 
+	/* The Signup Modal is waiting for the state to change then it's displayed */
 	if (signUpModal) {
 		return <Register setSignUpModal={setSignUpModal} />;
 	}
 
+	/* Otherwise the Login page is Rendered */
 	return (
 		<div className='login'>
 			<img src={logo} alt='' className='login__logo' />
@@ -106,11 +111,11 @@ function Login() {
 					</button>
 				</form>
 				<p>
+					{/* The link to display the SignUp Modal Component */}
 					<span className='link'
 						onClick={() => {
 							setSignUpModal(true);
-						}}
-					>
+						}}>
 						Vous n&apos;avez pas de compte ?
 					</span>
 				</p>

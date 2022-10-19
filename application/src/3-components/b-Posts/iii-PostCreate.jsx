@@ -1,3 +1,4 @@
+/* -- Posts Create React --*/
 import React, {useState} from 'react';
 import useAuth from '../../1-hooks/useAuth';
 import axios from 'axios';
@@ -5,7 +6,14 @@ import PropTypes from 'prop-types';
 import { BiSend } from 'react-icons/bi';
 import { MdOutlineSettingsBackupRestore } from 'react-icons/md';
 
+
+/* -- Post Create Main Function --*/
 const PostCreate = (props) => {
+	/* For this function we require the auth, a state upPicture to get the file */
+	/* We also need a state with all the post content */
+	/* Finally the creationPending state determine if we are actually creating a new post */
+
+
 	const { auth } = useAuth();
 	const [upPicture, setUpPicture] = useState('none');
 	const [postContent, setPostContent] = useState({
@@ -15,6 +23,8 @@ const PostCreate = (props) => {
 	});
 	const [creationPending, setCreationPending] = useState(false);
 
+	/* At the creation of a post We must send an AuthorName, a userId and a postTitle */
+	/* The Image and Text are optionnal */
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		let data = new FormData();
@@ -44,6 +54,7 @@ const PostCreate = (props) => {
 	};
 	
 
+	/* Render of the Creating Posts */
 	if(creationPending == true){
 		return (
 			<> 

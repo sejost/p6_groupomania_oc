@@ -1,3 +1,4 @@
+/* -- Main Home page rendering --*/
 import React from 'react';
 import PostMain from '../3-components/b-Posts/i-PostMain';
 import useAuth from '../1-hooks/useAuth';

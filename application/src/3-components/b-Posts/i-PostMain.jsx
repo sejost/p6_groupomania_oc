@@ -1,14 +1,15 @@
-/* -- Main Post React --*/
+/* -- Main Posts React --*/
 /* --- Purpose : Compiling all Posts Component ---*/
+
 import React, { useState, useEffect }  from 'react';
 import PostCreate from './iii-PostCreate';
 import PostRead from './ii-PostRead';
 import PostLike from './vi-PostLike';
 import CommentRead from '../c-Comments/i-CommentRead';
 import CommentCreate from '../c-Comments/ii-CommentCreate';
+import axios  from 'axios';
 
-const axios = require('axios');
-
+/* -- PostMain Function --*/
 const PostMain = () => {
 	const [postsList, setPostsList] = useState([]);
 	const [postChanged, setPostChanged] = useState([]);	

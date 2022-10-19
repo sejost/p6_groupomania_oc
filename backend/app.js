@@ -15,7 +15,8 @@ const commentRoutes = require('./routes/comment.routes')
 const adminRoutes = require('./routes/admin.routes')
 
 const path = require('path');
-const { checkAuth, requireAuth } = require('./middlewares/auth.mdw');
+//const { checkAuth, requireAuth } = require('./middlewares/auth.mdw');
+const { requireAuth } = require('./middlewares/auth.mdw');
 
 //Connect to the mongoDB DataBase
 mongoose.connect(process.env.DBSERVER,
@@ -32,7 +33,8 @@ app.use(cors);
 app.use(cookieParser());
 
 
-app.get('*', checkAuth);
+//app.get('*', checkAuth);
+app.get('*', requireAuth);
 app.get('/jwtid', requireAuth, (req, res) => {
 	res.status(200).send(res.locals.user._id)
 });

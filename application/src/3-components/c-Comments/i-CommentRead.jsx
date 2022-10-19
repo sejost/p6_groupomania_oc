@@ -1,3 +1,4 @@
+/* -- Comments Read React --*/
 import React, { useState, useEffect }  from 'react';
 import PropTypes from 'prop-types';
 import CommentUpdate from './iii-CommentUpdate';
@@ -6,7 +7,7 @@ import useAuth from '../../1-hooks/useAuth';
 import { MdEditNote, MdOutlineSettingsBackupRestore } from 'react-icons/md';
 import { formatDate } from '../b-Posts/x-PostFunctions';
 
-
+/* -- Comments Read Main Function  --*/
 const CommentRead = (props) => {
 	const { auth } = useAuth();
 	const [postId, setPostId] = useState('');
@@ -31,6 +32,8 @@ const CommentRead = (props) => {
 	}, [changePending]);
 
 
+	/* Viewing rendered comments */
+	/* Allows the alternative display of the modification if the "action" is triggered */
 	return (
 		<>	
 			<div className="comment__headPart">
