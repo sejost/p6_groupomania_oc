@@ -1,5 +1,5 @@
 /* -- Require Auth Component React --*/
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import useAuth from '../1-hooks/useAuth';
 

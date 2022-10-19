@@ -1,3 +1,4 @@
+/* Core of the App */
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './4-pages/Home';
