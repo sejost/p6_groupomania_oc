@@ -11,6 +11,7 @@
 # production
 /build
 /Images Bank
+/ignore
 
 # sensitive data
 .env
