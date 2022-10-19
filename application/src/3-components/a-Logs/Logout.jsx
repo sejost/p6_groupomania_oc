@@ -6,10 +6,11 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const Logout = () => {
-	const{setAuth} = useAuth();
+	const{auth, setAuth} = useAuth();
 
 	const handleLogout = async (e) => {
 		e.preventDefault();
+		const userId = auth.userId;
 
 		//Send the get auth/logout, will inevitably failed because we cannot "get" this route
 		try{
@@ -18,12 +19,11 @@ const Logout = () => {
 				url: `${process.env.REACT_APP_API}auth/logout`,
 				withCredentials: true,
 			});
+			Cookies.remove(`${userId}usr`);
 			setAuth(' ');
-			Cookies.remove(token, { expires: 1 });
 		}
 		catch(error){
 			setAuth(' ');
-			Cookies.remove(token, { expires: 1 });
 			console.log(error);
 		}
 		

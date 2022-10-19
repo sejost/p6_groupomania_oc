@@ -52,6 +52,8 @@ exports.signIn = async (req, res, next) => {
 		const user = await userModel.findOne({ email: req.body.email });	
 		if(!user) return res.status(401).json({ error: `Utilisateur inconnu` });
 
+		const userId = (user._id).toString();
+
 		//Check password
 		const validPwd = await bcrypt.compare(req.body.password, user.password);
 		if (!validPwd) return res.status(401).json({ error: 'Mot de passe incorrect' });
@@ -60,6 +62,9 @@ exports.signIn = async (req, res, next) => {
 		const displayName = user.displayName;
 		const token = createToken(user._id);
 		res.cookie('token', token, { httpOnly: false, sameSite : 'strict', secure : true, maxAge : 1500000});
+		res.cookie(`userId`, userId, { httpOnly: false, sameSite : 'strict', secure : true, maxAge : 1500000});
+		res.cookie(`${userId}usr`, displayName, { httpOnly: false, sameSite : 'strict', secure : true, maxAge : 1500000});
+
 		
 		return res.status(200).json({
 			token, 
@@ -75,7 +80,8 @@ exports.signIn = async (req, res, next) => {
 
 exports.signOut = (req, res, next) => {
 	try{
-		res.cookie('token', '', { maxAge: 1 });		
+		res.clearCookie('token');
+		res.clearCookie('userId');
 		res.redirect('/')
 	}
 	catch(error){
