@@ -21,9 +21,10 @@ const Logout = () => {
 			setAuth(' ');
 			Cookies.remove(token, { expires: 1 });
 		}
-		catch{
+		catch(error){
 			setAuth(' ');
 			Cookies.remove(token, { expires: 1 });
+			console.log(error);
 		}
 		
 		
