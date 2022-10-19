@@ -17,14 +17,20 @@ const PostMain = () => {
 	/* -- Refresh Page on useEffect and set the Posts list based on the axios response --*/
 	useEffect( () =>  {
 		const getPosts = async () => {
-			const response = await axios({
-				method: 'get',
-				url : `${process.env.REACT_APP_API}post/`,
-				withCredentials : true,
-			});
-			setPostsList(response.data);
+			try{
+				const response = await axios({
+					method: 'get',
+					url : `${process.env.REACT_APP_API}post/`,
+					withCredentials : true,
+				});
+				setPostsList(response.data);
+			}
+			catch(error){
+				alert(error);
+			}
 		};
 		getPosts();	
+		
 	},[postChanged]);
 
 	/* -- Rendering --*/
