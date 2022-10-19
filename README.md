@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Projet Groupomania
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### _Par Sébastien Jost_
 
-## Available Scripts
+Le projet consiste à construire un réseau social interne pour les employés de Groupomania. Le
+but de cet outil est de faciliter les interactions entre collègues. Le département RH de
+Groupomania a imaginé plusieurs fonctionnalités pour favoriser les échanges entre collègues.
 
-In the project directory, you can run:
+## Langages de programmation utilisée
 
-### `yarn start`
+-   HTML
+-   SCSS/CSS
+-   React.js
+-   Node.js
+-   Express
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Mise en place du projet
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Télécharger le dépôt github ou cloner le directement depuis un IDE.
 
-### `yarn test`
+### Installation de l'API/BackEnd
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Préparation de l'environnement Backend
 
-### `yarn build`
+Côté Backend :
+Renommer le fichier `dovEnvExample` en `.env`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+DBSERVER = '<Préciser ici l`adresse de votre serveur de base de données et l`authentification>'
+PORT = '<Port de connexion de l`API>' : défaut : 8000
+RANDOMSTRING = '<Introduire ici une chaîne de caractère aléatoire>'
+CLIENT_URL = '<définir ici l`adresse complète (port inclus) du serveur front>' défaut : 'http://localhost:3000'
+ADMINID = '<Définir ici l`ID Admin de l`Object ID de votre Base de données>'
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Démarrage du serveur
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Ouvrir ensuite le dossier principal du projet dans son IDE, si ce n'est pas encore fait.
 
-### `yarn eject`
+-   Faire un `cd backend` depuis le terminal ou ouvrir backend manuellement.
+-   Faire `yarn` depuis le terminal pour récupérer l'ensemble des packages Backend
+-   Une fois terminé faire `nodemon` pour démarrer le serveur
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Installation de l'Application/FrontEnd
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Préparation de l'environnement FrontEnd
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Côté FrontEnd ou Application :
+Renommer le fichier `dovEnvExample` en `.env`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```sh
+REACT_APP_API = <'Entrez ici l`adresse de l`API et le port'> défaut : 'http://localhost:8000/'
+REACT_APP_ID = <'Indiquez ici la valeure que le ADMINID du `.env` Backend'>
+```
 
-## Learn More
+### Démarrage de l'Application
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Depuis le dossier principal du projet :
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-   Faire un `cd application` depuis le terminal ou ouvrir application manuellement.
+-   Faire `yarn` depuis le terminal pour récupérer l'ensemble des packages FrontEnd
+-   Une fois terminé faire `yarn start` pour démarrer l'application
+-   L'application démarre toute seule sinon ouvrir une page web avec l'adresse et le port de votre application par défaut `http://localhost:3000`
 
-### Code Splitting
+## Lien du projet
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Dépôt  | Lien                                                    |
+| ------ | ------------------------------------------------------- |
+| GitHub | https://github.com/sejost/p7_groupomania_oc/tree/master |
